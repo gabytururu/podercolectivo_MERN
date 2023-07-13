@@ -4,7 +4,8 @@
   "description": "Critical Mass Consumers app. Build as CRUD on MERNStack",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
   },
   "author": "@soulboundavatar aka @gabytururu",
   "license": "ISC",
