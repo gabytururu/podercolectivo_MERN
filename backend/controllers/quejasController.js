@@ -2,23 +2,24 @@
 
 // GET ALL QUEJAS //
 const getQuejas = (req,res)=>{
-    res.json({mssg: 'GET ALL QUEJAS FROM DB -- NO GOOD USE WITHOUT LOGIC TO SUMARIZE PER INDUSTRY'})
+    res.json({mssg: 'GET all quejas from DB'})
 }
 // GET SINGLE QUEJA //
 const getQueja = (req,res)=>{
-    res.json({mssg: 'GET SINGLE QUEJA FROM DB - NO GOOD USE PROBABLY UNLESS DASHBOARD GRAPHICS'})
+    res.json({mssg: 'GET single queja from DB'})
 }
 // GET QUEJAS PER INDUSTRY (EG. AIRLINES) //
 const getIndustryQuejas = (req,res)=>{
-    res.json({mssg: 'GET QUEJAS ARRANGED PER INDUSTRY FROM DB'})
+    res.json({mssg: 'GET quejas by IndustryName from DB, you just requested the quejas of Industry :' + req.params.industryName})
 }
 // GET QUEJAS PER INDUSTRY //
 const getCompanyQuejas = (req,res)=>{
-    res.json({mssg: 'GET QUEJAS ARRANGED PER COMPANY FROM DB'})
+    res.json({mssg: 'GET quejas by CompanyName, You just requested the quejas of company: ' + req.params.companyName})
 }
+
 // POST QUEJA //
 const postQueja = (req,res)=>{
-    res.json({mssg: 'POST A NEW QUEJA FOR ANOTHER COLLECTION THAT IS USERS QUEJAS'})
+    res.json({mssg: 'POST a NEW Queja in a NEW collection'})
 }
 
 module.exports = {
@@ -26,5 +27,6 @@ module.exports = {
     getQueja,
     getIndustryQuejas,
     getCompanyQuejas,
-    postQueja
+    postQueja,
+    
 }

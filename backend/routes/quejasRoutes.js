@@ -4,8 +4,8 @@ const  {getQuejas, getQueja, getIndustryQuejas, getCompanyQuejas, postQueja} = r
 
 router.get('/', getQuejas) 
 router.get('/:id', getQueja)
-router.get('/:industryId', getIndustryQuejas)
-router.get('/:companyId', getCompanyQuejas)
+router.get('/industry/:industryName', getIndustryQuejas)
+router.get('/company/:companyName', getCompanyQuejas)
 router.post('/', postQueja)
 
 
