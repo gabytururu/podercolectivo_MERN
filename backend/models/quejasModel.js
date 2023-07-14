@@ -11,7 +11,7 @@ const quejaSchema = new Schema ({
         type: String,
         required: true,
     },
-    industria:{
+    sector:{
         type: String,
         required:true,
     },
