@@ -1,4 +1,5 @@
-
+const mongoose = require('mongoose')
+const Queja = require('../models/quejasModel')
 
 // GET ALL QUEJAS //
 const getQuejas = (req,res)=>{
@@ -18,8 +19,16 @@ const getCompanyQuejas = (req,res)=>{
 }
 
 // POST QUEJA //
-const postQueja = (req,res)=>{
-    res.json({mssg: 'POST a NEW Queja in a NEW collection'})
+const postQueja = async(req,res)=>{
+   //res.json({mssg: 'POST a NEW Queja in a NEW collection'})
+    const { razonSocial, nombreComercial, industria, ciudadReclamacion, estadoReclamacion, motivoReclamacion, anoReclamacion, estatusReclamacion, costoBien, montoReclamado, montoRecuperado, fechaInicio, fechaCierre } = req.body
+
+    try{
+        const queja = await Queja.create({razonSocial, nombreComercial, industria, ciudadReclamacion, estadoReclamacion, motivoReclamacion, anoReclamacion, estatusReclamacion, costoBien, montoReclamado, montoRecuperado, fechaInicio, fechaCierre })
+        res.status(200).json(queja)
+    }catch(err){
+        res.status(400).json({err:err.message})
+    }
 }
 
 module.exports = {
