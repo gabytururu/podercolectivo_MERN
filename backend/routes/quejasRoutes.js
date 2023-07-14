@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const  {getQuejas, getQueja, getIndustryQuejas, getCompanyQuejas, postQueja} = require('../controllers/quejasController')
+const  {getAllQuejas, getSingleQueja, getQuejasPerIndustry, getQuejasPerCompany, postQueja, getbyNombreComercial} = require('../controllers/quejasController')
 
-router.get('/', getQuejas) 
-router.get('/:id', getQueja)
-router.get('/industry/:sector', getIndustryQuejas)
-router.get('/company/:nombreComercial', getCompanyQuejas)
+router.get('/', getAllQuejas) 
+router.get('/:id', getSingleQueja)
+router.get('/sector/:sector', getQuejasPerIndustry)
+router.get('/empresa/:nombreComercial', getQuejasPerCompany)
 router.post('/', postQueja)
-
+router.get('/:sector/:nombreComercial', getbyNombreComercial)
 
 module.exports = router
