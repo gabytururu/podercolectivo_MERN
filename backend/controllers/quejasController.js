@@ -2,12 +2,28 @@ const mongoose = require('mongoose')
 const Queja = require('../models/quejasModel')
 
 // GET ALL QUEJAS //
-const getQuejas = (req,res)=>{
-    res.json({mssg: 'GET all quejas from DB'})
+const getQuejas = async(req,res)=>{
+    // res.json({mssg: 'GET all quejas from DB'})
+    try{
+        const getAllQuejas = await Queja.find({}).sort({createdAt:-1})
+        res.status(200).json(getAllQuejas)
+    }catch(err){
+        res.status(400).json({err:err.message})
+        
+    }
 }
 // GET SINGLE QUEJA //
-const getQueja = (req,res)=>{
-    res.json({mssg: 'GET single queja from DB'})
+const getQueja = async(req,res)=>{
+    //res.json({mssg: 'GET single queja from DB'})
+    const {id} = req.params
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(400).json({error: 'Esa#ID de queja no fue Valido en el Types Id de Mongoose'})
+    }
+    const getSingleQueja = await Queja.findById(id)        
+    if(!getSingleQueja){
+        return res.status(400).json({err: 'esa Queja ID no existe en la DB'})
+    }     
+    res.status(200).json(getSingleQueja)
 }
 // GET QUEJAS PER INDUSTRY (EG. AIRLINES) //
 const getIndustryQuejas = (req,res)=>{
