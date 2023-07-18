@@ -1,10 +1,10 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Navbar from '../src/components/Navbar'
-import Home from '../src/pages/Home'
-import QuejasSector from '../src/pages/QuejasSector'
-import QuejasCompany from '../src/pages/QuejasCompany'
-import NewQueja from '../src/pages/NewQueja'
-import Footer from '../src/components/Footer'
+import Navbar from '../src/components/Navbar/Navbar'
+import Home from '../src/pages/Home/Home'
+import QuejasSector from '../src/pages/QuejasSector/QuejasSector'
+import QuejasCompany from '../src/pages/QuejasCompany/QuejasCompany'
+import NewQueja from '../src/pages/NewQueja/NewQueja'
+import Footer from '../src/components/Footer/Footer'
 
 function App() {
   return (

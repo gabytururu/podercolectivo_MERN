@@ -1,4 +1,4 @@
-import QuejasAllList from '../components/QuejasAllList'
+import AllQuejas from '../../../src/components/QuejasFormats/AllQuejas'
 
 const Home = () => {
 
@@ -9,10 +9,11 @@ const Home = () => {
             </div>
             <div className="data">
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2>
-                <QuejasAllList />
+                <AllQuejas />
 
                 <h2>¿Cuáles son las Empresas con más Quejas en México?</h2>
-                <QuejasAllList />
+                <AllQuejas />
+                
             </div>         
         </div>
      );

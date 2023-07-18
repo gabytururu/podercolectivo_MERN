@@ -1,4 +1,4 @@
-const QuejasAllList = () => {
+const AllQuejas = () => {
     return ( 
         <div className="quejasList-container">
              <h2>NOMBRE EMPRESA</h2>
@@ -8,4 +8,4 @@ const QuejasAllList = () => {
      );
 }
  
-export default QuejasAllList;
+export default AllQuejas;
