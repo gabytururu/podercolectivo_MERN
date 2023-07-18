@@ -2,65 +2,77 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const quejaSchema = new Schema ({
-
-    razonSocial:{
+    id_exp:{
+        type:'String',
+        required:true,
+    },
+    //can you set a DATE format?
+    fecha_ingreso:{
+        type: Number,
+        required:false,
+    },
+    //can you set a DATE format?
+    fecha_fin:{
+        type: Number,
+        required: false
+    },
+    tipo_conciliacion:{
+        type: Number,
+        required: false
+    },
+    estado_procesal:{
         type: String,
         required: false,
     },
-    nombreComercial:{
+
+    proveedor:{
+        type: String,
+        required: false,
+    },
+    nombre_comercial:{
         type: String,
         required: true,
+    },
+    giro:{
+        type: String,
+        required: false, 
     },
     sector:{
         type: String,
         required:true,
     },
-    ciudadReclamacion:{
+    odeco:{
         type: String,
-        required: false
+        required:false,
     },
-    estadoReclamacion:{
-        type:String,
-        required:false
+    estado_ua:{
+        type: String,
+        required:false,
     },
-    motivoReclamacion:{
+    motivo_reclamacion:{
         type:String,
         required:true
     },
-    //can you set a YEAR format?
-    anoReclamacion:{
-        type: Number,
-        required: false
-    },
-    estatusReclamacion:{
-        type: String,
-        required: false,
-    },
+  
     //can you set a MONETARY format?+ false required?
-    costoBien:{
+    costo_bien_servicio:{
         type: Number,
         required: false
     },
     //can you set a MONETARY format?+ false required?
-    montoReclamado:{
+    monto_reclamado:{
         type: Number,
         required:false,
     },
     //can you set a MONETARY format? + false required?
-    montoRecuperado:{
+    monto_recuperado:{
         type: Number,
         required:false,
     },
-    //can you set a DATE format?
-    fechaInicio:{
+    monto_recuperado_b:{
         type: Number,
         required:false,
-    },
-    //can you set a DATE format?
-    fechaCierre:{
-        type: Number,
-        required: false
-    }
+    }   
 })
 
 module.exports = mongoose.model('Queja', quejaSchema)
