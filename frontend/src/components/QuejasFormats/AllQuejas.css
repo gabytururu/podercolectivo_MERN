@@ -1,0 +1,13 @@
+.quejaContainer{
+    background-color: rgb(196, 255, 234);
+    /* margin: 15px; */
+    border-radius: 8px;
+    margin: 8px;
+    width: 100%;
+    
+}
+
+.queja{
+    background-color: rgb(3, 90, 61);
+    margin: 0px 8px
+}

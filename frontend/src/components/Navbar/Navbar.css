@@ -1,0 +1,30 @@
+.headerwrap{
+    background-color: black;
+}
+.navbar{
+    /* background-color: red ; */
+    height: 8vh;
+    max-width: 1300px;
+    margin:auto;
+    display:flex;
+    align-items: center;
+ 
+}
+
+.navbar a{
+    text-decoration: none;
+    list-style: none;
+    color:white;
+    font-size: 1.5em;
+    margin-right:25px;   
+}
+
+.navbar .logo{
+    width:25%;
+    text-align: center;
+    
+}
+.navbar .menu{
+    width: 75%;
+    text-align: right;
+}

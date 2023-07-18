@@ -1,9 +1,18 @@
-const AllQuejas = () => {
+import './AllQuejas.css'
+
+const AllQuejas = ({queja}) => {
+
     return ( 
-        <div className="quejasList-container">
-             <h2>NOMBRE EMPRESA</h2>
-             <h3>SECTOR QUEJA</h3>
-             <h3>MOTIVO QUEJA</h3>
+        <div className="quejaContainer">
+               <div className="queja">
+                    {queja && 
+                         <div>
+                              <p>Nombre {queja.nombreComercial}</p>
+                              <p>Sector {queja.sector || queja.industria}</p>
+                              <p>Id {queja._id}</p>
+                         </div>
+                    }            
+               </div>            
         </div>
      );
 }

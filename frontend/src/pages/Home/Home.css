@@ -1,0 +1,26 @@
+.data{
+    width: 90vw;
+    max-width: 1300px;
+    margin: auto; 
+    background: rgba(255, 255, 0, 0.463);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  
+    
+}
+
+.data h2{
+    text-align: center;
+}
+
+.button{
+    background-color: green;
+    width: 8rem;
+    height: 25px;
+    padding:8px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    color: white
+}
