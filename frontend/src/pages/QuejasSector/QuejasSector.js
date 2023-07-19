@@ -1,3 +1,4 @@
+import './QuejasSector.css'
 import {useParams, Link} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 
@@ -31,7 +32,7 @@ const QuejasSector = () => {
     
     
     return ( 
-        <div>
+        <div className="containerWrap">
             <h1>ACA IRA EL LAY OUT DE QUEJAS POR SECTOR: {sector}</h1>
 
             {quejasdelSector && quejasdelSector.map((queja)=>(

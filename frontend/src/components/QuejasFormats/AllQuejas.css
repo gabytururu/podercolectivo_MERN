@@ -1,23 +1,22 @@
 .quejaContainer{
-    background-color: rgb(196, 255, 234);
-    /* margin: 15px; */
+    background-color: var(--poderColectivo-blue);
     border-radius: 8px;
     margin: 8px;
-    width: 100%;
-    
+    width: 100%
 }
 
 .queja{
-    background-color: rgb(3, 90, 61);
+    background-color: var(--poderColectivo-clear);
     margin: 0px 8px;
     
     /* color: white */
 }
 
-.quejaContainer a{
+/* .quejaContainer a{
     text-decoration: none;
     color: white;
-}
+   
+} */
 
 .queja p{
     margin-left: 18px

@@ -1,3 +1,4 @@
+import './QuejasCompany.css'
 import {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import AllQuejas from '../../components/QuejasFormats/AllQuejas'
@@ -23,7 +24,7 @@ const QuejasCompany = () => {
     },[])
 
     return ( 
-        <div>
+        <div className="containerWrap">
             <h1>Quejas sobre {nombreComercial} México del Sector {sector} recibidas en PROFECO</h1>
 
             {quejasEmpresa && quejasEmpresa.map((queja)=>(

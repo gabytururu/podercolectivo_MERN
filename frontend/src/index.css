@@ -6,4 +6,12 @@ body {
   font-family: "Lato"
 }
 
+:root{
+ --poderColectivo-blue: #1ac8ed;
+ --poderColectivo-red: #ff6347;
+ --poderColectivo-yellow: #ffba08;
+ --poderColectivo-beige: #fff3d6;
+ --poderColectivo-clear: #ffffff;
+ --poderColectivo-dark: #000000;
+}
 

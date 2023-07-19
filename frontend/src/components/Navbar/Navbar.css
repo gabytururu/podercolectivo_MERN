@@ -1,20 +1,18 @@
 .headerwrap{
-    background-color: black;
+    background-color: var(--poderColectivo-dark);
 }
 .navbar{
-    /* background-color: red ; */
-    height: 8vh;
-    max-width: 1300px;
+    height: 15vh;
+    max-width: 1200px;
     margin:auto;
     display:flex;
     align-items: center;
- 
 }
 
 .navbar a{
     text-decoration: none;
     list-style: none;
-    color:white;
+    color: var(--poderColectivo-clear);
     font-size: 1.5em;
     margin-right:25px;   
 }
@@ -22,7 +20,11 @@
 .navbar .logo{
     width:25%;
     text-align: center;
-    
+}
+
+.logo img{
+    width: 95%;
+    margin-bottom:15px
 }
 .navbar .menu{
     width: 75%;
