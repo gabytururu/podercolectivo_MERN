@@ -1,33 +1,55 @@
-import {useParams} from 'react-router-dom'
-import {useState} from 'react'
-import {useFetch} from '../Hooks/useFetch'
+import {useParams, Link} from 'react-router-dom'
+import {useState, useEffect} from 'react'
+
+//import {useFetch} from '../Hooks/useFetch'
+import AllQuejas from '../../../src/components/QuejasFormats/AllQuejas'
 
 const QuejasSector = () => {
-    const {id,sector,nombreComercial} = useParams()
-    //const [quejasSector, setQuejasSector ] = useState(null)
+    const {sector} = useParams()
+    const [quejasdelSector, setQuejasdelSector ] = useState(null)
 
-    const {quejasSector} = useFetch(`http://localhost:5000/api/quejas/sector/${sector}`)
+    // const {quejasSector} = useFetch(`http://localhost:5000/api/quejas/sector/${sector}`)
+
+    useEffect(()=>{
+
+        const getQuejasSector = async() =>{
+            
+            try{
+                const fetchQuejasSector = await fetch(`http://localhost:5000/api/quejas/sector/${sector}`)
+
+                const quejasSectorJson = await fetchQuejasSector.json()
+                console.log('las queja del jsonObj-->',quejasSectorJson)
+                setQuejasdelSector(quejasSectorJson)
+                console.log('las quejas del useSTate-->',quejasdelSector)
+            }catch(err){
+                console.log('el error fue-->',err)
+            }
+           
+        }
+        getQuejasSector()  
+    },[])
     
-    // const getQuejasSector = async() =>{
-    //     const fetchQuejasSector = await fetch(`http://localhost:5000/api/quejas/sector/${sector}`)
-
-    //     const quejasSector = await fetchQuejasSector.json()
-    //     console.log(quejasSector)
-    //     setQuejasSector(quejasSector)
-    // }
-    //creates an infinite loop
-    //getQuejasSector()
+    
     return ( 
         <div>
             <h1>ACA IRA EL LAY OUT DE QUEJAS POR SECTOR: {sector}</h1>
 
-            {quejasSector && quejasSector.map((queja)=>(
-                            <div key={queja._id}>
-                                <p>{nombreComercial}</p>
-                                <p>{queja.id}</p>
-                            </div>
-                        ))
-            }
+            {quejasdelSector && quejasdelSector.map((queja)=>(
+                
+                <Link to={"/"+sector+"/"+queja.nombreComercial}><AllQuejas key={queja._id} queja={queja}/></Link>
+            ))}
+
+            {/* {quejasdelSector && quejasdelSector.map((queja)=>(
+                    <div key={queja._id}>
+                        <p>{queja.nombreComercial}</p>
+                        <p>{queja.sector || queja.industria}</p>
+                        <p>{queja.montivoReclamacion}</p>
+                        <p>{queja.montoReclamado}</p>
+                        <p>{queja.id}</p>
+        
+                    </div>
+                ))
+            } */}
         </div>
      );
 }

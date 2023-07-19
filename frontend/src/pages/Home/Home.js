@@ -32,7 +32,7 @@ const Home = () => {
             <div className="data">
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2>            
                     {quejas && quejas.slice(0,5).map((queja)=>(
-                            <AllQuejas key={queja._id} queja={queja}/>
+                            <Link to={'/sector/'+queja.industria||queja.sector}><AllQuejas key={queja._id} queja={queja}/></Link>
                         ))
                     }
                     <Link className="button" to="/sector/:sector">Ver Más</Link>

@@ -8,17 +8,15 @@ const AllQuejas = ({queja}) => {
 
     return ( 
           <div className="quejaContainer">
-               <Link to={'/sector/'+industria||sector}>
-               <div className ="queja">
-                         {queja && 
-                              <div>
-                                   <p>Nombre {nombreComercial}</p>
-                                   <p>Sector {sector || industria}</p>
-                                   <p>Id {_id}</p>
-                              </div>
-                         }     
-                    </div>
-               </Link>
+               {/* <Link to={'/sector/'+industria||sector}>                    */}
+                    {queja && 
+                         <div className="queja">
+                              <p>Nombre {nombreComercial}</p>
+                              <p>Sector {sector || industria}</p>
+                              <p>Id {_id}</p>
+                         </div>
+                    }                        
+               {/* </Link> */}
           </div>
      );
 }

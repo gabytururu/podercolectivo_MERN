@@ -9,5 +9,16 @@
 
 .queja{
     background-color: rgb(3, 90, 61);
-    margin: 0px 8px
+    margin: 0px 8px;
+    
+    /* color: white */
+}
+
+.quejaContainer a{
+    text-decoration: none;
+    color: white;
+}
+
+.queja p{
+    margin-left: 18px
 }
