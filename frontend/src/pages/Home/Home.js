@@ -22,9 +22,6 @@ const Home = () => {
         fetchQuejas()        
     },[])
 
-    const handleClick = () =>{
-        console.log(this)
-    }
 
 
     return ( 

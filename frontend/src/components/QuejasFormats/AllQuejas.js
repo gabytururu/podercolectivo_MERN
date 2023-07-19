@@ -1,10 +1,7 @@
 import './AllQuejas.css'
 import {Link} from 'react-router-dom'
-import {useParams} from 'react'
-
 
 const AllQuejas = ({queja}) => {
-
      // const id = queja._id
      // const nombre = queja.nombreComercial
      const {_id, nombreComercial, sector, industria} = queja
