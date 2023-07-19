@@ -22,6 +22,11 @@ const Home = () => {
         fetchQuejas()        
     },[])
 
+    const handleClick = () =>{
+        console.log(this)
+    }
+
+
     return ( 
         <div className="containerWrap">
             <div className="backdropImg">
