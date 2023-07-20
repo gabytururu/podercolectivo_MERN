@@ -29,10 +29,8 @@ const Home = () => {
             <div className="backdropImg">
                 ACA IRA LA IMAGEN FRONTAL               
             </div>
-            <div className="data">
+            <div className="data">            
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
-
-                {/* logic test 1    */}
                 <p>las {quejas&&quejas.length} quejas en total</p>        
                 <p>las quejas de kavak son {quejas&&quejas.filter((queja)=>
                     queja.nombreComercial === 'kavak'
@@ -45,17 +43,15 @@ const Home = () => {
                         ))
                     }
                     <Link className="button" to="/sector/:sector">Ver Más</Link>
-              
-
+            </div> 
+            <div className="data">
                 <h2>¿Cuáles son las Empresas con más Quejas en México?</h2>
                 {quejas && quejas.slice(0,5).map((queja)=>(
                             <AllQuejas key={queja._id} queja={queja}/>
                         ))
                     }
                     <Link className="button" to="/:sector/:nombreComercial">Ver Más</Link>
-                
-                
-            </div>         
+            </div>                     
         </div>
      );
 }

@@ -8,13 +8,13 @@ import AllQuejas from '../../../src/components/QuejasFormats/AllQuejas'
 const QuejasSector = () => {
     const {sector} = useParams()
     const [quejasdelSector, setQuejasdelSector ] = useState(null)
+    const [montoReclamadoSector, setMontoReclamadoSector] = useState(0)
+    const [montoRecuperadoSector, setMontoRecuperadoSector] = useState(0)
 
     // const {quejasSector} = useFetch(`http://localhost:5000/api/quejas/sector/${sector}`)
 
     useEffect(()=>{
-
         const getQuejasSector = async() =>{
-            
             try{
                 const fetchQuejasSector = await fetch(`http://localhost:5000/api/quejas/sector/${sector}`)
 
@@ -25,18 +25,36 @@ const QuejasSector = () => {
             }catch(err){
                 console.log('el error fue-->',err)
             }
-           
         }
         getQuejasSector()  
     },[])
-    
+
+
+
+    const getMontoTotalReclamado =(quejasdelSector)=>{
+        let montoTotalReclamado = 0
+        for(let queja of quejasdelSector){
+            montoTotalReclamado = montoTotalReclamado + queja.montoReclamado
+        }
+        return montoTotalReclamado
+    }
+    const getMontoTotalRecuperado =(quejasdelSector)=>{
+        let montoTotalRecuperado = 0
+        for(let queja of quejasdelSector){
+            montoTotalRecuperado = montoTotalRecuperado + queja.montoRecuperado
+        }
+        return montoTotalRecuperado
+    }
+   
     
     return ( 
         <div className="containerWrap">
             <h1>ACA IRA EL LAY OUT DE QUEJAS POR SECTOR: {sector}</h1>
 
-            {quejasdelSector && quejasdelSector.map((queja)=>(
-                
+            <p>Se han encontrado un total de {quejasdelSector && quejasdelSector.length} quejas del sector {sector}</p>
+            <p>Este Sector tiene un total de {quejasdelSector&&getMontoTotalReclamado(quejasdelSector)} MXN en montos reclamados de los cuales ha sido recuperado {quejasdelSector&&getMontoTotalRecuperado(quejasdelSector)} MXN</p>
+
+            {quejasdelSector && quejasdelSector.map((queja)=>(                
                 <Link to={"/"+sector+"/"+queja.nombreComercial}><AllQuejas key={queja._id} queja={queja}/></Link>
             ))}
 
