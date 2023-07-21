@@ -38,10 +38,10 @@ const getQuejasPerIndustry = async(req,res)=>{
 
 const postQueja = async(req,res)=>{
     //res.json({mssg: 'POST a NEW Queja in a NEW collection'})
-    const { id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombre_comercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio,  monto_reclamado, monto_recuperado, monto_recuperado_b} = req.body
+    const { id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombreComercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio,  monto_reclamado, monto_recuperado, monto_recuperado_b} = req.body
     
     try{
-        const queja = await Queja.create({ id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombre_comercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio, monto_reclamado, monto_recuperado,monto_recuperado_b })
+        const queja = await Queja.create({ id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombreComercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio, monto_reclamado, monto_recuperado,monto_recuperado_b })
         res.status(200).json(queja)
     }catch(err){
         res.status(400).json({err:err.message})
@@ -49,8 +49,8 @@ const postQueja = async(req,res)=>{
 }
 
 const getbyNombreComercial = async(req,res)=>{
-    const {nombre_comercial, sector} = req.params
-    const getbyNombreEmpresa = await Queja.find({sector, nombre_comercial})
+    const {nombreComercial, sector} = req.params
+    const getbyNombreEmpresa = await Queja.find({sector, nombreComercial})
     if (!getbyNombreEmpresa){
         return res.status(400).json({err: 'no funciono la prueba'})
     }

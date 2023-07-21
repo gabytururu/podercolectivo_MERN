@@ -36,20 +36,21 @@ const Home = () => {
                     queja.nombreComercial === 'kavak'
                 ).length}</p>                */}
                    
+             
                     {quejas && quejas.slice(0,5).map((queja)=>(
                             <Link to={'/sector/'+ queja.sector}><AllQuejas key={queja._id} queja={queja}/></Link>
                         ))
                     }
                     <Link className="button" to="/sector/:sector">Ver Más</Link>
             </div> 
-            <div className="data">
-                <h2>¿Cuáles son las Empresas con más Quejas en México?</h2>
-                {quejas && quejas.slice(0,5).map((queja)=>(
-                            <Link to={"/"+queja.sector+"/"+queja.nombre_comercial}><AllQuejas key={queja._id} queja={queja}/></Link>
-                            ))}                    
-                    <Link className="button" to="/:sector/:nombreComercial">Ver Más</Link>
-            </div>                     
-        </div>
+                <div className="data">
+                    <h2>¿Cuáles son las Empresas con más Quejas en México?</h2>
+                    {quejas && quejas.slice(0,5).map((queja)=>(
+                                <Link to={"/"+queja.sector+"/"+queja.nombreComercial}><AllQuejas key={queja._id} queja={queja}/></Link>
+                                ))}                    
+                        <Link className="button" to="/:sector/:nombreComercial">Ver Más</Link>
+                </div>                     
+            </div>
      );
 }
  

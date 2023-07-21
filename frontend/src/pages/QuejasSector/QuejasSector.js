@@ -55,7 +55,8 @@ const QuejasSector = () => {
             <p>Este Sector tiene un total de {quejasdelSector&&getMontoTotalReclamado(quejasdelSector)} MXN en montos reclamados de los cuales ha sido recuperado {quejasdelSector&&getMontoTotalRecuperado(quejasdelSector)} MXN</p>
 
             {quejasdelSector && quejasdelSector.map((queja)=>(                
-                <Link to={"/"+sector+"/"+queja.nombre_comercial}><AllQuejas key={queja._id} queja={queja}/></Link>
+                // <Link to={"/"+sector+"/"+queja.nombre_comercial}><AllQuejas key={queja._id} queja={queja}/></Link>
+                <Link to={"/"+sector+"/"+queja.nombreComercial}><AllQuejas key={queja._id} queja={queja}/></Link>
             ))}
 
             {/* {quejasdelSector && quejasdelSector.map((queja)=>(

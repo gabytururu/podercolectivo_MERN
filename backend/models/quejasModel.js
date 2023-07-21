@@ -29,10 +29,14 @@ const quejaSchema = new Schema ({
         type: String,
         required: false,
     },
-    nombre_comercial:{
+    nombreComercial:{
         type: String,
         required: true,
     },
+    // nombre_comercial:{
+    //     type: String,
+    //     required: true,
+    // },
     giro:{
         type: String,
         required: false, 
