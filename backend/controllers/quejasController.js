@@ -8,8 +8,7 @@ const getAllQuejas = async(req,res)=>{
         const getAllQuejas = await Queja.find({}).sort({createdAt:-1})
         res.status(200).json(getAllQuejas)
     }catch(err){
-        res.status(400).json({err:err.message})
-        
+        res.status(400).json({err:err.message})        
     }
 }
 
@@ -26,54 +25,23 @@ const getSingleQueja = async(req,res)=>{
     res.status(200).json(getSingleQueja)
 }
 
-// const getSingleQueja = async(req,res)=>{
-//     const {id, sector} = req.params
-//     if(id){
-//         if(!mongoose.Types.ObjectId.isValid(id)){
-//             return res.status(400).json({error: 'Esa#ID de queja no fue Valido en el Types Id de Mongoose'})
-//         }else{
-//             const getSingleQueja = await Queja.findById(id)
-//             if(!getSingleQueja){
-//                 return res.status(400).json({err: 'esa Queja ID no existe en la DB'})
-//             }     
-//             res.status(200).json(getSingleQueja)
-//         }
-//     }else if(sector){
-//         const getSingleSector = await Queja.find({sector})
-//         if(!getSingleSector){
-//             return res.status(400).json({err:'no such thing'})
-//         }
-//         res.status(200).json(getSingleSector)
-//     }
-// }
 
 const getQuejasPerIndustry = async(req,res)=>{
     // res.json({mssg: 'GET quejas by IndustryName from DB, you just requested the quejas of Industry :' + req.params.industryName})
     const {sector} = req.params
     const getIndustryQueja = await Queja.find({sector})
     if (!getIndustryQueja){
-        return res.status(400).json({err: 'no existen quejas con el parametro IndustryName en la DB'})
+        return res.status(400).json({err: 'no existen quejas con el parametro de :Sector dado en la DB'})
     }
     res.status(200).json(getIndustryQueja)
 }
 
-const getQuejasPerCompany = async(req,res)=>{
-    // res.json({mssg: 'GET quejas by CompanyName, You just requested the quejas of company: ' + req.params.companyName})
-    const {nombreComercial} = req.params
-    const getCompanyQueja = await Queja.find({nombreComercial})
-
-    if (!getCompanyQueja){
-        return res.status(400).json({err: 'no existen quejas con el parametro ese CompanyName/nombreComercial en la DB'})
-    }
-    res.status(200).json(getCompanyQueja)
-}
-
 const postQueja = async(req,res)=>{
-   //res.json({mssg: 'POST a NEW Queja in a NEW collection'})
-    const { razonSocial, nombreComercial, sector, ciudadReclamacion, estadoReclamacion, motivoReclamacion, anoReclamacion, estatusReclamacion, costoBien, montoReclamado, montoRecuperado, fechaInicio, fechaCierre } = req.body
-
+    //res.json({mssg: 'POST a NEW Queja in a NEW collection'})
+    const { id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombre_comercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio,  monto_reclamado, monto_recuperado, monto_recuperado_b} = req.body
+    
     try{
-        const queja = await Queja.create({razonSocial, nombreComercial, sector, ciudadReclamacion, estadoReclamacion, motivoReclamacion, anoReclamacion, estatusReclamacion, costoBien, montoReclamado, montoRecuperado, fechaInicio, fechaCierre })
+        const queja = await Queja.create({ id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombre_comercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio, monto_reclamado, monto_recuperado,monto_recuperado_b })
         res.status(200).json(queja)
     }catch(err){
         res.status(400).json({err:err.message})
@@ -81,21 +49,32 @@ const postQueja = async(req,res)=>{
 }
 
 const getbyNombreComercial = async(req,res)=>{
-    const {nombreComercial, sector} = req.params
-    //verificar pq no funciona... ni _id ni id... quiza solo opera con findByid? encontrar como concatenar ambas para que pueda hacerse un sistema de carpetass correcto
-    //const getbyNombreEmpresa = await Queja.find({sector, nombreComercial,_id})
-     const getbyNombreEmpresa = await Queja.find({sector, nombreComercial})
+    const {nombre_comercial, sector} = req.params
+    const getbyNombreEmpresa = await Queja.find({sector, nombre_comercial})
     if (!getbyNombreEmpresa){
         return res.status(400).json({err: 'no funciono la prueba'})
     }
     res.status(200).json(getbyNombreEmpresa)
 }
 
+// no longer needed ??
+// const getQuejasPerCompany = async(req,res)=>{
+//     // res.json({mssg: 'GET quejas by CompanyName, You just requested the quejas of company: ' + req.params.companyName})
+//     const {nombre_comercial} = req.params
+//     const getCompanyQueja = await Queja.find({nombre_comercial})
+
+//     if (!getCompanyQueja){
+//         return res.status(400).json({err: 'no existen quejas con el parametro ese CompanyName/nombreComercial en la DB'})
+//     }
+//     res.status(200).json(getCompanyQueja)
+// }
+
+
 module.exports = {
     getAllQuejas,
     getSingleQueja,
     getQuejasPerIndustry,
-    getQuejasPerCompany,
+    // getQuejasPerCompany,
     postQueja,
     getbyNombreComercial    
 }

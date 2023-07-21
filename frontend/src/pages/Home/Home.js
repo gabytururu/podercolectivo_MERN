@@ -32,14 +32,12 @@ const Home = () => {
             <div className="data">            
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
                 <p>las {quejas&&quejas.length} quejas en total</p>        
-                <p>las quejas de kavak son {quejas&&quejas.filter((queja)=>
+                {/* <p>las quejas de kavak son {quejas&&quejas.filter((queja)=>
                     queja.nombreComercial === 'kavak'
-                ).length}</p> 
-                
-                       
+                ).length}</p>                */}
                    
                     {quejas && quejas.slice(0,5).map((queja)=>(
-                            <Link to={'/sector/'+queja.industria||queja.sector}><AllQuejas key={queja._id} queja={queja}/></Link>
+                            <Link to={'/sector/'+ queja.sector}><AllQuejas key={queja._id} queja={queja}/></Link>
                         ))
                     }
                     <Link className="button" to="/sector/:sector">Ver Más</Link>
@@ -47,9 +45,8 @@ const Home = () => {
             <div className="data">
                 <h2>¿Cuáles son las Empresas con más Quejas en México?</h2>
                 {quejas && quejas.slice(0,5).map((queja)=>(
-                            <AllQuejas key={queja._id} queja={queja}/>
-                        ))
-                    }
+                            <Link to={"/"+queja.sector+"/"+queja.nombre_comercial}><AllQuejas key={queja._id} queja={queja}/></Link>
+                            ))}                    
                     <Link className="button" to="/:sector/:nombreComercial">Ver Más</Link>
             </div>                     
         </div>

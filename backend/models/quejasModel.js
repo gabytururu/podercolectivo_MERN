@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const quejaSchema = new Schema ({
     id_exp:{
         type:'String',
-        required:true,
+        required:false,
     },
     //can you set a DATE format?
     fecha_ingreso:{
@@ -17,7 +17,7 @@ const quejaSchema = new Schema ({
         required: false
     },
     tipo_conciliacion:{
-        type: Number,
+        type: String,
         required: false
     },
     estado_procesal:{
@@ -51,7 +51,7 @@ const quejaSchema = new Schema ({
     },
     motivo_reclamacion:{
         type:String,
-        required:true
+        required:false
     },
   
     //can you set a MONETARY format?+ false required?
@@ -62,17 +62,18 @@ const quejaSchema = new Schema ({
     //can you set a MONETARY format?+ false required?
     monto_reclamado:{
         type: Number,
-        required:false,
+        required:true,
     },
     //can you set a MONETARY format? + false required?
     monto_recuperado:{
         type: Number,
         required:false,
     },
+
     monto_recuperado_b:{
         type: Number,
-        required:false,
-    }   
+        required:true,
+    },   
 })
 
 module.exports = mongoose.model('Queja', quejaSchema)

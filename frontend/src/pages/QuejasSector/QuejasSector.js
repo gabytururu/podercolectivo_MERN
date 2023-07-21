@@ -8,8 +8,8 @@ import AllQuejas from '../../../src/components/QuejasFormats/AllQuejas'
 const QuejasSector = () => {
     const {sector} = useParams()
     const [quejasdelSector, setQuejasdelSector ] = useState(null)
-    const [montoReclamadoSector, setMontoReclamadoSector] = useState(0)
-    const [montoRecuperadoSector, setMontoRecuperadoSector] = useState(0)
+    // const [montoReclamadoSector, setMontoReclamadoSector] = useState(0)
+    // const [montoRecuperadoSector, setMontoRecuperadoSector] = useState(0)
 
     // const {quejasSector} = useFetch(`http://localhost:5000/api/quejas/sector/${sector}`)
 
@@ -34,14 +34,14 @@ const QuejasSector = () => {
     const getMontoTotalReclamado =(quejasdelSector)=>{
         let montoTotalReclamado = 0
         for(let queja of quejasdelSector){
-            montoTotalReclamado = montoTotalReclamado + queja.montoReclamado
+            montoTotalReclamado = montoTotalReclamado + queja.monto_reclamado
         }
         return montoTotalReclamado
     }
     const getMontoTotalRecuperado =(quejasdelSector)=>{
         let montoTotalRecuperado = 0
         for(let queja of quejasdelSector){
-            montoTotalRecuperado = montoTotalRecuperado + queja.montoRecuperado
+            montoTotalRecuperado = montoTotalRecuperado + queja.monto_recuperado_b
         }
         return montoTotalRecuperado
     }
@@ -55,7 +55,7 @@ const QuejasSector = () => {
             <p>Este Sector tiene un total de {quejasdelSector&&getMontoTotalReclamado(quejasdelSector)} MXN en montos reclamados de los cuales ha sido recuperado {quejasdelSector&&getMontoTotalRecuperado(quejasdelSector)} MXN</p>
 
             {quejasdelSector && quejasdelSector.map((queja)=>(                
-                <Link to={"/"+sector+"/"+queja.nombreComercial}><AllQuejas key={queja._id} queja={queja}/></Link>
+                <Link to={"/"+sector+"/"+queja.nombre_comercial}><AllQuejas key={queja._id} queja={queja}/></Link>
             ))}
 
             {/* {quejasdelSector && quejasdelSector.map((queja)=>(
