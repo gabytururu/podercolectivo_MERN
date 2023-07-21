@@ -78,6 +78,11 @@ const quejaSchema = new Schema ({
         type: Number,
         required:true,
     },   
+
+    count:{
+        type: Number,
+        required: true,
+    }
 })
 
 module.exports = mongoose.model('Queja', quejaSchema)
