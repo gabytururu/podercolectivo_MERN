@@ -23,53 +23,48 @@ const Home = () => {
         fetchQuejas()        
     },[])
 
-    
-    let quejasSectorArr=[]
-    quejas && quejas.map(queja => quejasSectorArr.includes(queja.sector)?'':quejasSectorArr.push(queja.sector))
+    const createSectorsWithQuejasArr=(quejas)=>{
+        let quejasSectorArr=[]
+        quejas && quejas.map(queja => quejasSectorArr.includes(queja.sector)?'':quejasSectorArr.push(queja.sector)) 
 
-   
-
-    let resumenQuejasSectorArr = []
-    for (let sector of quejasSectorArr){
-        // sectorAggregatedIndicators(sector)
-        let montoReclamado = 0
-        let montoRecuperado = 0
-        const quejasThisSector = quejas.filter((queja)=>queja.sector === sector)
-        const quejasQtyThisSector = quejasThisSector.length
-        for(let queja of quejasThisSector){
-            montoReclamado = queja.monto_reclamado + montoReclamado
-            montoRecuperado = queja.monto_recuperado_b + montoRecuperado
+        let sectorAggregatedIndicatorsArr = []
+        for (let sector of quejasSectorArr){
+            let montoReclamado = 0
+            let montoRecuperado = 0
+            const quejasThisSector = quejas.filter((queja)=>queja.sector === sector)
+            const quejasQtyThisSector = quejasThisSector.length
+            for(let queja of quejasThisSector){
+                montoReclamado = queja.monto_reclamado + montoReclamado
+                montoRecuperado = queja.monto_recuperado_b + montoRecuperado
+            }
+            const thisSectorIndicators = {sector:sector, totalQuejas: quejasQtyThisSector, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado}
+            sectorAggregatedIndicatorsArr.push(thisSectorIndicators)
+            console.log(sectorAggregatedIndicatorsArr)
         }
-        const thisSectorIndicators = {sector:sector, totalQuejas: quejasQtyThisSector, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado}
-        resumenQuejasSectorArr.push(thisSectorIndicators)
-        console.log(resumenQuejasSectorArr)
+        return sectorAggregatedIndicatorsArr
+    }
+
+    const createCompaniesWithQuejasArr=(quejas)=>{
+        let quejasCompanyArr=[]
+        quejas && quejas.map(queja => quejasCompanyArr.includes(queja.nombreComercial)?'':quejasCompanyArr.push(queja.nombreComercial)) 
+
+        let companiesAggregatedIndicatorsArr = []
+        for (let company of quejasCompanyArr){
+            let montoReclamado = 0
+            let montoRecuperado = 0
+            const quejasThisCompany = quejas.filter((queja)=>queja.nombreComercial === company)
+            const quejasQtyThisCompany = quejasThisCompany.length
+            for(let queja of quejasThisCompany){
+                montoReclamado = queja.monto_reclamado + montoReclamado
+                montoRecuperado = queja.monto_recuperado_b + montoRecuperado
+            }
+            const thisCompanyIndicators = {company: company, totalQuejas: quejasQtyThisCompany, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado}
+            companiesAggregatedIndicatorsArr.push(thisCompanyIndicators)
+            console.log(companiesAggregatedIndicatorsArr)
+        }
+        return companiesAggregatedIndicatorsArr
     }
     
-    // const sectorAggregatedIndicators =(sector)=>{
-    //      let montoReclamado = 0
-    //      let montoRecuperado = 0        
-    //     const quejasPerSector = quejas.filter((queja)=> queja.sector === sector)
-    //     const quejasTotal = quejasPerSector.length
-    //     for(let queja of quejasPerSector){
-    //         montoReclamado = queja.montoReclamado + montoReclamado
-    //         montoRecuperado = queja.montoRecuperado + montoRecuperado
-    //     }
-
-    //     const sectorIndicators = {sector: sector, montoReclamadoTotal: montoReclamado, montoRecuperadoTotal: montoRecuperado, totalQuejas: quejasTotal}
-    //     resumenQuejasSectorArr.push(sectorIndicators)
-    //     //console.log(sectorIndicators)
-    //     console.log(resumenQuejasSectorArr)
-    // }
-
-   
-
-    // let quejasCompanysArr=[]
-    // const createCompanysArr = (quejas) =>{
-    //     quejas.forEach(queja => quejasCompanysArr.includes(queja.nombreComercial)?'':quejasCompanysArr.push(queja.nombreComercial) )
-    //     console.log(quejasCompanysArr)
-    // }
-   
-
 
     return ( 
         <div className="containerWrap">
@@ -78,14 +73,10 @@ const Home = () => {
             </div>
 
 
-             <div className="data">  
-             <h2>Testeando sintesis simple</h2>
-             {quejasSectorArr.map((queja) => (
-                <h3>{queja}</h3>
-             ))}
-             <h2>Testeando sintesis compuesta</h2>
+             <div className="data"> 
+             <h1>Testeando desde la funcion SECTOR</h1> 
              {
-                resumenQuejasSectorArr.map((queja)=>(
+                quejas && createSectorsWithQuejasArr(quejas).map((queja)=>(
                     <div>
                         <h3>Sector:</h3><p>{queja.sector}</p>
                         <h3>Cantidad de Quejas</h3><p>{queja.totalQuejas}</p>
@@ -94,6 +85,20 @@ const Home = () => {
                     </div>
                 ))
              }
+            <hr></hr>
+             <h1>Testeando desde la funcion COMPAÑIA</h1>
+             {
+                quejas && createCompaniesWithQuejasArr(quejas).map((queja)=>(
+                    <div>
+                        <h3>Empresa:</h3><p>{queja.company}</p>
+                        <h3>Cantidad de Quejas</h3><p>{queja.totalQuejas}</p>
+                        <h3>Monto total Reclamado</h3><p>${queja.montoTotalReclamado}</p>
+                        <h3>Monto Recuperado</h3><p>${queja.montoTotalRecuperado}</p>
+                    </div>
+
+                ))
+             }
+  
              {/* <p quejas={quejas}>te paso las quejas</p> */}
              {/* {quejas && quejas.map((queja)=>(
                 <SumQuejasSector key={queja._id} queja={queja} createSectorsArr={createSectorsArr(quejas)} createCompanysArr={createCompanysArr(quejas)} createQuejasTotalization={createQuejasTotalization} />
