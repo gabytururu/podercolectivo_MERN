@@ -25,20 +25,14 @@ const Home = () => {
 
     
     let quejasSectorArr=[]
-    quejas.forEach(queja => quejasSectorArr.includes(queja.sector)?'':quejasSectorArr.push(queja.sector))
-    setSectores(quejasSectorArr)
+    quejas && quejas.map(queja => quejasSectorArr.includes(queja.sector)?'':quejasSectorArr.push(queja.sector))
 
+   
 
-    // const createSectorsArr = (quejas) =>{
-    //     quejas.forEach(queja => quejasSectorArr.includes(queja.sector)?'':quejasSectorArr.push(queja.sector) )
-    //     console.log(quejasSectorArr)
-    // }
-
-    // let resumenQuejasSectorArr = []
-    // const createQuejasTotalization =(sector)=>{
-    //     let montoReclamado = 0
-    //     let montoRecuperado = 0
-        
+    let resumenQuejasSectorArr = []
+    // const sectorAggregatedIndicators =(sector)=>{
+    //      let montoReclamado = 0
+    //      let montoRecuperado = 0        
     //     const quejasPerSector = quejas.filter((queja)=> queja.sector === sector)
     //     const quejasTotal = quejasPerSector.length
     //     for(let queja of quejasPerSector){
@@ -46,15 +40,22 @@ const Home = () => {
     //         montoRecuperado = queja.montoRecuperado + montoRecuperado
     //     }
 
-    //     const resumenQuejasSector = {sector: sector, montoReclamadoTotal: montoReclamado, montoRecuperadoTotal: montoRecuperado}
-    //     resumenQuejasSectorArr.push(resumenQuejasSector)
-    //     console.log(resumenQuejasSector)
+    //     const sectorIndicators = {sector: sector, montoReclamadoTotal: montoReclamado, montoRecuperadoTotal: montoRecuperado, totalQuejas: quejasTotal}
+    //     resumenQuejasSectorArr.push(sectorIndicators)
+    //     //console.log(sectorIndicators)
     //     console.log(resumenQuejasSectorArr)
     // }
 
-    // for (let sector of quejasSectorArr){
-    //     createQuejasTotalization(sector)
-    // }
+    for (let sector of quejasSectorArr){
+        // sectorAggregatedIndicators(sector)
+        // let montoReclamado = 0
+        // let montoRecuperado = 0
+        const quejasThisSector = quejas.filter((queja)=>queja.sector === sector)
+        const quejasQtyThisSector = quejasThisSector.length
+        const thisSectorIndicators = {sector:sector, totalQuejas: quejasQtyThisSector}
+        resumenQuejasSectorArr.push(thisSectorIndicators)
+        console.log(resumenQuejasSectorArr)
+    }
     
 
     // let quejasCompanysArr=[]
@@ -73,15 +74,27 @@ const Home = () => {
 
 
              <div className="data">  
-             <h1>Testeando sintesis</h1>
+             <h2>Testeando sintesis simple</h2>
+             {quejasSectorArr.map((queja) => (
+                <h3>{queja}</h3>
+             ))}
+             <h2>Testeando sintesis compuesta</h2>
+             {
+                resumenQuejasSectorArr.map((queja)=>(
+                    <div>
+                        <h3>{queja.sector}</h3>
+                        <h3>{queja.totalQuejas}</h3>
+                    </div>
+                ))
+             }
              {/* <p quejas={quejas}>te paso las quejas</p> */}
              {/* {quejas && quejas.map((queja)=>(
                 <SumQuejasSector key={queja._id} queja={queja} createSectorsArr={createSectorsArr(quejas)} createCompanysArr={createCompanysArr(quejas)} createQuejasTotalization={createQuejasTotalization} />
              ))}              */}
-             {sectores && sectores.map((sector,i)=>(
+             {/* {sectores && sectores.map((sector,i)=>(
                 <SumQuejasSector key={i} sectores={sectores} quejas={quejas}/> 
              ))                
-             }
+             } */}
                 
              </div>   
 
