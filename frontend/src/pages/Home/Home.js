@@ -30,6 +30,21 @@ const Home = () => {
    
 
     let resumenQuejasSectorArr = []
+    for (let sector of quejasSectorArr){
+        // sectorAggregatedIndicators(sector)
+        let montoReclamado = 0
+        let montoRecuperado = 0
+        const quejasThisSector = quejas.filter((queja)=>queja.sector === sector)
+        const quejasQtyThisSector = quejasThisSector.length
+        for(let queja of quejasThisSector){
+            montoReclamado = queja.monto_reclamado + montoReclamado
+            montoRecuperado = queja.monto_recuperado_b + montoRecuperado
+        }
+        const thisSectorIndicators = {sector:sector, totalQuejas: quejasQtyThisSector, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado}
+        resumenQuejasSectorArr.push(thisSectorIndicators)
+        console.log(resumenQuejasSectorArr)
+    }
+    
     // const sectorAggregatedIndicators =(sector)=>{
     //      let montoReclamado = 0
     //      let montoRecuperado = 0        
@@ -46,17 +61,7 @@ const Home = () => {
     //     console.log(resumenQuejasSectorArr)
     // }
 
-    for (let sector of quejasSectorArr){
-        // sectorAggregatedIndicators(sector)
-        // let montoReclamado = 0
-        // let montoRecuperado = 0
-        const quejasThisSector = quejas.filter((queja)=>queja.sector === sector)
-        const quejasQtyThisSector = quejasThisSector.length
-        const thisSectorIndicators = {sector:sector, totalQuejas: quejasQtyThisSector}
-        resumenQuejasSectorArr.push(thisSectorIndicators)
-        console.log(resumenQuejasSectorArr)
-    }
-    
+   
 
     // let quejasCompanysArr=[]
     // const createCompanysArr = (quejas) =>{
@@ -82,8 +87,10 @@ const Home = () => {
              {
                 resumenQuejasSectorArr.map((queja)=>(
                     <div>
-                        <h3>{queja.sector}</h3>
-                        <h3>{queja.totalQuejas}</h3>
+                        <h3>Sector:</h3><p>{queja.sector}</p>
+                        <h3>Cantidad de Quejas</h3><p>{queja.totalQuejas}</p>
+                        <h3>Monto total Reclamado</h3><p>${queja.montoTotalReclamado}</p>
+                        <h3>Monto Recuperado</h3><p>${queja.montoTotalRecuperado}</p>
                     </div>
                 ))
              }
