@@ -47,9 +47,11 @@ const Home = () => {
 
     const createCompaniesWithQuejasArr=(quejas)=>{
         let quejasCompanyArr=[]
+        //hace mas sentido con for each o con map?? para que mapeo y creo un nuevo array q no almaceno? q pasa con este? al final toda la logica es para pushear y alterar quejasCompanyArr entonces no se cual es mas correcto
         quejas && quejas.map(queja => quejasCompanyArr.includes(queja.nombreComercial)?'':quejasCompanyArr.push(queja.nombreComercial)) 
 
         let companiesAggregatedIndicatorsArr = []
+        //debiera usar puro map en lugar de for ofs? revisar literatura, me da la impresion de que reactse basa mucho mas en maps pero ...no tengo claro
         for (let company of quejasCompanyArr){
             let montoReclamado = 0
             let montoRecuperado = 0
@@ -85,7 +87,7 @@ const Home = () => {
             <div className="data"> 
                 <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
                     {quejas && createCompaniesWithQuejasArr(quejas).map((queja,i)=>(
-                            <Link to={'/sector/'+ queja.sector}><SumQuejasCompany key={i} queja={queja}/></Link>
+                            <Link to={'/'+ queja.sectorCompany + '/' + queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>
                         ))
                     }
                 <Link className="button" to="/sector/:sector">Ver Más</Link>
@@ -98,7 +100,7 @@ export default Home;
 //             {/* Pendientes: 
 //             1. estilo - estilizar correctamente
 //             XXX DONE XXXX 2. agregar sector correspondiente al agregado de compañias -- para que pueda posteriormente usarse como param del LINK
-//             3. corregir los links para que al hacer click lleve al route correcto / deseado
+//             XXX DONE XXX 3. corregir los links para que al hacer click lleve al route correcto / deseado
 //             4. revisar que onda con los INDEX como key... no se si deba quedar asi.. leer un poco del tema o ver videos de curso?
 //             5. definir si conviene tener la logica de estas funciones createCompaniesWithQuejasArr() y sectorsArr() desde HOME y mapear componentes sencillos, o si conviene mas pasar el array completo de quejas al componente hijo y hacer alla la logica de estas funciones ??
 //             6. verificar la posibilidad de integrar SumQuejasCompany y SumQuejasSector en un solo componente que opere con conditional rendering asociado a un estado que se pase desde Home eg. [renderperSector, setRenderperSector] = true / [renderperCompany, setRenderPerCompany] =false
