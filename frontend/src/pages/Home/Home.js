@@ -101,6 +101,7 @@ export default Home;
 //             1. estilo - estilizar correctamente
 //             XXX DONE XXXX 2. agregar sector correspondiente al agregado de compañias -- para que pueda posteriormente usarse como param del LINK
 //             XXX DONE XXX 3. corregir los links para que al hacer click lleve al route correcto / deseado
+                //XXX DONE XXX 3.b arreglar los routes para usar los indicadores agregados en view secundaria*post home previa a la del detalle por compania
 //             4. revisar que onda con los INDEX como key... no se si deba quedar asi.. leer un poco del tema o ver videos de curso?
 //             5. definir si conviene tener la logica de estas funciones createCompaniesWithQuejasArr() y sectorsArr() desde HOME y mapear componentes sencillos, o si conviene mas pasar el array completo de quejas al componente hijo y hacer alla la logica de estas funciones ??
 //             6. verificar la posibilidad de integrar SumQuejasCompany y SumQuejasSector en un solo componente que opere con conditional rendering asociado a un estado que se pase desde Home eg. [renderperSector, setRenderperSector] = true / [renderperCompany, setRenderPerCompany] =false

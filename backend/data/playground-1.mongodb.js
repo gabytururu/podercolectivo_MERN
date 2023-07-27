@@ -1,3 +1,15 @@
+/* global use, db */
+// MongoDB Playground
+// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+// The result of the last command run in a playground is shown on the results panel.
+// By default the first 20 documents will be returned with a cursor.
+// Use 'console.log()' to print to the debug output.
+// For more documentation on playgrounds please refer to
+// https://www.mongodb.com/docs/mongodb-vscode/playgrounds/
+
+// Select the database to use.
 const lasQuejas = [
     {
         "id_exp": "2022_5695",
@@ -436,10 +448,10 @@ const lasNuevasQuejas = lasQuejas.map((queja) =>{
        
     const nuevoModeloQuejas = queja
 
-    queja.costo_bien_servicio = Number(queja.costo_bien_servicio.replace(',',''))
-    queja.monto_reclamado = Number(queja.monto_reclamado.replace(',',''))
-    queja.monto_recuperado = Number(queja.monto_recuperado.replace(',',''))
-    queja.monto_recuperado_b = Number(queja.monto_recuperado_b.replace(',',''))
+    queja.costo_bien_servicio = Number(queja.costo_bien_servicio)
+    queja.monto_reclamado = Number(queja.monto_reclamado)
+    queja.monto_recuperado = Number(queja.monto_recuperado)
+    queja.monto_recuperado_b = Number(queja.monto_recuperado_b)
     
     return nuevoModeloQuejas
 })
@@ -448,3 +460,21 @@ use('poderColectivo');
 
 // Insert a few documents into the sales collection.
 db.getCollection('quejas').insertMany(lasNuevasQuejas);
+
+// Run a find command to view items sold on April 4th, 2014.
+    // const salesOnApril4th = db.getCollection('sales').find({
+    // date: { $gte: new Date('2014-04-04'), $lt: new Date('2014-04-05') }
+    // }).count();
+
+// Print a message to the output window.
+    // console.log(`${salesOnApril4th} sales occurred in 2014.`);
+
+// Here we run an aggregation and open a cursor to the results.
+// Use '.toArray()' to exhaust the cursor to return the whole result set.
+// You can use '.hasNext()/.next()' to iterate through the cursor page by page.
+    // db.getCollection('sales').aggregate([
+    // // Find all of the sales that occurred in 2014.
+    // { $match: { date: { $gte: new Date('2014-01-01'), $lt: new Date('2015-01-01') } } },
+    // // Group the total sales for each product.
+    // { $group: { _id: '$item', totalSaleAmount: { $sum: { $multiply: [ '$price', '$quantity' ] } } } }
+    // ]);
