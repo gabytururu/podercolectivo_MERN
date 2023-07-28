@@ -8,6 +8,8 @@ body {
 
 :root{
  --poderColectivo-blue: #1ac8ed;
+ --poderColectivo-blueTransparent: #1ac6edb0;
+ --poderColectivo-blueDark: #005494;
  --poderColectivo-red: #ff6347;
  --poderColectivo-yellow: #ffba08;
  --poderColectivo-beige: #fff3d6;

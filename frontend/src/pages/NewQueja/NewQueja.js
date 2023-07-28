@@ -1,10 +1,10 @@
-import NewQuejaForm from '../../../src/components/QuejasFormats/NewQuejaForm'
+import QuejaNewForm from '../../../src/components/QuejasFormats/QuejaNewForm'
 
 const NewQueja = () => {
     return ( 
         <div>
         <h1>ACA IRA EL LAY OUT DE UNA FORM PARA AGREGAR UNA NUEVA QUEJA</h1>
-        <NewQuejaForm/>
+        <QuejaNewForm/>
 
     </div>
      );

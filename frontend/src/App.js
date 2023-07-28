@@ -5,6 +5,7 @@ import QuejasSector from '../src/pages/QuejasSector/QuejasSector'
 import QuejasCompany from '../src/pages/QuejasCompany/QuejasCompany'
 import NewQueja from '../src/pages/NewQueja/NewQueja'
 import Footer from '../src/components/Footer/Footer'
+import QuejasSectoresComplete from './pages/QuejasSector/QuejasSectoresComplete'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home/>}/>
+          <Route path="/sectores" element={<QuejasSectoresComplete/>}/>
           <Route path="/sector/:sector" element={<QuejasSector/>}/>
           <Route path="/:sector/:nombreComercial" element={<QuejasCompany/>}/>
           <Route path="/poner-queja" element={<NewQueja/>}/>

@@ -5,6 +5,7 @@ const SumQuejasSector = ({queja}) => {
     //const [sectores, setSectores] = useState(null)
   
     return ( 
+     
         <div className="quejaContainer">
             {queja && 
                 <div className="queja">

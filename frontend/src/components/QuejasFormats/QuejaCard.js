@@ -1,7 +1,7 @@
-import './AllQuejas.css'
+import './QuejaCard.css'
 import {Link} from 'react-router-dom'
 
-const AllQuejas = ({queja}) => {
+const QuejaCard = ({queja}) => {
      // const id = queja._id
      // const nombre = queja.nombreComercial
      // const {_id, nombre_comercial, sector} = queja
@@ -23,4 +23,4 @@ const AllQuejas = ({queja}) => {
      );
 }
  
-export default AllQuejas;
+export default QuejaCard;

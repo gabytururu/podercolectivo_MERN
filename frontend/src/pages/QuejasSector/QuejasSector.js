@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react'
 import SumQuejasCompany from '../../components/QuejasFormats/SumQuejasCompany'
 
 //import {useFetch} from '../Hooks/useFetch'
-import AllQuejas from '../../../src/components/QuejasFormats/AllQuejas'
+import AllQuejas from '../../components/QuejasFormats/QuejaCard'
 
 const QuejasSector = () => {
     const {sector} = useParams()
@@ -89,28 +89,18 @@ const QuejasSector = () => {
             <p>Las Quejas de este sector son reclamos por transacciones de bienes o servicios que con un costo de {quejasdelSector&& getValorBienOServicio(quejasdelSector)} Resultante de un total de {quejasdelSector && getMontoTotalReclamado(quejasdelSector)} MXN en montos reclamados de los cuales ha sido recuperado {quejasdelSector && getMontoTotalRecuperado(quejasdelSector)} MXN</p>
 
             <h2>Las empresas del Sector {sector} con Más quejas Acumuladas:</h2>
-            {quejasdelSector && getSectorSumPerCompany(quejasdelSector)
-                .sort((a,b)=>b.totalQuejas - a.totalQuejas)
-                .map((queja)=>(                 
-                <SumQuejasCompany key={queja._id} queja={queja} />    
+            <div className="data">
+                {quejasdelSector && getSectorSumPerCompany(quejasdelSector)
+                    .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                    .map((queja)=>(                 
+                    <SumQuejasCompany key={queja._id} queja={queja} />    
 
 
-                // <Link to={"/"+sector+"/"+queja.nombre_comercial}><AllQuejas key={queja._id} queja={queja}/></Link>
-                // <Link to={"/"+sector+"/"+queja.nombreComercial}><AllQuejas key={queja._id} queja={queja}/></Link>
-                ))
-            } 
-
-            {/* {quejasdelSector && quejasdelSector.map((queja)=>(
-                    <div key={queja._id}>
-                        <p>{queja.nombreComercial}</p>
-                        <p>{queja.sector || queja.industria}</p>
-                        <p>{queja.montivoReclamacion}</p>
-                        <p>{queja.montoReclamado}</p>
-                        <p>{queja.id}</p>
-        
-                    </div>
-                ))
-            } */}
+                    // <Link to={"/"+sector+"/"+queja.nombre_comercial}><AllQuejas key={queja._id} queja={queja}/></Link>
+                    // <Link to={"/"+sector+"/"+queja.nombreComercial}><AllQuejas key={queja._id} queja={queja}/></Link>
+                    ))
+                } 
+            </div>
         </div>
      );
 }

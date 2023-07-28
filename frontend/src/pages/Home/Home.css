@@ -5,13 +5,15 @@
 }
 
 .data{
-    width: 90vw;
-    max-width: 1300px;
-    margin: auto; 
+
     background: var(--poderColectivo-clear);
     display:flex;
     flex-direction: column;
+    width: 90vw;
+    max-width: 1300px;
+    margin: auto; 
     align-items: center;
+    
 }
 
 

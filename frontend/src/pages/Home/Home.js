@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react'
-import AllQuejas from '../../../src/components/QuejasFormats/AllQuejas'
 import SumQuejasSector from '../../../src/components/QuejasFormats/SumQuejasSector'
 import SumQuejasCompany from '../../../src/components/QuejasFormats/SumQuejasCompany'
 import './Home.css'
@@ -78,16 +77,16 @@ const Home = () => {
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
-                    {quejas && createSectorsWithQuejasArr(quejas).map((queja,i)=>(
-                            <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={i} queja={queja}/></Link>
+                    {quejas && createSectorsWithQuejasArr(quejas).map((queja)=>(
+                            <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
                         ))
                     }
-                <Link className="button" to="/sector/:sector">Ver Más</Link>
+                <Link className="button" to={'/sectores'} quejas={quejas} createCompaniesWithQuejasArr={createSectorsWithQuejasArr}>Ver Más</Link>
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
-                    {quejas && createCompaniesWithQuejasArr(quejas).map((queja,i)=>(
-                            <Link to={'/'+ queja.sectorCompany + '/' + queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>
+                    {quejas && createCompaniesWithQuejasArr(quejas).map((queja)=>(
+                            <Link to={'/'+ queja.sectorCompany + '/' + queja.company}><SumQuejasCompany key={queja._id} queja={queja}/></Link>
                         ))
                     }
                 <Link className="button" to="/sector/:sector">Ver Más</Link>

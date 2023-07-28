@@ -1,4 +1,4 @@
-import './AllQuejas.css'
+import './QuejaCard.css'
 
 const SumQuejasCompany = ({queja}) => {
 
