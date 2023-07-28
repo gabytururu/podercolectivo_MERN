@@ -1,8 +1,8 @@
 import SumQuejasSector from "../../components/QuejasFormats/SumQuejasSector";
 import {Link} from 'react-router-dom'
 
-const QuejasSectoresComplete = ({quejas, createSectorsWithQuejasArr}) => {
-
+const QuejasSectoresComplete = ({quejas, createQuejasByCategory, categoryBySector}) => {
+    
     quejas && console.log(quejas)
     return ( 
         <div className="containerWrap">
@@ -11,7 +11,7 @@ const QuejasSectoresComplete = ({quejas, createSectorsWithQuejasArr}) => {
             </h1>
             <div className="data"> 
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
-                {quejas && createSectorsWithQuejasArr(quejas).map((queja)=>(
+                {quejas && createQuejasByCategory(quejas, categoryBySector).map((queja)=>(
                             <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
                         ))
                     }

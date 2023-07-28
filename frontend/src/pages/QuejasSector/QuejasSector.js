@@ -92,8 +92,9 @@ const QuejasSector = () => {
             <div className="data">
                 {quejasdelSector && getSectorSumPerCompany(quejasdelSector)
                     .sort((a,b)=>b.totalQuejas - a.totalQuejas)
-                    .map((queja)=>(                 
-                    <SumQuejasCompany key={queja._id} queja={queja} />    
+                    .map((queja)=>(    
+                    <Link to={'/'+ queja.sector + '/' + queja.company}>           
+                    <SumQuejasCompany key={queja._id} queja={queja} /></Link>   
 
 
                     // <Link to={"/"+sector+"/"+queja.nombre_comercial}><AllQuejas key={queja._id} queja={queja}/></Link>
