@@ -8,10 +8,10 @@ const SumQuejasSector = ({queja}) => {
         <div className="quejaContainer">
             {queja && 
                 <div className="queja">
-                    <h3>Sector:{sector}</h3>
-                    <h3>Cantidad de Quejas:</h3><p>{totalQuejas}</p>
-                    <h3>Monto total Reclamado:</h3><p>${montoTotalReclamado}</p>
-                    <h3>Monto Recuperado:</h3><p>${montoTotalRecuperado}</p>
+                    <h3>Sector {sector}</h3>
+                    <p>Cantidad de Quejas: {totalQuejas}</p>
+                    <p>Monto total Reclamado: ${montoTotalReclamado}</p>
+                    <p>Monto Recuperado: ${montoTotalRecuperado}</p>
                 </div>
             }
         </div>

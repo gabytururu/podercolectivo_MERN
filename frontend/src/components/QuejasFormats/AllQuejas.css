@@ -1,23 +1,43 @@
 .quejaContainer{
-    background-color: var(--poderColectivo-blue);
-    border-radius: 8px;
-    margin: 8px;
-    width: 100%
+    width: 100%;
+    margin-bottom:25px;
 }
 
 .queja{
-    background-color: var(--poderColectivo-clear);
-    margin: 0px 8px;
-    
-    /* color: white */
+    border-left: 10px solid var(--poderColectivo-oyster);
+    background-color: var(--poderColectivo-oyster);
+    margin: 0px 8px 8px 8px; 
+    border-radius: 6px;
+    box-shadow: 3px 3px 5px 0px #8888;  
+    padding: 1px 5px 5px 0px;
+    transition:0.4s
 }
 
+.queja:hover{
+    border-left: 10px solid var(--poderColectivo-red);
+   
+}
 /* .quejaContainer a{
     text-decoration: none;
     color: white;
    
 } */
 
+
+
 .queja p{
-    margin-left: 18px
+    margin-left: 15px; 
+    /* inline-size: 1.2px; */
+    /* display:flex;
+    background-color: aqua; */
+  
+
 }
+
+.queja h3{
+    text-align: center;
+    font-size: 22px;
+    /* background-color: blue; */
+    line-height: 1em;
+}
+

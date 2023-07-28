@@ -1,4 +1,5 @@
-import './QuejasCompany.css'
+// import './QuejasCompany.css'
+// import './AllQuejas.css'
 import {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import AllQuejas from '../../components/QuejasFormats/AllQuejas'
@@ -51,7 +52,7 @@ const QuejasCompany = () => {
                 .map((queja)=>(
                 <AllQuejas key={queja._id} queja={queja}/>
             ))}
-
+m 
 
         </div>
      );

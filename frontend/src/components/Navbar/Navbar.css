@@ -15,6 +15,11 @@
     color: var(--poderColectivo-clear);
     font-size: 1.5em;
     margin-right:25px;   
+    transition:0.2s
+}
+
+.navbar a:hover{
+    color: var(--poderColectivo-yellow)
 }
 
 .navbar .logo{

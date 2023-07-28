@@ -93,6 +93,8 @@ const QuejasSector = () => {
                 .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                 .map((queja)=>(                 
                 <SumQuejasCompany key={queja._id} queja={queja} />    
+
+
                 // <Link to={"/"+sector+"/"+queja.nombre_comercial}><AllQuejas key={queja._id} queja={queja}/></Link>
                 // <Link to={"/"+sector+"/"+queja.nombreComercial}><AllQuejas key={queja._id} queja={queja}/></Link>
                 ))

@@ -13,7 +13,7 @@ const AllQuejas = ({queja}) => {
                     {queja && 
                          <div className="queja">
                               {/* <p>Nombre {nombre_comercial}</p> */}
-                              <p>Nombre {nombreComercial}</p>
+                              <p>{nombreComercial}</p>
                               <p>Sector {sector}</p>
                               <p>Id {_id}</p>
                          </div>
