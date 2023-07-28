@@ -6,7 +6,10 @@ import {Link} from 'react-router-dom'
 
 const Home = () => {
     const [quejas,setQuejas] = useState(null)
-    //const [sectores, setSectores] = useState(null)
+    const [categoryByCompanies, setCategoryByCompanies] = useState('nombreComercial')
+    const [categoryBySector, setCategoryBySector] = useState('sector')
+    const [category, setCategory] = useState('empresas') // ---> setSCategory('sectores)
+   
     useEffect(()=>{
         const fetchQuejas = async()=>{
             try{
@@ -23,51 +26,74 @@ const Home = () => {
         fetchQuejas()        
     },[])
 
-    const createSectorsWithQuejasArr=(quejas)=>{
-        let quejasSectorArr=[]
-        quejas && quejas.map(queja => quejasSectorArr.includes(queja.sector)?'':quejasSectorArr.push(queja.sector)) 
+    const createQuejasByCategory = (quejas, categorySelected) =>{
+        let categoriesArray = []
+        quejas && quejas.map( queja => categoriesArray.includes(queja[categorySelected])?'':categoriesArray.push(queja[categorySelected]))
 
-        let sectorAggregatedIndicatorsArr = []
-        for (let sector of quejasSectorArr){
-            let montoReclamado = 0
-            let montoRecuperado = 0
-            const quejasThisSector = quejas.filter((queja)=>queja.sector === sector)
-            const quejasQtyThisSector = quejasThisSector.length
-            for(let queja of quejasThisSector){
-                montoReclamado = queja.monto_reclamado + montoReclamado
-                montoRecuperado = queja.monto_recuperado_b + montoRecuperado
-            }
-            const thisSectorIndicators = {sector:sector, totalQuejas: quejasQtyThisSector, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado}
-            sectorAggregatedIndicatorsArr.push(thisSectorIndicators)
-            console.log(sectorAggregatedIndicatorsArr)
-        }
-        return sectorAggregatedIndicatorsArr
-    }
-
-    const createCompaniesWithQuejasArr=(quejas)=>{
-        let quejasCompanyArr=[]
-        //hace mas sentido con for each o con map?? para que mapeo y creo un nuevo array q no almaceno? q pasa con este? al final toda la logica es para pushear y alterar quejasCompanyArr entonces no se cual es mas correcto
-        quejas && quejas.map(queja => quejasCompanyArr.includes(queja.nombreComercial)?'':quejasCompanyArr.push(queja.nombreComercial)) 
-
-        let companiesAggregatedIndicatorsArr = []
-        //debiera usar puro map en lugar de for ofs? revisar literatura, me da la impresion de que reactse basa mucho mas en maps pero ...no tengo claro
-        for (let company of quejasCompanyArr){
+        let categoriesAggregatedIndicators = []
+        for (let category of categoriesArray){
             let montoReclamado = 0
             let montoRecuperado = 0
             let sector = ''
-            const quejasThisCompany = quejas.filter((queja)=>queja.nombreComercial === company)
-            const quejasQtyThisCompany = quejasThisCompany.length
-            for(let queja of quejasThisCompany){
+            const quejasThisCategory = quejas.filter((queja)=> queja[categorySelected] === category)
+            const quejasQtyThisCategory = quejasThisCategory.length
+            for(let queja of quejasThisCategory){
                 montoReclamado = queja.monto_reclamado + montoReclamado
                 montoRecuperado = queja.monto_recuperado_b + montoRecuperado
                 sector = queja.sector
             }
-            const thisCompanyIndicators = {company: company, totalQuejas: quejasQtyThisCompany, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado, sectorCompany: sector}
-            companiesAggregatedIndicatorsArr.push(thisCompanyIndicators)
-            console.log(companiesAggregatedIndicatorsArr)
+            const thisElementinCategoryIndicators = {company: category, totalQuejas: quejasQtyThisCategory, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado, sector: sector}
+            categoriesAggregatedIndicators.push(thisElementinCategoryIndicators)
+            console.log(categoriesAggregatedIndicators)
         }
-        return companiesAggregatedIndicatorsArr
+        return categoriesAggregatedIndicators
     }
+
+    // const createSectorsWithQuejasArr=(quejas)=>{
+    //     let quejasSectorArr=[]
+    //     quejas && quejas.map(queja => quejasSectorArr.includes(queja.sector)?'':quejasSectorArr.push(queja.sector)) 
+
+    //     let sectorAggregatedIndicatorsArr = []
+    //     for (let sector of quejasSectorArr){
+    //         let montoReclamado = 0
+    //         let montoRecuperado = 0
+    //         const quejasThisSector = quejas.filter((queja)=>queja.sector === sector)
+    //         const quejasQtyThisSector = quejasThisSector.length
+    //         for(let queja of quejasThisSector){
+    //             montoReclamado = queja.monto_reclamado + montoReclamado
+    //             montoRecuperado = queja.monto_recuperado_b + montoRecuperado
+    //         }
+    //         const thisSectorIndicators = {sector:sector, totalQuejas: quejasQtyThisSector, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado}
+    //         sectorAggregatedIndicatorsArr.push(thisSectorIndicators)
+    //         console.log(sectorAggregatedIndicatorsArr)
+    //     }
+    //     return sectorAggregatedIndicatorsArr
+    // }
+
+    // const createCompaniesWithQuejasArr=(quejas)=>{
+    //     let quejasCompanyArr=[]
+    //     //hace mas sentido con for each o con map?? para que mapeo y creo un nuevo array q no almaceno? q pasa con este? al final toda la logica es para pushear y alterar quejasCompanyArr entonces no se cual es mas correcto
+    //     quejas && quejas.map(queja => quejasCompanyArr.includes(queja.nombreComercial)?'':quejasCompanyArr.push(queja.nombreComercial)) 
+
+    //     let companiesAggregatedIndicatorsArr = []
+    //     //debiera usar puro map en lugar de for ofs? revisar literatura, me da la impresion de que reactse basa mucho mas en maps pero ...no tengo claro
+    //     for (let company of quejasCompanyArr){
+    //         let montoReclamado = 0
+    //         let montoRecuperado = 0
+    //         let sector = ''
+    //         const quejasThisCompany = quejas.filter((queja)=>queja.nombreComercial === company)
+    //         const quejasQtyThisCompany = quejasThisCompany.length
+    //         for(let queja of quejasThisCompany){
+    //             montoReclamado = queja.monto_reclamado + montoReclamado
+    //             montoRecuperado = queja.monto_recuperado_b + montoRecuperado
+    //             sector = queja.sector
+    //         }
+    //         const thisCompanyIndicators = {company: company, totalQuejas: quejasQtyThisCompany, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado, sectorCompany: sector}
+    //         companiesAggregatedIndicatorsArr.push(thisCompanyIndicators)
+    //         console.log(companiesAggregatedIndicatorsArr)
+    //     }
+    //     return companiesAggregatedIndicatorsArr
+    // }
     
 
     return ( 
@@ -77,15 +103,18 @@ const Home = () => {
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
-                    {quejas && createSectorsWithQuejasArr(quejas).map((queja)=>(
+                    {/* {quejas && createSectorsWithQuejasArr(quejas).map((queja)=>( */}
+                    {quejas && createQuejasByCategory(quejas,categoryBySector).map((queja)=>(
                             <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
                         ))
                     }
-                <Link className="button" to={'/sectores'} quejas={quejas} createCompaniesWithQuejasArr={createSectorsWithQuejasArr}>Ver Más</Link>
+                {/* <Link className="button" to={'/sectores'} quejas={quejas} createCompaniesWithQuejasArr={createSectorsWithQuejasArr}>Ver Más</Link> */}
+                <Link className="button" to={'/sectores'} quejas={quejas}>Ver Más</Link>
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
-                    {quejas && createCompaniesWithQuejasArr(quejas).map((queja)=>(
+                    {/* {quejas && createCompaniesWithQuejasArr(quejas).map((queja)=>( */}
+                    {quejas && createQuejasByCategory(quejas, categoryByCompanies).map((queja)=>(
                             <Link to={'/'+ queja.sectorCompany + '/' + queja.company}><SumQuejasCompany key={queja._id} queja={queja}/></Link>
                         ))
                     }
