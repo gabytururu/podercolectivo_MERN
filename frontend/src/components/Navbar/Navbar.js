@@ -10,8 +10,8 @@ const Navbar = () => {
                 </div>
                 <nav className="menu">
                     <Link to="/">Inicio</Link>
-                    <Link to="/sector/:sector">Quejas por Sector</Link>
-                    <Link to="/:sector/:nombreComercial">Quejas por Empresa</Link>
+                    <Link to="/sectores">Quejas por Sector</Link>
+                    <Link to="/empresas">Quejas por Empresa</Link>
                     <Link to="/poner-queja">Poner una Queja</Link>
                 </nav>
             </header>

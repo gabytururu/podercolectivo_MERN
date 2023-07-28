@@ -110,7 +110,7 @@ const Home = () => {
                         ))
                     }
                 {/* <Link className="button" to={'/sectores'} quejas={quejas} createCompaniesWithQuejasArr={createSectorsWithQuejasArr}>Ver Más</Link> */}
-                <Link className="button" to={'/sectores'} quejas={quejas} createQuejas={createQuejasByCategory} categoryBySector = {categoryBySector}>Ver Más</Link>
+                <Link className="button" to={'/sectores'} state={{quejas:quejas, function: createQuejasByCategory, catbySectorState:categoryBySector }}>Ver Más</Link>
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
