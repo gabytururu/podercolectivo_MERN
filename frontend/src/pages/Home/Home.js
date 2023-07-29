@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import useQuejasByCategory from '../../Hooks/useQuejasByCategory'
 import SumQuejasSector from '../../../src/components/QuejasFormats/SumQuejasSector'
 import SumQuejasCompany from '../../../src/components/QuejasFormats/SumQuejasCompany'
 import QuejaCard from '../../../src/components/QuejasFormats/QuejaCard'
@@ -27,28 +28,31 @@ const Home = () => {
         fetchQuejas()        
     },[])
 
-    const createQuejasByCategory = (quejas, categorySelected) =>{
-        let categoriesArray = []
-        quejas && quejas.map( queja => categoriesArray.includes(queja[categorySelected])?'':categoriesArray.push(queja[categorySelected]))
+    const QuejasSumByCompany = useQuejasByCategory(quejas, categoryByCompanies)
+    const QuejasSumBySector = useQuejasByCategory(quejas,categoryBySector)
 
-        let categoriesAggregatedIndicators = []
-        for (let category of categoriesArray){
-            let montoReclamado = 0
-            let montoRecuperado = 0
-            let sector = ''
-            const quejasThisCategory = quejas.filter((queja)=> queja[categorySelected] === category)
-            const quejasQtyThisCategory = quejasThisCategory.length
-            for(let queja of quejasThisCategory){
-                montoReclamado = queja.monto_reclamado + montoReclamado
-                montoRecuperado = queja.monto_recuperado_b + montoRecuperado
-                sector = queja.sector
-            }
-            const thisElementinCategoryIndicators = {company: category, totalQuejas: quejasQtyThisCategory, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado, sector: sector}
-            categoriesAggregatedIndicators.push(thisElementinCategoryIndicators)
-            console.log(categoriesAggregatedIndicators)
-        }
-        return categoriesAggregatedIndicators
-    }
+    // const createQuejasByCategory = (quejas, categorySelected) =>{
+    //     let categoriesArray = []
+    //     quejas && quejas.map( queja => categoriesArray.includes(queja[categorySelected])?'':categoriesArray.push(queja[categorySelected]))
+
+    //     let categoriesAggregatedIndicators = []
+    //     for (let category of categoriesArray){
+    //         let montoReclamado = 0
+    //         let montoRecuperado = 0
+    //         let sector = ''
+    //         const quejasThisCategory = quejas.filter((queja)=> queja[categorySelected] === category)
+    //         const quejasQtyThisCategory = quejasThisCategory.length
+    //         for(let queja of quejasThisCategory){
+    //             montoReclamado = queja.monto_reclamado + montoReclamado
+    //             montoRecuperado = queja.monto_recuperado_b + montoRecuperado
+    //             sector = queja.sector
+    //         }
+    //         const thisElementinCategoryIndicators = {company: category, totalQuejas: quejasQtyThisCategory, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado, sector: sector}
+    //         categoriesAggregatedIndicators.push(thisElementinCategoryIndicators)
+    //         console.log(categoriesAggregatedIndicators)
+    //     }
+    //     return categoriesAggregatedIndicators
+    // }
 
     // const createSectorsWithQuejasArr=(quejas)=>{
     //     let quejasSectorArr=[]
@@ -95,7 +99,8 @@ const Home = () => {
     //     }
     //     return companiesAggregatedIndicatorsArr
     // }
-    
+    // categoriesAggregatedIndicatorsBySector&&  console.log(categoriesAggregatedIndicatorsBySector)
+    // categoriesAggregatedIndicatorsByCompany && console.log(categoriesAggregatedIndicatorsByCompany)
 
     return ( 
         <div className="containerWrap">
@@ -105,21 +110,23 @@ const Home = () => {
             <div className="data"> 
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
                     {/* {quejas && createSectorsWithQuejasArr(quejas).map((queja)=>( */}
-                    {quejas && createQuejasByCategory(quejas,categoryBySector).map((queja)=>(
+                    {/* {quejas && createQuejasByCategory(quejas,categoryBySector).map((queja)=>( */}
+                    {quejas && QuejasSumBySector &&QuejasSumBySector.map((queja)=>(
                             <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
                         ))
                     }
                 {/* <Link className="button" to={'/sectores'} quejas={quejas} createCompaniesWithQuejasArr={createSectorsWithQuejasArr}>Ver Más</Link> */}
-                <Link className="button" to={'/sectores'} state={{quejas:quejas, function: createQuejasByCategory, catbySectorState:categoryBySector }}>Ver Más</Link>
+                <Link className="button" to={'/sectores'} state={categoryBySector && {quejas:quejas, categoryBySector:categoryBySector }}>Ver Más</Link>
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
                     {/* {quejas && createCompaniesWithQuejasArr(quejas).map((queja)=>( */}
-                    {quejas && createQuejasByCategory(quejas, categoryByCompanies).map((queja)=>(
+                    {/* {quejas && createQuejasByCategory(quejas, categoryByCompanies).map((queja)=>( */}
+                    {quejas && QuejasSumByCompany && QuejasSumByCompany.map((queja)=>(
                             <Link to={'/'+ queja.sector + '/' + queja.company}><SumQuejasCompany key={queja._id} queja={queja}/></Link>
                         ))
                     }
-                <Link className="button" to="/sector/:sector">Ver Más</Link>
+                <Link className="button" to="/empresas" state={categoryByCompanies && {quejas:quejas, categoryByCompanies:categoryByCompanies}}>Ver Más</Link>
             </div>
         </div>
             );
