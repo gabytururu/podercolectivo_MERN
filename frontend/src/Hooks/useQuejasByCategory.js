@@ -18,6 +18,7 @@ const useQuejasByCategory = (quejas, categorySelected) =>{
         categoriesAggregatedIndicators.push(thisElementinCategoryIndicators)
         // console.log(categoriesAggregatedIndicators)
     }
+    console.log(categoriesAggregatedIndicators)
     return categoriesAggregatedIndicators
 }
 

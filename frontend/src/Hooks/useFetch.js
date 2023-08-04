@@ -6,14 +6,16 @@ const useFetch = (url) => {
     useEffect(()=>{
         const fetchQuejas = async() =>{
             try{
-                const fetchQuejas = fetch(url) 
-                const response = await fetchQuejas.json
+                const fetchQuejas = await fetch(url) 
+                const response = await fetchQuejas.json()
                 console.log(response)
-                if(!response.ok){
-                    throw Error('no se pudo hacer el fetch, el endpoint no existe o la req fue negada')
+                if(response.ok){
+                    setQuejas(response)
+                    return response
+                    // throw Error('no se pudo hacer el fetch, el endpoint no existe o la req fue negada')
                 }
-                setQuejas(response)
-                return response
+                // setQuejas(response)
+                // return response
 
             }catch(err){
                 console.log(err.message)
@@ -22,7 +24,7 @@ const useFetch = (url) => {
         fetchQuejas()
     },[])
 
-    return {quejas};
+    return quejas;
 }
  
 export default useFetch;
