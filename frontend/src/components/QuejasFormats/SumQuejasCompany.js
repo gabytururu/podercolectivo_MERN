@@ -9,11 +9,12 @@ const SumQuejasCompany = ({queja}) => {
         <div className="quejaContainer">
             {queja && 
                 <div className="queja">
-                    <h3>{company}</h3>
-                    <p>Sector:{sector}</p>
-                    <p>Cantidad de Quejas:</p><p>{totalQuejas}</p>
-                    <p>Monto total Reclamado:</p><p>${montoTotalReclamado}</p>
-                    <p>Monto Recuperado:</p><p>${montoTotalRecuperado}</p>
+                    <h3>{company}</h3>                    
+                    <p id="quejaLegend">Quejas Recibidas:</p>
+                    <p id="quejaQty">{totalQuejas} </p>
+                    <p>Monto total Reclamado: ${montoTotalReclamado}</p>
+                    <p>Monto Recuperado: ${montoTotalRecuperado}</p>
+                    <p>Sector al que pertenece: {sector}</p>
                 </div>
             }
         </div>

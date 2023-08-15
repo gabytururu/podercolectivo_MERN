@@ -25,8 +25,9 @@
 }
 
 .queja:hover{
-    border-left: 10px solid var(--poderColectivo-blue);
+    /* border-left: 10px solid var(--poderColectivo-blue); */
     /* background-color: var(--poderColectivo-blueTransparent); */
+    background-color: rgba(255, 228, 196, 0.391);
    
 }
 .queja p{
@@ -36,6 +37,22 @@
     background-color: aqua; */
   
 
+}
+
+#quejaQty{
+    background-color: var(--poderColectivo-red);
+    border-radius: 5px;
+    /* display:block; */
+    max-width: 50px;
+    margin:auto;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+}
+#quejaLegend{
+    font-style: italic;
+    text-align: center;
+    font-size: 12px;
 }
 
 .queja h3{

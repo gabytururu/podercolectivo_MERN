@@ -1,4 +1,4 @@
-import './QuejasSector.css'
+
 import {useParams, Link} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import SumQuejasCompany from '../../components/QuejasFormats/SumQuejasCompany'

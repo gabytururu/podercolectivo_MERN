@@ -43,8 +43,9 @@ const QuejasSectoresComplete = () => {
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
 
                 <h2>va la  data</h2>
-                {quejas && categoryBySector && quejasAggregatedBySector && quejasAggregatedBySector.map((queja)=>(
-                            <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
+                  {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
+                {quejas && categoryBySector && quejasAggregatedBySector && quejasAggregatedBySector.map((queja,i)=>(
+                            <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={i} queja={queja}/></Link>
                         ))
                     }
             
