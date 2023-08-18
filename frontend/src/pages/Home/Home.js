@@ -5,6 +5,8 @@ import SumQuejasCompany from '../../../src/components/QuejasFormats/SumQuejasCom
 import QuejaCard from '../../../src/components/QuejasFormats/QuejaCard'
 import './Home.css'
 import {Link} from 'react-router-dom'
+import BarChart from '../../components/BarChart'
+import {UserData} from '../../Data'
 
 const Home = () => {
     const [quejas,setQuejas] = useState(null)
@@ -101,11 +103,18 @@ const Home = () => {
     // }
     // categoriesAggregatedIndicatorsBySector&&  console.log(categoriesAggregatedIndicatorsBySector)
     // categoriesAggregatedIndicatorsByCompany && console.log(categoriesAggregatedIndicatorsByCompany)
+    const [userData, setUserData] = useState({
+        labels: UserData.map((data)=> data.year),
+        datasets: [{
+            label: 'Users Gained',
+            data: UserData.map((data)=> data.userGain)
 
+        }]
+    })
     return ( 
         <div className="containerWrap">
             <div className="backdropImg">
-                ACA IRA LA IMAGEN FRONTAL               
+                <BarChart chartData={userData}/>                        
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 

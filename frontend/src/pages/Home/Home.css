@@ -21,3 +21,11 @@
     text-align: center;
 }
 
+.backdropImg{
+    width: 1200px;
+    margin:auto;
+    padding: 20px;
+    margin: 25px 0px 25px 0px;
+    border: solid 2px black;
+    border-radius: 15px
+}
