@@ -103,18 +103,45 @@ const Home = () => {
     // }
     // categoriesAggregatedIndicatorsBySector&&  console.log(categoriesAggregatedIndicatorsBySector)
     // categoriesAggregatedIndicatorsByCompany && console.log(categoriesAggregatedIndicatorsByCompany)
+
+
+    //fyi tutorial ->https://www.youtube.com/watch?v=RF57yDglDfE
+    // documentation: https://www.chartjs.org/docs/latest/
+    console.log('QuejasSumbyCompany', QuejasSumByCompany)
+    console.log('QuejasSumbySector', QuejasSumBySector)
+
+    const [quejasBySectorGraph, setQuejasBySectorGraph] = useState({
+        labels: QuejasSumBySector.map((sector)=>sector.company),
+        datasets:[{
+            label:'total Quejas',
+            data: QuejasSumBySector.map((sector)=> sector.totalQuejas)
+        }]
+    })
     const [userData, setUserData] = useState({
         labels: UserData.map((data)=> data.year),
         datasets: [{
             label: 'Users Gained',
-            data: UserData.map((data)=> data.userGain)
-
+            data: UserData.map((data)=> data.userGain),
+            backgroundColor: [
+                '#1ac8ed', //red
+                '#1ac6edb0',
+                '#005494',
+                '#ff6347',
+                '#ffba08',
+            ],
+            borderColor:'#000000',
+            borderWidth:5
         }]
     })
     return ( 
         <div className="containerWrap">
             <div className="backdropImg">
-                <BarChart chartData={userData}/>                        
+            
+                    <BarChart chartData={quejasBySectorGraph}/> 
+                    <BarChart chartData={userData}/> 
+                   
+                
+                                      
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
