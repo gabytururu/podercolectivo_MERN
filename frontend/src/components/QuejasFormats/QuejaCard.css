@@ -15,12 +15,16 @@
 .queja{
     border-left: 10px solid var(--poderColectivo-red);
     background-color: var(--poderColectivo-oyster);
-    margin: 0px 8px 8px 8px; 
+    /* margin: 0px 8px 8px 8px;  */
     border-radius: 6px;
     box-shadow: 3px 3px 5px 0px #8888;  
     padding: 1px 5px 5px 0px;
     transition:0.4s;
-   
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height:10%; 
    
 }
 
@@ -31,35 +35,29 @@
    
 }
 .queja p{
-    margin-left: 15px; 
-    /* inline-size: 1.2px; */
-    /* display:flex;
-    background-color: aqua; */
-  
-
+    margin: 0px 0px 0px 0px;
+    padding:15px
 }
 
-#quejaQty{
+.quejaQty{
     background-color: var(--poderColectivo-red);
     border-radius: 5px;
-    /* display:block; */
-    max-width: 50px;
-    margin:auto;
-    text-align: center;
+    padding:10px;
     font-size: 22px;
     font-weight: 700;
+    
 }
-#quejaLegend{
+.quejaLegend{
     font-style: italic;
-    text-align: center;
+    /* text-align: center; */
     font-size: 12px;
 }
 
 .queja h3{
     text-align: center;
     font-size: 22px;
-    /* background-color: blue; */
-    line-height: 1em;
+    margin:20px;
+    /* line-height: 1em; */
 }
 
 @media (max-width:600px) {

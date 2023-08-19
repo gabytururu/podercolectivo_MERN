@@ -2,7 +2,7 @@ import './QuejaCard.css'
 
 const SumQuejasCompany = ({queja}) => {
 
-    const {company, totalQuejas, montoTotalReclamado, montoTotalRecuperado,sector} = queja
+    const {company, totalQuejas, montoTotalReclamado, montoTotalRecuperado,sector,costoBienServicio} = queja
     //const [sectores, setSectores] = useState(null)
   
     return ( 
@@ -10,11 +10,10 @@ const SumQuejasCompany = ({queja}) => {
             {queja && 
                 <div className="queja">
                     <h3>{company}</h3>                    
-                    <p id="quejaLegend">Quejas Recibidas:</p>
-                    <p id="quejaQty">{totalQuejas} </p>
-                    <p>Monto total Reclamado: ${montoTotalReclamado}</p>
-                    <p>Monto Recuperado: ${montoTotalRecuperado}</p>
-                    <p>Sector al que pertenece: {sector}</p>
+                    <p className="quejaLegend">Quejas Recibidas:</p>
+                    <p className="quejaQty">{totalQuejas} </p>
+                    <p className="quejaLegend">Costo de los Bienes o Servicios vinculados a estas Quejas:</p>
+                    <p className="quejaQty">${costoBienServicio} </p>
                 </div>
             }
         </div>

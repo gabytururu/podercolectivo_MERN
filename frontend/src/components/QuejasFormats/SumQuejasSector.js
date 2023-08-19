@@ -1,7 +1,7 @@
 
 const SumQuejasSector = ({queja}) => {   
     
-    const {sector, totalQuejas, montoTotalReclamado, montoTotalRecuperado} = queja
+    const {sector, totalQuejas, montoTotalReclamado, montoTotalRecuperado,costoBienServicio, giro} = queja
     //const [sectores, setSectores] = useState(null)
   
     return ( 
@@ -10,10 +10,13 @@ const SumQuejasSector = ({queja}) => {
             {queja &&                 
                 <div className="queja">
                     <h3>Sector {sector}</h3>
-                    <p id="quejaLegend">Cantidad de Quejas en este Sector:</p>
-                    <p id="quejaQty"> {totalQuejas}</p>
-                    <p>Monto total Reclamado: ${montoTotalReclamado}</p>
-                    <p>Monto Recuperado: ${montoTotalRecuperado}</p>
+                    <p className="quejaLegend">Giro dentro del sector: {giro}</p>
+                    <p className="quejaLegend">Cantidad de Quejas en este Sector:</p>
+                    <p className="quejaQty"> {totalQuejas}</p>
+                    <p className="quejaLegend">Costo de los bienes o servicios vinculados a estas quejas:</p>
+                    <p className="quejaQty"> ${costoBienServicio}</p>
+                    {/* <p>Monto total Reclamado: ${montoTotalReclamado}</p>
+                    <p>Monto Recuperado: ${montoTotalRecuperado}</p> */}
                  
                 </div>
               

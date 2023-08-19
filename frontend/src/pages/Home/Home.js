@@ -137,7 +137,7 @@ const Home = () => {
         <div className="containerWrap">
             <div className="backdropImg">
             
-                    <BarChart chartData={quejasBySectorGraph}/> 
+                    {/* <BarChart chartData={quejasBySectorGraph}/>  */}
                     <BarChart chartData={userData}/> 
                    
                 
