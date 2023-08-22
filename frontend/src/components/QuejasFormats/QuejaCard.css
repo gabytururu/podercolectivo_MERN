@@ -56,9 +56,20 @@
 
 .queja h3{
     /* text-align: center; */
-    font-size: 22px;
+    
     margin:20px;
     /* line-height: 1em; */
+}
+
+#quejaId{
+    font-size: 13px;
+    font-style: italic;
+}
+
+#quejaCardTitle{
+    border-bottom: 3px solid var(--poderColectivo-yellow);
+    padding: 10px
+    
 }
 
 @media (max-width:600px) {

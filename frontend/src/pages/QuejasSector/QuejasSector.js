@@ -88,7 +88,7 @@ const QuejasSector = () => {
   
     return ( 
         <div className="containerWrap">
-            <h1>ACA IRA EL LAY OUT DE QUEJAS POR SECTOR: {sector}</h1>
+            <h1>ACA IRA EL LAY OUT DE QUEJAS POR giro: {sector}</h1>
 
             <p>Se han encontrado un total de {quejasdelSector && quejasdelSector.length} quejas del sector {sector}</p>
             <p>Las Quejas de este sector son reclamos por transacciones de bienes o servicios que con un costo de {quejasdelSector&& getValorBienOServicio(quejasdelSector)} Resultante de un total de {quejasdelSector && getMontoTotalReclamado(quejasdelSector)} MXN en montos reclamados de los cuales ha sido recuperado {quejasdelSector && getMontoTotalRecuperado(quejasdelSector)} MXN</p>
