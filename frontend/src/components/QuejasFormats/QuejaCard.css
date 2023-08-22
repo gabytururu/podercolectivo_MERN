@@ -24,6 +24,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     line-height:10%; 
    
 }
@@ -54,7 +55,7 @@
 }
 
 .queja h3{
-    text-align: center;
+    /* text-align: center; */
     font-size: 22px;
     margin:20px;
     /* line-height: 1em; */

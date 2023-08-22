@@ -2,6 +2,7 @@
 import {useParams, Link} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import SumQuejasCompany from '../../components/QuejasFormats/SumQuejasCompany'
+import useQuejasByCategory from '../../Hooks/useQuejasByCategory'
 
 //import {useFetch} from '../Hooks/useFetch'
 import AllQuejas from '../../components/QuejasFormats/QuejaCard'
@@ -9,6 +10,7 @@ import AllQuejas from '../../components/QuejasFormats/QuejaCard'
 const QuejasSector = () => {
     const {sector} = useParams()
     const [quejasdelSector, setQuejasdelSector ] = useState(null)
+    const [categoryBySector, setCategoryBySector] = useState('sector')
 
     useEffect(()=>{
         const getQuejasSector = async() =>{
@@ -26,6 +28,8 @@ const QuejasSector = () => {
         getQuejasSector()  
     },[])
 
+    // OJO OPTIMIZAR/REFACTOR -- Todo el codigo de abajo creo puede/debe sustituirse por el useQuejasByCategory hook!!! ahorrando unas 50 lineas de codigo ?
+        // const quejasAggregatedBySector = useQuejasByCategory(quejasdelSector, categoryBySector)
 
     const getValorBienOServicio =(quejasdelSector)=>{
         let valorBienServicio = 0
@@ -51,7 +55,6 @@ const QuejasSector = () => {
     }
     
     const getSectorSumPerCompany = (quejasdelSector) =>{
-        
         let companiesInThisSectorArr = []
         quejasdelSector && quejasdelSector.map(queja => companiesInThisSectorArr.includes(queja.nombreComercial)?'':companiesInThisSectorArr.push(queja.nombreComercial))
         console.log(companiesInThisSectorArr)
@@ -62,6 +65,7 @@ const QuejasSector = () => {
             let montoRecuperado = 0
             let costoBienServicio=0
             let sector =''
+            let giro = ''
 
             const quejasThisCompany = quejasdelSector.filter((queja)=> queja.nombreComercial === company)
             const quejasQtyThisCompany = quejasThisCompany.length
@@ -70,17 +74,18 @@ const QuejasSector = () => {
                 montoRecuperado = queja.monto_recuperado_b + montoRecuperado
                 costoBienServicio = queja.costo_bien_servicio + costoBienServicio
                 sector = queja.sector
+                giro = queja.giro
             }
 
             //costoTotalBienesyServicios: costoBienServicio, 
-            const indicatorsPerCompany = {company:company, totalQuejas: quejasQtyThisCompany, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado, sector: sector}
+            const indicatorsPerCompany = {company:company, totalQuejas: quejasQtyThisCompany, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado, sector: sector, giro: giro, costoBienServicio: costoBienServicio}
             companiesAggregatedIndicatorsArr.push(indicatorsPerCompany)
             
         }
         console.log(companiesAggregatedIndicatorsArr)
         return companiesAggregatedIndicatorsArr
     }
-    
+  
     return ( 
         <div className="containerWrap">
             <h1>ACA IRA EL LAY OUT DE QUEJAS POR SECTOR: {sector}</h1>
