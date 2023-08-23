@@ -7,12 +7,13 @@ import './Home.css'
 import {Link} from 'react-router-dom'
 import BarChart from '../../components/BarChart'
 import {UserData} from '../../Data'
+//import {Chart as ChartJs} from 'chart.js/auto' <--- only need it on the component
 
 const Home = () => {
     const [quejas,setQuejas] = useState(null)
     const [categoryByCompanies, setCategoryByCompanies] = useState('nombreComercial')
     const [categoryBySector, setCategoryBySector] = useState('sector')
-    const [category, setCategory] = useState('empresas') // ---> setSCategory('sectores)
+    //const [category, setCategory] = useState('empresas') // ---> setSCategory('sectores)
    
     useEffect(()=>{
         const fetchQuejas = async()=>{
@@ -27,11 +28,59 @@ const Home = () => {
                 console.log('hubo un error: ', err)
             }         
         }
-        fetchQuejas()        
+        fetchQuejas().then(
+            
+        )    
     },[])
 
+
+   
     const QuejasSumByCompany = useQuejasByCategory(quejas, categoryByCompanies)
+    
+    let graphDetails = 'no hay graph details de inicio'
+    QuejasSumByCompany ? 
+    // console.log('si hubo graphdetails asi que vamonoos al grafico')
+    graphDetails = {
+            labels: QuejasSumByCompany.map((company)=>company.company),
+            datasets:[{
+                label:'Quejas por Empresa',
+                data: QuejasSumByCompany.map((company)=> company.totalQuejas),
+                backgroundColor: [
+                    '#1ac8ed', //red
+                    '#1ac6edb0',
+                    '#005494',
+                    '#ff6347',
+                    '#ffba08',
+                ],
+            }]
+        }
+        
+    :
+    console.log(' sigue sin haber graph details aca')
+    const [quejasByCompanyGraph, setQuejasByCompanyGraph] = useState(graphDetails)
+            
     const QuejasSumBySector = useQuejasByCategory(quejas,categoryBySector)
+    let graphDetailsSector = 'no hay graph details de inicio'
+    let test = ''
+    QuejasSumBySector ? 
+    // console.log('si hubo graphdetails asi que vamonoos al grafico')
+    graphDetailsSector = {
+            labels: QuejasSumBySector&&QuejasSumBySector.map(sector=>sector.company.toString()),
+            datasets:[{
+                label:'Quejas por Sector',
+                data: QuejasSumBySector&&QuejasSumBySector.map(sector=> sector.totalQuejas.toString()),
+                backgroundColor: [
+                    '#1ac8ed', //red
+                    '#1ac6edb0',
+                    '#005494',
+                    '#ff6347',
+                    '#ffba08',
+                ],
+            }]
+        }  
+    :
+    console.log(' sigue sin haber graph details aca')
+    const [quejasBySectorGraph, setQuejasBySectorGraph] = useState(graphDetailsSector)
 
     // const createQuejasByCategory = (quejas, categorySelected) =>{
     //     let categoriesArray = []
@@ -107,17 +156,13 @@ const Home = () => {
 
     //fyi tutorial ->https://www.youtube.com/watch?v=RF57yDglDfE
     // documentation: https://www.chartjs.org/docs/latest/
-    console.log('QuejasSumbyCompany', QuejasSumByCompany)
-    console.log('QuejasSumbySector', QuejasSumBySector)
+    console.log('QuejasSumbyCompany del hook-->', QuejasSumByCompany)
+    console.log('QuejasSumbySector del hook-->', QuejasSumBySector)
 
-    const [quejasBySectorGraph, setQuejasBySectorGraph] = useState({
-        labels: QuejasSumBySector.map((sector)=>sector.company),
-        datasets:[{
-            label:'total Quejas',
-            data: QuejasSumBySector.map((sector)=> sector.totalQuejas)
-        }]
-    })
-    const [userData, setUserData] = useState({
+    // check again video to see this other method to produce chart with API REST maybe will work better?
+    //https://www.youtube.com/watch?v=yOousFGfmZc
+  
+    const userDataChart = {
         labels: UserData.map((data)=> data.year),
         datasets: [{
             label: 'Users Gained',
@@ -132,12 +177,36 @@ const Home = () => {
             borderColor:'#000000',
             borderWidth:5
         }]
-    })
+    }
+    const [userData, setUserData] = useState(userDataChart)
+
+
     return ( 
         <div className="containerWrap">
-            <div className="backdropImg">
-            
-                    {/* <BarChart chartData={quejasBySectorGraph}/>  */}
+            <div className="backdropImg">  
+                    <BarChart chartData={quejasBySectorGraph}/>
+
+                    {quejasByCompanyGraph && QuejasSumByCompany?
+                       
+                        <BarChart chartData={quejasByCompanyGraph}/> 
+                    :
+                        console.log('no hubo datos para el chart graph')
+                    }
+                    
+                    <div>{QuejasSumByCompany.map(item=>item.company)}</div>
+                    <div>{QuejasSumByCompany.map(item=>item.totalQuejas)}</div>
+
+                    {quejasBySectorGraph && QuejasSumBySector?
+                    <div>
+                       <BarChart chartData={quejasBySectorGraph}/>
+                       <div>{QuejasSumBySector.map(item=>item.company)}</div>
+                       <div>{QuejasSumBySector.map(item=>item.totalQuejas)}</div>
+                    </div>
+                   :
+                       console.log('no hubo datos para el chart graph de sector ')
+                    }
+                   
+
                     <BarChart chartData={userData}/> 
                    
                 
