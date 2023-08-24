@@ -28,23 +28,64 @@ const Home = () => {
                 console.log('hubo un error: ', err)
             }         
         }
-        fetchQuejas().then(
-            
-        )    
+        fetchQuejas()
+        
     },[])
 
-
-   
-    const QuejasSumByCompany = useQuejasByCategory(quejas, categoryByCompanies)
+    const agregaQuejasPorCategoria = (quejas, categorySelected) =>{
+        let categoriesArray = []
+        quejas && quejas.map( queja => categoriesArray.includes(queja[categorySelected])?'':categoriesArray.push(queja[categorySelected]))
     
-    let graphDetails = 'no hay graph details de inicio'
-    QuejasSumByCompany ? 
-    // console.log('si hubo graphdetails asi que vamonoos al grafico')
-    graphDetails = {
-            labels: QuejasSumByCompany.map((company)=>company.company),
+        let categoriesAggregatedIndicators = []
+        for (let category of categoriesArray){
+            let montoReclamado = 0
+            let montoRecuperado = 0
+            let costoBienServicio = 0
+            let sector = ''
+            let giro = ''
+            const quejasThisCategory = quejas.filter((queja)=> queja[categorySelected] === category)
+            const quejasQtyThisCategory = quejasThisCategory.length
+            for(let queja of quejasThisCategory){
+                montoReclamado = queja.monto_reclamado + montoReclamado
+                montoRecuperado = queja.monto_recuperado_b + montoRecuperado
+                costoBienServicio = queja.costo_bien_servicio + costoBienServicio
+                sector = queja.sector
+                giro = queja.giro
+            }
+            const thisElementinCategoryIndicators = {company: category, totalQuejas: quejasQtyThisCategory, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado, sector: sector, costoBienServicio: costoBienServicio, giro:giro}
+            categoriesAggregatedIndicators.push(thisElementinCategoryIndicators)
+            // console.log(categoriesAggregatedIndicators)
+        }
+        console.log(categoriesAggregatedIndicators)
+        return categoriesAggregatedIndicators
+    }
+    
+    const lasquejas = agregaQuejasPorCategoria(quejas,categoryBySector)
+    const [listadeQuejas, setlistadequejas] = useState(lasquejas)
+    
+    
+    const [quejasByCompanyGraph, setQuejasByCompanyGraph] = useState({
+        labels: listadeQuejas.map((company)=>company.company),
+        datasets:[{
+            label:'Quejas por Empresa',
+            data: listadeQuejas.map((company)=> company.totalQuejas),
+            backgroundColor: [
+                '#1ac8ed', //red
+                '#1ac6edb0',
+                '#005494',
+                '#ff6347',
+                '#ffba08',
+            ],
+        }]
+    })
+    
+    
+    const crearGrafico =()=>{
+        let graphData = {
+            labels: lasquejas.map((company)=>company.company),
             datasets:[{
                 label:'Quejas por Empresa',
-                data: QuejasSumByCompany.map((company)=> company.totalQuejas),
+                data: lasquejas.map((company)=> company.totalQuejas),
                 backgroundColor: [
                     '#1ac8ed', //red
                     '#1ac6edb0',
@@ -54,33 +95,108 @@ const Home = () => {
                 ],
             }]
         }
+        setQuejasByCompanyGraph(graphData)
+        return quejasByCompanyGraph
+    }
+    
+    // let graphDetails = {
+    //     labels: agregaQuejasPorCategoria(quejas,categoryByCompanies)?.map((company)=>company.company),
+    //     datasets:[{
+    //         label:'Quejas por Empresa',
+    //         data: agregaQuejasPorCategoria(quejas,categoryByCompanies)?.map((company)=> company.totalQuejas),
+    //         backgroundColor: [
+    //             '#1ac8ed', //red
+    //             '#1ac6edb0',
+    //             '#005494',
+    //             '#ff6347',
+    //             '#ffba08',
+    //         ],
+    //     }]
+    // }
+    
+    let dataQuejasArray = [
+        {
+            company:"Turístico",
+            costoBienServicio:174629,
+            giro:"Aerolínea Comercial",
+            montoTotalReclamado:55047,
+            montoTotalRecuperado:43837,
+            sector:"Turístico",
+            totalQuejas:14
+    
+        },
+        {
+            company:"Automotriz",
+            costoBienServicio: 2491986,
+            giro:"Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
+            montoTotalReclamado:239898,
+            montoTotalRecuperado:239898,
+            sector:"Automotriz",
+            totalQuejas:10
+        }
+    ]
+    
+    
+    
+    const QuejasSumByCompany = useQuejasByCategory(quejas, categoryByCompanies)
+    const [quejasAggregByCompany, setQuejasAggregByCompany] = useState({
+                labels: dataQuejasArray.map((company)=>company.company),
+                datasets:[{
+                    label:'Quejas por Empresa',
+                    data: dataQuejasArray.map((company)=> company.totalQuejas),
+                    backgroundColor: [
+                        '#1ac8ed', //red
+                        '#1ac6edb0',
+                        '#005494',
+                        '#ff6347',
+                        '#ffba08',
+                    ],
+                }]
+            })
+    // let graphDetails = 'no hay graph details de inicio'
+    // QuejasSumByCompany ? 
+    // console.log('si hubo graphdetails asi que vamonoos al grafico')
+    // graphDetails = {
+    //         labels: QuejasSumByCompany.map((company)=>company.company),
+    //         datasets:[{
+    //             label:'Quejas por Empresa',
+    //             data: QuejasSumByCompany.map((company)=> company.totalQuejas),
+    //             backgroundColor: [
+    //                 '#1ac8ed', //red
+    //                 '#1ac6edb0',
+    //                 '#005494',
+    //                 '#ff6347',
+    //                 '#ffba08',
+    //             ],
+    //         }]
+    //     }
         
-    :
-    console.log(' sigue sin haber graph details aca')
-    const [quejasByCompanyGraph, setQuejasByCompanyGraph] = useState(graphDetails)
+    // :
+    // console.log(' sigue sin haber graph details aca')
+    // const [quejasByCompanyGraph, setQuejasByCompanyGraph] = useState(graphDetails)
             
     const QuejasSumBySector = useQuejasByCategory(quejas,categoryBySector)
-    let graphDetailsSector = 'no hay graph details de inicio'
-    let test = ''
-    QuejasSumBySector ? 
-    // console.log('si hubo graphdetails asi que vamonoos al grafico')
-    graphDetailsSector = {
-            labels: QuejasSumBySector&&QuejasSumBySector.map(sector=>sector.company.toString()),
-            datasets:[{
-                label:'Quejas por Sector',
-                data: QuejasSumBySector&&QuejasSumBySector.map(sector=> sector.totalQuejas.toString()),
-                backgroundColor: [
-                    '#1ac8ed', //red
-                    '#1ac6edb0',
-                    '#005494',
-                    '#ff6347',
-                    '#ffba08',
-                ],
-            }]
-        }  
-    :
-    console.log(' sigue sin haber graph details aca')
-    const [quejasBySectorGraph, setQuejasBySectorGraph] = useState(graphDetailsSector)
+    // let graphDetailsSector = 'no hay graph details de inicio'
+    // let test = ''
+    // QuejasSumBySector ? 
+    // // console.log('si hubo graphdetails asi que vamonoos al grafico')
+    // graphDetailsSector = {
+    //         labels: QuejasSumBySector&&QuejasSumBySector.map(sector=>sector.company.toString()),
+    //         datasets:[{
+    //             label:'Quejas por Sector',
+    //             data: QuejasSumBySector&&QuejasSumBySector.map(sector=> sector.totalQuejas.toString()),
+    //             backgroundColor: [
+    //                 '#1ac8ed', //red
+    //                 '#1ac6edb0',
+    //                 '#005494',
+    //                 '#ff6347',
+    //                 '#ffba08',
+    //             ],
+    //         }]
+    //     }  
+    // :
+    // console.log(' sigue sin haber graph details aca')
+    // const [quejasBySectorGraph, setQuejasBySectorGraph] = useState(graphDetailsSector)
 
     // const createQuejasByCategory = (quejas, categorySelected) =>{
     //     let categoriesArray = []
@@ -184,9 +300,11 @@ const Home = () => {
     return ( 
         <div className="containerWrap">
             <div className="backdropImg">  
-                    <BarChart chartData={quejasBySectorGraph}/>
+                    {/* <BarChart chartData={crearGrafico()}/> */}
+                    <BarChart chartData={quejasAggregByCompany}/>
+                    <BarChart chartData={quejasByCompanyGraph}/>
 
-                    {quejasByCompanyGraph && QuejasSumByCompany?
+                    {/* {quejasByCompanyGraph && QuejasSumByCompany?
                        
                         <BarChart chartData={quejasByCompanyGraph}/> 
                     :
@@ -205,7 +323,7 @@ const Home = () => {
                    :
                        console.log('no hubo datos para el chart graph de sector ')
                     }
-                   
+                    */}
 
                     <BarChart chartData={userData}/> 
                    
