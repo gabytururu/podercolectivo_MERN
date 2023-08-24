@@ -22,6 +22,7 @@ const Home = () => {
     //const [quejasAggPorEmpresa, setQuejasAggPorEmpresa] = useState(null) 
     // const quejasDataEmpresas = {}
     const [quejasAggPorEmpresa, setQuejasAggPorEmpresa] = useState(null) 
+    const [quejasAggPorSector, setQuejasAggPorSector] = useState(null) 
     
     
 
@@ -72,8 +73,30 @@ const Home = () => {
                         datasets: [{
                             label: 'Quejas por Empresa',
                             data: porEmpresa.map((quejas)=> quejas.totalQuejas),
+                            backgroundColor: [
+                                '#1ac8ed', //blue
+                                // '#1ac6edb0',
+                                // '#005494',
+                                // '#ff6347',
+                                // '#ffba08',
+                            ],
                        }]}
+                    const quejasDataSector ={
+                        labels: porSector.map((quejas)=>quejas.company),
+                        datasets: [{
+                            label: 'Quejas por Empresa',
+                            data: porSector.map((quejas)=> quejas.totalQuejas),
+                            backgroundColor: [
+                                '#1ac8ed', //blue
+                                // '#1ac6edb0',
+                                // '#005494',
+                                // '#ff6347',
+                                // '#ffba08',
+                            ],
+                       }]}
+                       
                     setQuejasAggPorEmpresa(quejasDataEmpresas)
+                    setQuejasAggPorSector(quejasDataSector)
                 }
             }catch(err){
                 console.log('hubo un error: ', err)
@@ -352,10 +375,10 @@ const Home = () => {
                     }
                     */}
 
-                    <BarChart chartData={userData}/> 
+                    {/* <BarChart chartData={userData}/>  */}
                     <BarChart chartData={quejasAggPorEmpresa}/> 
-                    {/* <BarChart chartData={quejasPorSector}/>  */}
-                   
+                    <BarChart chartData={quejasAggPorSector}/>  
+                    
                 
                                       
             </div>
