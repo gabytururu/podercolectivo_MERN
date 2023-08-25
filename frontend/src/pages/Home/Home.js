@@ -11,41 +11,40 @@ import { QuejasContext } from '../../Context/QuejasContext'
 //import {Chart as ChartJs} from 'chart.js/auto' <--- only need it on the component
 
 const Home = () => {
-    //const {theme, handleTheme} = useContext(ThemeContext)
-   // const {quejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, quejasPerSector, quejasPerGiro, sumQuejasPerCategory} = useContext(QuejasContext)
+    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany} = useContext(QuejasContext)
 
 
-    const [quejas,setQuejas] = useState(null)
+    //const [quejas,setQuejas] = useState(null)
     const [categoryByCompanies, setCategoryByCompanies] = useState('nombreComercial')
     const [categoryBySector, setCategoryBySector] = useState('sector')
     const QuejasSumByCompany = useQuejasByCategory(quejas, categoryByCompanies)
     const QuejasSumBySector = useQuejasByCategory(quejas,categoryBySector)
-    const [quejasAggPorEmpresa, setQuejasAggPorEmpresa] = useState({
-        labels: [],
-        datasets: [{
-            label: 'Quejas por Empresa',
-            data: [],
-            backgroundColor: [
-                '#1ac8ed', //blue
-                // '#1ac6edb0',
-                // '#005494',
-                // '#ff6347',
-                // '#ffba08',
-            ],
-       }]}) 
-    const [quejasAggPorSector, setQuejasAggPorSector] = useState({
-        labels: [],
-        datasets: [{
-            label: 'Quejas por Sector',
-            data: [],
-            backgroundColor: [
-                '#1ac8ed', //blue
-                // '#1ac6edb0',
-                // '#005494',
-                // '#ff6347',
-                // '#ffba08',
-            ],
-       }]}) 
+    // const [quejasAggPorEmpresa, setQuejasAggPorEmpresa] = useState({
+    //     labels: [],
+    //     datasets: [{
+    //         label: 'Quejas por Empresa',
+    //         data: [],
+    //         backgroundColor: [
+    //             '#1ac8ed', //blue
+    //             // '#1ac6edb0',
+    //             // '#005494',
+    //             // '#ff6347',
+    //             // '#ffba08',
+    //         ],
+    //    }]}) 
+    // const [quejasAggPorSector, setQuejasAggPorSector] = useState({
+    //     labels: [],
+    //     datasets: [{
+    //         label: 'Quejas por Sector',
+    //         data: [],
+    //         backgroundColor: [
+    //             '#1ac8ed', //blue
+    //             // '#1ac6edb0',
+    //             // '#005494',
+    //             // '#ff6347',
+    //             // '#ffba08',
+    //         ],
+    //    }]}) 
 
     // const [quejasPorEmpresa, setQuejasPorEmpresa] = useState(null)
     // const [quejasPorSector, setQuejasPorSector] = useState(null)
@@ -87,34 +86,13 @@ const Home = () => {
     
                 if(quejasObject.ok){
                     setQuejas(quejasJson)
-                    // setCategoryByCompanies('nombreComercial')
-                    // setCategoryBySector('sector')
-                    let porEmpresa = agregaQuejasPorCategoria(quejasJson, categoryByCompanies)
-                    let porSector =agregaQuejasPorCategoria(quejasJson, categoryBySector)
-                    // setQuejasPorEmpresa(porEmpresa) //no se ocupa y se rompe si se implementa en lugar de usar la var porEmpresa
-                    // setQuejasPorSector(porSector)  //no se ocupa y se rompe si se implementa en lugar de usar la var porSector
-                    console.log('envio resultadoHook a estado Empresa',porEmpresa)
-                    console.log('envio resultadoHook a estado Sector',porSector)
-                    const quejasDataEmpresas ={
-                        labels: porEmpresa.map((quejas)=>quejas.company),
+                    const quejasSector = sumQuejasPerCategory(quejasJson, categorySector)
+                    const quejasCompany= sumQuejasPerCategory(quejasJson, categoryCompany)
+                    setGraphPerSector({
+                        labels: quejasSector.map((quejas)=>quejas.company),
                         datasets: [{
                             label: 'Quejas por Empresa',
-                            data: porEmpresa.map((quejas)=> quejas.totalQuejas),
-                            backgroundColor: [
-                                '#1ac8ed', //blue
-                                // '#1ac6edb0',
-                                // '#005494',
-                                '#ff6347', //red
-                                '#ffba08', //yellow
-                            ],
-                            borderColor:'#000000',
-                            borderWidth:2
-                       }]}
-                    const quejasDataSector ={
-                        labels: porSector.map((quejas)=>quejas.company),
-                        datasets: [{
-                            label: 'Quejas por Sector',
-                            data: porSector.map((quejas)=> quejas.totalQuejas),
+                            data: quejasSector.map((quejas)=> quejas.totalQuejas),
                             backgroundColor: [
                                 '#1ac8ed', //blue
                                 // '#1ac6edb0',
@@ -124,10 +102,65 @@ const Home = () => {
                             ],
                             borderColor:'#000000',
                             borderWidth:2
-                       }]}
+                       }]
+                    })
+                    setGraphPerCompany({
+                        labels: quejasCompany.map((quejas)=>quejas.company),
+                        datasets: [{
+                            label: 'Quejas por Empresa',
+                            data: quejasCompany.map((quejas)=> quejas.totalQuejas),
+                            backgroundColor: [
+                                '#1ac8ed', //blue
+                                // '#1ac6edb0',
+                                // '#005494',
+                                // '#ff6347',
+                                // '#ffba08',
+                            ],
+                            borderColor:'#000000',
+                            borderWidth:2
+                       }]
+                    })
+                    // // setCategoryByCompanies('nombreComercial')
+                    // // setCategoryBySector('sector')
+                    // let porEmpresa = agregaQuejasPorCategoria(quejasJson, categoryByCompanies)
+                    // let porSector =agregaQuejasPorCategoria(quejasJson, categoryBySector)
+                    // // setQuejasPorEmpresa(porEmpresa) //no se ocupa y se rompe si se implementa en lugar de usar la var porEmpresa
+                    // // setQuejasPorSector(porSector)  //no se ocupa y se rompe si se implementa en lugar de usar la var porSector
+                    // console.log('envio resultadoHook a estado Empresa',porEmpresa)
+                    // console.log('envio resultadoHook a estado Sector',porSector)
+                    // const quejasDataEmpresas ={
+                    //     labels: porEmpresa.map((quejas)=>quejas.company),
+                    //     datasets: [{
+                    //         label: 'Quejas por Empresa',
+                    //         data: porEmpresa.map((quejas)=> quejas.totalQuejas),
+                    //         backgroundColor: [
+                    //             '#1ac8ed', //blue
+                    //             // '#1ac6edb0',
+                    //             // '#005494',
+                    //             '#ff6347', //red
+                    //             '#ffba08', //yellow
+                    //         ],
+                    //         borderColor:'#000000',
+                    //         borderWidth:2
+                    //    }]}
+                    // const quejasDataSector ={
+                    //     labels: porSector.map((quejas)=>quejas.company),
+                    //     datasets: [{
+                    //         label: 'Quejas por Sector',
+                    //         data: porSector.map((quejas)=> quejas.totalQuejas),
+                    //         backgroundColor: [
+                    //             '#1ac8ed', //blue
+                    //             // '#1ac6edb0',
+                    //             // '#005494',
+                    //             // '#ff6347',
+                    //             // '#ffba08',
+                    //         ],
+                    //         borderColor:'#000000',
+                    //         borderWidth:2
+                    //    }]}
                        
-                    setQuejasAggPorEmpresa(quejasDataEmpresas)
-                    setQuejasAggPorSector(quejasDataSector)
+                    // setQuejasAggPorEmpresa(quejasDataEmpresas)
+                    // setQuejasAggPorSector(quejasDataSector)
                 }
             }catch(err){
                 console.log('hubo un error: ', err)
@@ -139,7 +172,7 @@ const Home = () => {
     return ( 
         <div className="containerWrap">
             <div className="backdropImg">  
-                    <BarChart chartData={quejasAggPorSector}/>                                            
+                    <BarChart chartData={graphPerSector}/>                                            
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
@@ -151,7 +184,7 @@ const Home = () => {
             </div>
 
             <div className="backdropImg">  
-                <BarChart chartData={quejasAggPorEmpresa}/>                             
+                <BarChart chartData={graphPerCompany}/>                             
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
