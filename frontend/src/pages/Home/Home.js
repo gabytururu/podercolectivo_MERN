@@ -21,8 +21,32 @@ const Home = () => {
     // let lasQuejasAgregadas = ''
     //const [quejasAggPorEmpresa, setQuejasAggPorEmpresa] = useState(null) 
     // const quejasDataEmpresas = {}
-    const [quejasAggPorEmpresa, setQuejasAggPorEmpresa] = useState(null) 
-    const [quejasAggPorSector, setQuejasAggPorSector] = useState(null) 
+    const [quejasAggPorEmpresa, setQuejasAggPorEmpresa] = useState({
+        labels: [],
+        datasets: [{
+            label: 'Quejas por Empresa',
+            data: [],
+            backgroundColor: [
+                '#1ac8ed', //blue
+                // '#1ac6edb0',
+                // '#005494',
+                // '#ff6347',
+                // '#ffba08',
+            ],
+       }]}) 
+    const [quejasAggPorSector, setQuejasAggPorSector] = useState({
+        labels: [],
+        datasets: [{
+            label: 'Quejas por Sector',
+            data: [],
+            backgroundColor: [
+                '#1ac8ed', //blue
+                // '#1ac6edb0',
+                // '#005494',
+                // '#ff6347',
+                // '#ffba08',
+            ],
+       }]}) 
     
     
 
@@ -84,7 +108,7 @@ const Home = () => {
                     const quejasDataSector ={
                         labels: porSector.map((quejas)=>quejas.company),
                         datasets: [{
-                            label: 'Quejas por Empresa',
+                            label: 'Quejas por Sector',
                             data: porSector.map((quejas)=> quejas.totalQuejas),
                             backgroundColor: [
                                 '#1ac8ed', //blue
