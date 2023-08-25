@@ -6,7 +6,6 @@ import { QuejasContext } from "../../Context/QuejasContext";
 import BarChart from "../../components/BarChart";
 
 const QuejasSectoresComplete = () => {
-    //fyi siguiendo / COPIANDO el mismo metodo que QUEJASCOMPANIESCOMPLETE --- pero OJO no es lo mas efectivo pq estoy fetcheando over and over solo con useEffect... el siguiente paso sera ver si logro resolver el issue de que useFetch COMPITE con useQuejasbyCategory Y NO Renderiza bien .... o determinar si es correcto que el fetch ocurra en el context y se pase como contexto al resto de componentes o algo asi?? / QUIZA SI VUELVO USEQUEJASBYCATEGORY ASINCRONA??
     
     //useLocation NO SIRVE AQUI PORQUE NO HAY UNA LOCATION PREVIA QUE ENVIE LAS PROPS O EL STATE A MODO DE LINK como ocurre con los clicks internos en pantalla.... determinar si hace sentido seguir con el useLocation en los links internos o si en realidad TODO debe resolverse montando alguna suerte de CONTEXTO QUE SE TRANSFIERA EN TODOS LOS COMPONENTES 
     // const location = useLocation()
@@ -14,12 +13,13 @@ const QuejasSectoresComplete = () => {
     // const [categoryBySector, setCategoryBySector] = useState(location.state.categoryBySector)
     // console.log("location --->", location)
     // console.log("las quejas--->", quejas)
-    // console.log("las categoriesbySector--->", categoryBySector)
+    // console.log("las categoriesbySector--->", categoryBySector
 
     const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany} = useContext(QuejasContext)
 
     //const [quejas,setQuejas] = useState(null)
-    const [categoryBySector, setCategoryBySector] = useState('sector')
+    // const [categoryBySector, setCategoryBySector] = useState('sector')
+    // const quejasAggregatedBySector = useQuejasByCategory(quejas,categoryBySector)
 
     useEffect(()=>{
         const fetchQuejas = async()=>{
@@ -29,8 +29,8 @@ const QuejasSectoresComplete = () => {
     
                 if(quejasObject.ok){
                     setQuejas(quejasJson)
-                    const quejasSector = sumQuejasPerCategory(quejasJson, categorySector) //<-- not working if i use "quejas" instead of quejas Json
-                    // setQuejasPerSector(quejasSector) //<-- not working if i use state for the labels: map... quejasPerSector (state) not working, must use var
+                    const quejasSector = sumQuejasPerCategory(quejasJson, categorySector) 
+                    setQuejasPerSector(quejasSector)
                     const quejasDataSector ={
                         labels: quejasSector.map((quejas)=>quejas.company),
                         datasets: [{
@@ -56,21 +56,19 @@ const QuejasSectoresComplete = () => {
       
     },[])
 
-    const quejasAggregatedBySector = useQuejasByCategory(quejas,categoryBySector)
+    
     return ( 
         <div className="containerWrap">
             <h1 >
-                Aca va la lista ampliada de lAS QUEJAS ACUMULADAS POR SECTORES             
+                Quejas Recibidas Por Sector Comercial            
             </h1>
             <div className="barChart">  
                     <BarChart chartData={graphPerSector}/>                                            
             </div>
             <div className="data"> 
-                <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
-
-                <h2>va la  data</h2>
+                <h2>¿Cuáles son los Sectores con más Quejas en México?</h2>
                   {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
-                {quejas && categoryBySector && quejasAggregatedBySector && quejasAggregatedBySector.map((queja,i)=>(
+                {quejasPerSector.map((queja,i)=>(
                             <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={i} queja={queja}/></Link>
                         ))
                     }
