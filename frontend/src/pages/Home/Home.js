@@ -13,14 +13,8 @@ const Home = () => {
     const [quejas,setQuejas] = useState(null)
     const [categoryByCompanies, setCategoryByCompanies] = useState('nombreComercial')
     const [categoryBySector, setCategoryBySector] = useState('sector')
-    const [quejasPorEmpresa, setQuejasPorEmpresa] = useState(null)
-    const [quejasPorSector, setQuejasPorSector] = useState(null)
-    //const [category, setCategory] = useState('empresas') // ---> setSCategory('sectores)
     const QuejasSumByCompany = useQuejasByCategory(quejas, categoryByCompanies)
     const QuejasSumBySector = useQuejasByCategory(quejas,categoryBySector)
-    // let lasQuejasAgregadas = ''
-    //const [quejasAggPorEmpresa, setQuejasAggPorEmpresa] = useState(null) 
-    // const quejasDataEmpresas = {}
     const [quejasAggPorEmpresa, setQuejasAggPorEmpresa] = useState({
         labels: [],
         datasets: [{
@@ -47,9 +41,11 @@ const Home = () => {
                 // '#ffba08',
             ],
        }]}) 
-    
-    
 
+    // const [quejasPorEmpresa, setQuejasPorEmpresa] = useState(null)
+    // const [quejasPorSector, setQuejasPorSector] = useState(null)
+    
+    //maybe this function gotta be a context rather than a hook? to substitute <---> const QuejasSumByCompany = useQuejasByCategory(quejas, categoryByCompanies)
     const agregaQuejasPorCategoria = (quejas, categorySelected) =>{
         let categoriesArray = []
         quejas && quejas.map( queja => categoriesArray.includes(queja[categorySelected])?'':categoriesArray.push(queja[categorySelected]))
@@ -86,10 +82,12 @@ const Home = () => {
     
                 if(quejasObject.ok){
                     setQuejas(quejasJson)
+                    // setCategoryByCompanies('nombreComercial')
+                    // setCategoryBySector('sector')
                     let porEmpresa = agregaQuejasPorCategoria(quejasJson, categoryByCompanies)
                     let porSector =agregaQuejasPorCategoria(quejasJson, categoryBySector)
-                    setQuejasPorEmpresa(porEmpresa)
-                    setQuejasPorSector(porSector)      
+                    // setQuejasPorEmpresa(porEmpresa) //no se ocupa y se rompe si se implementa en lugar de usar la var porEmpresa
+                    // setQuejasPorSector(porSector)  //no se ocupa y se rompe si se implementa en lugar de usar la var porSector
                     console.log('envio resultadoHook a estado Empresa',porEmpresa)
                     console.log('envio resultadoHook a estado Sector',porSector)
                     const quejasDataEmpresas ={
@@ -101,9 +99,11 @@ const Home = () => {
                                 '#1ac8ed', //blue
                                 // '#1ac6edb0',
                                 // '#005494',
-                                // '#ff6347',
-                                // '#ffba08',
+                                '#ff6347', //red
+                                '#ffba08', //yellow
                             ],
+                            borderColor:'#000000',
+                            borderWidth:2
                        }]}
                     const quejasDataSector ={
                         labels: porSector.map((quejas)=>quejas.company),
@@ -117,6 +117,8 @@ const Home = () => {
                                 // '#ff6347',
                                 // '#ffba08',
                             ],
+                            borderColor:'#000000',
+                            borderWidth:2
                        }]}
                        
                     setQuejasAggPorEmpresa(quejasDataEmpresas)
@@ -129,299 +131,25 @@ const Home = () => {
         fetchQuejas()              
     },[])
 
-    
-   
-    
-    
-//testing process -------------------//    
-    // const lasquejas = agregaQuejasPorCategoria(quejas,categoryBySector)
-    // const [listadeQuejas, setlistadequejas] = useState(lasquejas)
-    
-    
-    // const [quejasByCompanyGraph, setQuejasByCompanyGraph] = useState({
-    //     labels: listadeQuejas.map((company)=>company.company),
-    //     datasets:[{
-    //         label:'Quejas por Empresa',
-    //         data: listadeQuejas.map((company)=> company.totalQuejas),
-    //         backgroundColor: [
-    //             '#1ac8ed', //red
-    //             '#1ac6edb0',
-    //             '#005494',
-    //             '#ff6347',
-    //             '#ffba08',
-    //         ],
-    //     }]
-    // })
-    
-    
-    // const crearGrafico =()=>{
-    //     let graphData = {
-    //         labels: lasquejas.map((company)=>company.company),
-    //         datasets:[{
-    //             label:'Quejas por Empresa',
-    //             data: lasquejas.map((company)=> company.totalQuejas),
-    //             backgroundColor: [
-    //                 '#1ac8ed', //red
-    //                 '#1ac6edb0',
-    //                 '#005494',
-    //                 '#ff6347',
-    //                 '#ffba08',
-    //             ],
-    //         }]
-    //     }
-    //     setQuejasByCompanyGraph(graphData)
-    //     return quejasByCompanyGraph
-    // }
-    
-    // // let graphDetails = {
-    // //     labels: agregaQuejasPorCategoria(quejas,categoryByCompanies)?.map((company)=>company.company),
-    // //     datasets:[{
-    // //         label:'Quejas por Empresa',
-    // //         data: agregaQuejasPorCategoria(quejas,categoryByCompanies)?.map((company)=> company.totalQuejas),
-    // //         backgroundColor: [
-    // //             '#1ac8ed', //red
-    // //             '#1ac6edb0',
-    // //             '#005494',
-    // //             '#ff6347',
-    // //             '#ffba08',
-    // //         ],
-    // //     }]
-    // // }
-    
-    // // let dataQuejasArray = [
-    // //     {
-    // //         company:"Turístico",
-    // //         costoBienServicio:174629,
-    // //         giro:"Aerolínea Comercial",
-    // //         montoTotalReclamado:55047,
-    // //         montoTotalRecuperado:43837,
-    // //         sector:"Turístico",
-    // //         totalQuejas:14
-    
-    // //     },
-    // //     {
-    // //         company:"Automotriz",
-    // //         costoBienServicio: 2491986,
-    // //         giro:"Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-    // //         montoTotalReclamado:239898,
-    // //         montoTotalRecuperado:239898,
-    // //         sector:"Automotriz",
-    // //         totalQuejas:10
-    // //     }
-    // // ]
-    
-    
-    
-    
-    // const [quejasAggregByCompany, setQuejasAggregByCompany] = useState({
-    //             labels: dataQuejasArray.map((company)=>company.company),
-    //             datasets:[{
-    //                 label:'Quejas por Empresa',
-    //                 data: dataQuejasArray.map((company)=> company.totalQuejas),
-    //                 backgroundColor: [
-    //                     '#1ac8ed', //red
-    //                     '#1ac6edb0',
-    //                     '#005494',
-    //                     '#ff6347',
-    //                     '#ffba08',
-    //                 ],
-    //             }]
-    //         })
-    // // let graphDetails = 'no hay graph details de inicio'
-    // // QuejasSumByCompany ? 
-    // // console.log('si hubo graphdetails asi que vamonoos al grafico')
-    // // graphDetails = {
-    // //         labels: QuejasSumByCompany.map((company)=>company.company),
-    // //         datasets:[{
-    // //             label:'Quejas por Empresa',
-    // //             data: QuejasSumByCompany.map((company)=> company.totalQuejas),
-    // //             backgroundColor: [
-    // //                 '#1ac8ed', //red
-    // //                 '#1ac6edb0',
-    // //                 '#005494',
-    // //                 '#ff6347',
-    // //                 '#ffba08',
-    // //             ],
-    // //         }]
-    // //     }
-        
-    // // :
-    // // console.log(' sigue sin haber graph details aca')
-    // // const [quejasByCompanyGraph, setQuejasByCompanyGraph] = useState(graphDetails)
-            
-    
-    // // let graphDetailsSector = 'no hay graph details de inicio'
-    // // let test = ''
-    // // QuejasSumBySector ? 
-    // // // console.log('si hubo graphdetails asi que vamonoos al grafico')
-    // // graphDetailsSector = {
-    // //         labels: QuejasSumBySector&&QuejasSumBySector.map(sector=>sector.company.toString()),
-    // //         datasets:[{
-    // //             label:'Quejas por Sector',
-    // //             data: QuejasSumBySector&&QuejasSumBySector.map(sector=> sector.totalQuejas.toString()),
-    // //             backgroundColor: [
-    // //                 '#1ac8ed', //red
-    // //                 '#1ac6edb0',
-    // //                 '#005494',
-    // //                 '#ff6347',
-    // //                 '#ffba08',
-    // //             ],
-    // //         }]
-    // //     }  
-    // // :
-    // // console.log(' sigue sin haber graph details aca')
-    // // const [quejasBySectorGraph, setQuejasBySectorGraph] = useState(graphDetailsSector)
-
-    // // const createQuejasByCategory = (quejas, categorySelected) =>{
-    // //     let categoriesArray = []
-    // //     quejas && quejas.map( queja => categoriesArray.includes(queja[categorySelected])?'':categoriesArray.push(queja[categorySelected]))
-
-    // //     let categoriesAggregatedIndicators = []
-    // //     for (let category of categoriesArray){
-    // //         let montoReclamado = 0
-    // //         let montoRecuperado = 0
-    // //         let sector = ''
-    // //         const quejasThisCategory = quejas.filter((queja)=> queja[categorySelected] === category)
-    // //         const quejasQtyThisCategory = quejasThisCategory.length
-    // //         for(let queja of quejasThisCategory){
-    // //             montoReclamado = queja.monto_reclamado + montoReclamado
-    // //             montoRecuperado = queja.monto_recuperado_b + montoRecuperado
-    // //             sector = queja.sector
-    // //         }
-    // //         const thisElementinCategoryIndicators = {company: category, totalQuejas: quejasQtyThisCategory, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado, sector: sector}
-    // //         categoriesAggregatedIndicators.push(thisElementinCategoryIndicators)
-    // //         console.log(categoriesAggregatedIndicators)
-    // //     }
-    // //     return categoriesAggregatedIndicators
-    // // }
-
-    // // const createSectorsWithQuejasArr=(quejas)=>{
-    // //     let quejasSectorArr=[]
-    // //     quejas && quejas.map(queja => quejasSectorArr.includes(queja.sector)?'':quejasSectorArr.push(queja.sector)) 
-
-    // //     let sectorAggregatedIndicatorsArr = []
-    // //     for (let sector of quejasSectorArr){
-    // //         let montoReclamado = 0
-    // //         let montoRecuperado = 0
-    // //         const quejasThisSector = quejas.filter((queja)=>queja.sector === sector)
-    // //         const quejasQtyThisSector = quejasThisSector.length
-    // //         for(let queja of quejasThisSector){
-    // //             montoReclamado = queja.monto_reclamado + montoReclamado
-    // //             montoRecuperado = queja.monto_recuperado_b + montoRecuperado
-    // //         }
-    // //         const thisSectorIndicators = {sector:sector, totalQuejas: quejasQtyThisSector, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado}
-    // //         sectorAggregatedIndicatorsArr.push(thisSectorIndicators)
-    // //         console.log(sectorAggregatedIndicatorsArr)
-    // //     }
-    // //     return sectorAggregatedIndicatorsArr
-    // // }
-
-    // // const createCompaniesWithQuejasArr=(quejas)=>{
-    // //     let quejasCompanyArr=[]
-    // //     //hace mas sentido con for each o con map?? para que mapeo y creo un nuevo array q no almaceno? q pasa con este? al final toda la logica es para pushear y alterar quejasCompanyArr entonces no se cual es mas correcto
-    // //     quejas && quejas.map(queja => quejasCompanyArr.includes(queja.nombreComercial)?'':quejasCompanyArr.push(queja.nombreComercial)) 
-
-    // //     let companiesAggregatedIndicatorsArr = []
-    // //     //debiera usar puro map en lugar de for ofs? revisar literatura, me da la impresion de que reactse basa mucho mas en maps pero ...no tengo claro
-    // //     for (let company of quejasCompanyArr){
-    // //         let montoReclamado = 0
-    // //         let montoRecuperado = 0
-    // //         let sector = ''
-    // //         const quejasThisCompany = quejas.filter((queja)=>queja.nombreComercial === company)
-    // //         const quejasQtyThisCompany = quejasThisCompany.length
-    // //         for(let queja of quejasThisCompany){
-    // //             montoReclamado = queja.monto_reclamado + montoReclamado
-    // //             montoRecuperado = queja.monto_recuperado_b + montoRecuperado
-    // //             sector = queja.sector
-    // //         }
-    // //         const thisCompanyIndicators = {company: company, totalQuejas: quejasQtyThisCompany, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado, sectorCompany: sector}
-    // //         companiesAggregatedIndicatorsArr.push(thisCompanyIndicators)
-    // //         console.log(companiesAggregatedIndicatorsArr)
-    // //     }
-    // //     return companiesAggregatedIndicatorsArr
-    // // }
-    // // categoriesAggregatedIndicatorsBySector&&  console.log(categoriesAggregatedIndicatorsBySector)
-    // // categoriesAggregatedIndicatorsByCompany && console.log(categoriesAggregatedIndicatorsByCompany)
-
-
-    // //fyi tutorial ->https://www.youtube.com/watch?v=RF57yDglDfE
-    // // documentation: https://www.chartjs.org/docs/latest/
-    // console.log('QuejasSumbyCompany del hook-->', QuejasSumByCompany)
-    // console.log('QuejasSumbySector del hook-->', QuejasSumBySector)
-
-    // // check again video to see this other method to produce chart with API REST maybe will work better?
-    // //https://www.youtube.com/watch?v=yOousFGfmZc
-  
-    const userDataChart = {
-        labels: UserData.map((data)=> data.year),
-        datasets: [{
-            label: 'Users Gained',
-            data: UserData.map((data)=> data.userGain),
-            backgroundColor: [
-                '#1ac8ed', //red
-                '#1ac6edb0',
-                '#005494',
-                '#ff6347',
-                '#ffba08',
-            ],
-            borderColor:'#000000',
-            borderWidth:5
-        }]
-    }
-    const [userData, setUserData] = useState(userDataChart)
-
-
     return ( 
         <div className="containerWrap">
             <div className="backdropImg">  
-                    {/* <BarChart chartData={crearGrafico()}/> */}
-                    {/* <BarChart chartData={quejasAggregByCompany}/>
-                    <BarChart chartData={quejasByCompanyGraph}/> */}
-
-                    {/* {quejasByCompanyGraph && QuejasSumByCompany?
-                       
-                        <BarChart chartData={quejasByCompanyGraph}/> 
-                    :
-                        console.log('no hubo datos para el chart graph')
-                    }
-                    
-                    <div>{QuejasSumByCompany.map(item=>item.company)}</div>
-                    <div>{QuejasSumByCompany.map(item=>item.totalQuejas)}</div>
-
-                    {quejasBySectorGraph && QuejasSumBySector?
-                    <div>
-                       <BarChart chartData={quejasBySectorGraph}/>
-                       <div>{QuejasSumBySector.map(item=>item.company)}</div>
-                       <div>{QuejasSumBySector.map(item=>item.totalQuejas)}</div>
-                    </div>
-                   :
-                       console.log('no hubo datos para el chart graph de sector ')
-                    }
-                    */}
-
-                    {/* <BarChart chartData={userData}/>  */}
-                    <BarChart chartData={quejasAggPorEmpresa}/> 
-                    <BarChart chartData={quejasAggPorSector}/>  
-                    
-                
-                                      
+                    <BarChart chartData={quejasAggPorSector}/>                                            
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
-                    {/* {quejas && createSectorsWithQuejasArr(quejas).map((queja)=>( */}
-                    {/* {quejas && createQuejasByCategory(quejas,categoryBySector).map((queja)=>( */}
                     {quejas && QuejasSumBySector &&QuejasSumBySector.map((queja)=>(
                             <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
                         ))
                     }
-                {/* <Link className="button" to={'/sectores'} quejas={quejas} createCompaniesWithQuejasArr={createSectorsWithQuejasArr}>Ver Más</Link> */}
                 <Link className="button" to={'/sectores'} state={categoryBySector && {quejas:quejas, categoryBySector:categoryBySector }}>Ver Más</Link>
+            </div>
+
+            <div className="backdropImg">  
+                <BarChart chartData={quejasAggPorEmpresa}/>                             
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
-                    {/* {quejas && createCompaniesWithQuejasArr(quejas).map((queja)=>( */}
-                    {/* {quejas && createQuejasByCategory(quejas, categoryByCompanies).map((queja)=>( */}
-
                     {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
                     {quejas && QuejasSumByCompany && QuejasSumByCompany.map((queja,i)=>(
                             <Link to={'/'+ queja.sector + '/' + queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>

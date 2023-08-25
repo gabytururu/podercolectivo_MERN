@@ -34,4 +34,24 @@ export const UserData = [
 ]
 
 
+//to implement this:
+
+// const userDataChart = {
+//     labels: UserData.map((data)=> data.year),
+//     datasets: [{
+//         label: 'Users Gained',
+//         data: UserData.map((data)=> data.userGain),
+//         backgroundColor: [
+//             '#1ac8ed', //red
+//             '#1ac6edb0',
+//             '#005494',
+//             '#ff6347',
+//             '#ffba08',
+//         ],
+//         borderColor:'#000000',
+//         borderWidth:5
+//     }]
+// }
+// const [userData, setUserData] = useState(userDataChart)
+
 
