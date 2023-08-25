@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import useQuejasByCategory from '../../Hooks/useQuejasByCategory'
 import SumQuejasSector from '../../../src/components/QuejasFormats/SumQuejasSector'
 import SumQuejasCompany from '../../../src/components/QuejasFormats/SumQuejasCompany'
@@ -7,9 +7,14 @@ import './Home.css'
 import {Link} from 'react-router-dom'
 import BarChart from '../../components/BarChart'
 import {UserData} from '../../Data'
+import { QuejasContext } from '../../Context/QuejasContext'
 //import {Chart as ChartJs} from 'chart.js/auto' <--- only need it on the component
 
 const Home = () => {
+    //const {theme, handleTheme} = useContext(ThemeContext)
+   // const {quejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, quejasPerSector, quejasPerGiro, sumQuejasPerCategory} = useContext(QuejasContext)
+
+
     const [quejas,setQuejas] = useState(null)
     const [categoryByCompanies, setCategoryByCompanies] = useState('nombreComercial')
     const [categoryBySector, setCategoryBySector] = useState('sector')
