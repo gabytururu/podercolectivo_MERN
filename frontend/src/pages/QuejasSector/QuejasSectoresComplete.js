@@ -16,7 +16,7 @@ const QuejasSectoresComplete = () => {
     // console.log("las quejas--->", quejas)
     // console.log("las categoriesbySector--->", categoryBySector)
 
-    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory,graphPerSector, setGraphPerSector} = useContext(QuejasContext)
+    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany} = useContext(QuejasContext)
 
     //const [quejas,setQuejas] = useState(null)
     const [categoryBySector, setCategoryBySector] = useState('sector')

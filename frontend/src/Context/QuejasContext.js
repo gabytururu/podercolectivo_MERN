@@ -30,6 +30,19 @@ export const QuejasContextProvider = ({children}) =>{
                 // '#ffba08',
             ],
        }]}) 
+    const [graphPerCompany, setGraphPerCompany] = useState({
+        labels: [],
+        datasets: [{
+            label: 'Quejas por Sector',
+            data: [],
+            backgroundColor: [
+                '#1ac8ed', //blue
+                // '#1ac6edb0',
+                // '#005494',
+                // '#ff6347',
+                // '#ffba08',
+            ],
+       }]}) 
 
     const sumQuejasPerCategory = (quejas, categorySelected) =>{
         let categoriesArray = []
@@ -63,7 +76,7 @@ export const QuejasContextProvider = ({children}) =>{
     // const perGiro = quejasSumPerCategory(quejas,categoryGiro)
 
     const data = {
-        quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector
+        quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany
     }
     
     return(
