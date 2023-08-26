@@ -66,6 +66,9 @@ const Home = () => {
 
     return ( 
         <div className="containerWrap">
+
+            
+
             <div className="backdropImg">  
                     <BarChart chartData={graphPerSector}/>                                            
             </div>

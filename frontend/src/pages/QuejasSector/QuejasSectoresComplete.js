@@ -31,7 +31,7 @@ const QuejasSectoresComplete = () => {
                     setQuejas(quejasJson)
                     const quejasSector = sumQuejasPerCategory(quejasJson, categorySector) 
                     setQuejasPerSector(quejasSector)
-                    const quejasDataSector ={
+                    setGraphPerSector({
                         labels: quejasSector.map((quejas)=>quejas.company),
                         datasets: [{
                             label: 'Quejas por Sector',
@@ -45,8 +45,9 @@ const QuejasSectoresComplete = () => {
                             ],
                             borderColor:'#000000',
                             borderWidth:2
-                       }]}
-                    setGraphPerSector(quejasDataSector)
+                       }]})
+                    
+ 
                 }
             }catch(err){
                 console.log('hubo un error: ', err)

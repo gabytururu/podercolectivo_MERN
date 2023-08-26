@@ -1,9 +1,13 @@
 
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import {useParams} from 'react-router-dom'
 import QuejaCard from '../../components/QuejasFormats/QuejaCard'
+import { QuejasContext } from '../../Context/QuejasContext'
+
 
 const QuejasCompany = () => {
+
+    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany} = useContext(QuejasContext)
     
     // const {sector, nombre_comercial} = useParams()
     const {sector, nombreComercial} = useParams()
@@ -15,9 +19,8 @@ const QuejasCompany = () => {
                 
                 const fetchQuejasEmpresa = await fetch(`http://localhost:5000/api/quejas/${sector}/${nombreComercial}`)
                 const quejasEmpresaJson = await fetchQuejasEmpresa.json()
-                console.log(quejasEmpresaJson)
-                setQuejasEmpresa(quejasEmpresaJson)
-                console.log(quejasEmpresa)
+                setQuejasEmpresa(quejasEmpresaJson)  
+                sumQuejasPerCategory(quejasEmpresaJson, categoryCompany)  //<--- will help to create a new DASHBOARD with it
             }catch(err){
                 console.log('el error en GET QUEJAS POR EMPRESA -->')
             }
