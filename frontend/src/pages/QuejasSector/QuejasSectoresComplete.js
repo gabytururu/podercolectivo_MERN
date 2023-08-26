@@ -32,10 +32,10 @@ const QuejasSectoresComplete = () => {
                     const quejasSector = sumQuejasPerCategory(quejasJson, categorySector) 
                     setQuejasPerSector(quejasSector)
                     setGraphPerSector({
-                        labels: quejasSector.map((quejas)=>quejas.company),
+                        labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.company),
                         datasets: [{
                             label: 'Quejas por Sector',
-                            data: quejasSector.map((quejas)=> quejas.totalQuejas),
+                            data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
                             backgroundColor: [
                                 '#1ac8ed', //blue
                                 // '#1ac6edb0',
@@ -69,7 +69,9 @@ const QuejasSectoresComplete = () => {
             <div className="data"> 
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2>
                   {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
-                {quejasPerSector.map((queja,i)=>(
+                {quejasPerSector
+                        .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                        .map((queja,i)=>(
                             <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={i} queja={queja}/></Link>
                         ))
                     }

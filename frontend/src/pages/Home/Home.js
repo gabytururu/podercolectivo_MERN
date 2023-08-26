@@ -41,10 +41,10 @@ const Home = () => {
                        }]
                     })
                     setGraphPerCompany({
-                        labels: quejasCompany.map((quejas)=>quejas.company),
+                        labels: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.company),
                         datasets: [{
                             label: 'Quejas por Empresa',
-                            data: quejasCompany.map((quejas)=> quejas.totalQuejas),
+                            data: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
                             backgroundColor: [
                                 '#1ac8ed', //blue
                                 // '#1ac6edb0',
@@ -67,14 +67,16 @@ const Home = () => {
     return ( 
         <div className="containerWrap">
 
-            
+
 
             <div className="backdropImg">  
                     <BarChart chartData={graphPerSector}/>                                            
             </div>
             <div className="data"> 
                 <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
-                    {quejasPerSector.map((queja)=>(
+                    {quejasPerSector
+                        .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                        .map((queja)=>(
                             <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
                         ))
                     }
@@ -87,7 +89,9 @@ const Home = () => {
             <div className="data"> 
                 <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
                     {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
-                    {quejasPerCompany.map((queja,i)=>(
+                    {quejasPerCompany
+                        .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                        .map((queja,i)=>(
                             <Link to={'/'+ queja.sector + '/' + queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>
                         ))
                     }
@@ -107,7 +111,7 @@ const Home = () => {
                 // {/* <Link className="button" to={'/sectores'} state={categoryBySector && {quejas:quejas, categoryBySector:categoryBySector }}>Ver Más</Link> */}
 }
 export default Home;     
-
+// 1. VER MAS de companies (home) no funciona -- SCROLL me lleva al bottom del component sig            
 //             4. revisar que onda con los INDEX como key... no se si deba quedar asi.. leer un poco del tema o ver videos de curso?
 //             8. crear un sort de MAYOR A MENOR para los renders de agregados y sort Alfabetico+mayoramenor? para individuales
 //             9. crear rendering views para  "cantidad de quejas" VS "cantidad de monto reclamado" --definir si seran componentes que se renderizan ambos (ej arriba quejas abajo montos) o si seran conditional rendering tmb
