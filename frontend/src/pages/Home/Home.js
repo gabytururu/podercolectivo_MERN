@@ -25,10 +25,10 @@ const Home = () => {
                     setQuejasPerSector(quejasSector)
                     setQuejasPerCompany(quejasCompany)
                     setGraphPerSector({
-                        labels: quejasSector.map((quejas)=>quejas.company),
+                        labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.company),
                         datasets: [{
                             label: 'Quejas por Empresa',
-                            data: quejasSector.map((quejas)=> quejas.totalQuejas),
+                            data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
                             backgroundColor: [
                                 '#1ac8ed', //blue
                                 // '#1ac6edb0',
@@ -111,10 +111,10 @@ const Home = () => {
                 // {/* <Link className="button" to={'/sectores'} state={categoryBySector && {quejas:quejas, categoryBySector:categoryBySector }}>Ver Más</Link> */}
 }
 export default Home;     
-// 1. VER MAS de companies (home) no funciona -- SCROLL me lleva al bottom del component sig            
+//             1. VER MAS de companies (home) no funciona -- SCROLL me lleva al bottom del component sig            
 //             4. revisar que onda con los INDEX como key... no se si deba quedar asi.. leer un poco del tema o ver videos de curso?
 //             8. crear un sort de MAYOR A MENOR para los renders de agregados y sort Alfabetico+mayoramenor? para individuales
-//             9. crear rendering views para  "cantidad de quejas" VS "cantidad de monto reclamado" --definir si seran componentes que se renderizan ambos (ej arriba quejas abajo montos) o si seran conditional rendering tmb
+//             9. crear rendering views para  "cantidad de quejas" VS "cantidad de monto reclamado" --definir si seran componentes que se renderizan ambos (ej arriba quejas abajo montos) o si         seran conditional rendering tmb
 //             10. test carga de DB real de profeco desde json/excel
 //             12. crear modulo de POST QUEJA y layout UX/UI para definir donde se pondra eso y como nutrira el sitio RELATIVO a la data oficial
 //             13. ya deahi..definir q pedo con un test de db real con volu¿men de datos alto y con el deployment (ej medidas de seguridad para DB, IP etc)

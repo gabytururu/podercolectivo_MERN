@@ -26,10 +26,10 @@ const QuejasSector = () => {
                 setQuejasdelSector(quejasSectorJson)
                 const quejasSector = sumQuejasPerCategory(quejasSectorJson, categoryCompany)
                 setGraphPerSector({
-                    labels: quejasSector.map((quejas)=>quejas.company),
+                    labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.company),
                     datasets: [{
                         label: 'Quejas por Sector',
-                        data: quejasSector.map((quejas)=> quejas.totalQuejas),
+                        data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
                         backgroundColor: [
                             '#1ac8ed', //blue
                             // '#1ac6edb0',
@@ -39,7 +39,8 @@ const QuejasSector = () => {
                         ],
                         borderColor:'#000000',
                         borderWidth:2
-                   }]})
+                   }]
+                })
 
               
             }catch(err){

@@ -3,6 +3,7 @@ import {useState, useEffect, useContext} from 'react'
 import {useParams} from 'react-router-dom'
 import QuejaCard from '../../components/QuejasFormats/QuejaCard'
 import { QuejasContext } from '../../Context/QuejasContext'
+import BarChart from '../../components/BarChart'
 
 
 const QuejasCompany = () => {
@@ -19,8 +20,25 @@ const QuejasCompany = () => {
                 
                 const fetchQuejasEmpresa = await fetch(`http://localhost:5000/api/quejas/${sector}/${nombreComercial}`)
                 const quejasEmpresaJson = await fetchQuejasEmpresa.json()
-                setQuejasEmpresa(quejasEmpresaJson)  
-                sumQuejasPerCategory(quejasEmpresaJson, categoryCompany)  //<--- will help to create a new DASHBOARD with it
+                setQuejasEmpresa(quejasEmpresaJson)  //<--- will help to create a new DASHBOARD with it
+                // const quejasEmpresa= sumQuejasPerCategory(quejasEmpresaJson, categoryCompany)  
+                // setGraphPerCompany({
+                //     labels: quejasEmpresa.map((quejas)=>quejas.company),
+                //     datasets: [{
+                //         label: 'Quejas por Empresa',
+                //         data: quejasEmpresa.map((quejas)=> quejas.totalQuejas),
+                //         backgroundColor: [
+                //             '#1ac8ed', //blue
+                //             // '#1ac6edb0',
+                //             // '#005494',
+                //             // '#ff6347',
+                //             // '#ffba08',
+                //         ],
+                //         borderColor:'#000000',
+                //         borderWidth:2
+                //    }]
+                // })
+
             }catch(err){
                 console.log('el error en GET QUEJAS POR EMPRESA -->')
             }
@@ -28,6 +46,14 @@ const QuejasCompany = () => {
         } 
         getQuejasEmpresa()
     },[])
+
+    const getValorBienOServicio = (quejasEmpresa) =>{
+        let valorBienServicio = 0
+        for(let queja of quejasEmpresa){
+            valorBienServicio = valorBienServicio + queja.costo_bien_servicio
+        }
+        return valorBienServicio
+    }
 
     const getMontoTotalReclamado =(quejasEmpresa)=>{
         let montoTotalReclamado = 0
@@ -47,11 +73,18 @@ const QuejasCompany = () => {
 
     return ( 
         <div className="containerWrap">
-            <h1>Quejas sobre la empresa "{quejasEmpresa && nombreComercial}" México del Sector {sector} recibidas en PROFECO</h1>
-            <p>Se han encontrado un total de {quejasEmpresa && quejasEmpresa.length} quejas equivalentes a {quejasEmpresa&& getMontoTotalReclamado(quejasEmpresa)} MXN en montos reclamados de a {nombreComercial} de los cuales han sido recuperados {quejasEmpresa&& getMontoTotalRecuperado(quejasEmpresa)}</p>
-            <div className="data">
+           
+            <div className='data'>   
+                <h1>Quejas Detalladas de la Empresa "{quejasEmpresa && nombreComercial}" Recibidas en la PROFECO</h1>
+                <p>Se han encontrado un total de {quejasEmpresa && quejasEmpresa.length} quejas por bienes o servicios ascendentes a ${quejasEmpresa&& getValorBienOServicio(quejasEmpresa)} MXN  de los cuales han sido reclamados  reclamados  {quejasEmpresa&& getMontoTotalReclamado(quejasEmpresa)} MXN a {nombreComercial}. De estos, un total de {quejasEmpresa&& getMontoTotalRecuperado(quejasEmpresa)} ya han sido recuperados</p>
+            </div>
+            <div className="data">            
+                <h2>Lista Detallada de Quejas de {nombreComercial} presentadas ante PROFECO:</h2>
+                <p>La siguiente lista, presenta de manera detallada las quejas que han sido sometidas ante PROFECO reclamando una mala práctica, incumplimiento o negativa por parte de {nombreComercial}.</p>
+                <p>Cada una de estas quejas cuenta con un ID oficial de PROFECO, así como el motivo por el cual fué presentada la queja, el costo del bien o servicio reclamado y el estátus de la queja (por ej. conciliada, en trámite, desistida etc).</p>
+                <p>Esta información ha sido tomada de fuentes públicas gubernamentales de México y posteriormente procesada por nuestro equipo para darle una presentación y visualización más sencilla y accesible al público en general.</p>
                 {quejasEmpresa && quejasEmpresa
-                    // .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                    .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                     .map((queja)=>(
                     <QuejaCard key={queja._id} queja={queja}/>
                 ))}
