@@ -38,7 +38,8 @@ const QuejasSector = () => {
                             // '#ffba08',
                         ],
                         borderColor:'#000000',
-                        borderWidth:2
+                        // borderWidth:2,
+                        borderRadius: 8
                    }]
                 })
 
@@ -108,8 +109,6 @@ const QuejasSector = () => {
     //     return companiesAggregatedIndicatorsArr
     // }
 
-    
-  
     return ( 
         <div className="containerWrap">
             <h1>ACA IRA EL LAY OUT DE QUEJAS POR giro: {sector}</h1>
@@ -120,7 +119,7 @@ const QuejasSector = () => {
                     <BarChart chartData={graphPerSector}/>                                            
             </div>
 
-            <h2>Las empresas del Sector {sector} con Más quejas Acumuladas:</h2>
+            <h2>Las Empresas del Sector {sector} con Más quejas Acumuladas:</h2>
             <div className="data">
                 {quejasdelSector && sumQuejasPerCategory(quejasdelSector,categoryCompany)
                     .sort((a,b)=>b.totalQuejas - a.totalQuejas)

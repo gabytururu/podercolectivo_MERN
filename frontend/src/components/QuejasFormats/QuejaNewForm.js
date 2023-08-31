@@ -1,5 +1,6 @@
 const NewQuejaForm = () => {
     return ( 
+       
         <form className="newQueja">
             <label>Empresa</label>
             <input type="text" />

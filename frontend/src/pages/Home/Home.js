@@ -37,7 +37,13 @@ const Home = () => {
                                 // '#ffba08',
                             ],
                             borderColor:'#000000',
-                            borderWidth:2
+                            // borderWidth:2,
+                            borderRadius: 10,
+                            // datalabels:{
+                            //     color: 'black',
+                            //     anchor: 'end',
+                            //     align:'top'
+                            // }
                        }]
                     })
                     setGraphPerCompany({
@@ -53,7 +59,13 @@ const Home = () => {
                                 // '#ffba08',
                             ],
                             borderColor:'#000000',
-                            borderWidth:2
+                            // borderWidth:2,
+                            borderRadius: 8,
+                            datalabels:{
+                                color: 'black',
+                                anchor: 'end',
+                                align:'top'
+                            }
                        }]
                     })
                 }
@@ -110,7 +122,8 @@ const Home = () => {
                 //     } */}              
                 // {/* <Link className="button" to={'/sectores'} state={categoryBySector && {quejas:quejas, categoryBySector:categoryBySector }}>Ver Más</Link> */}
 }
-export default Home;     
+export default Home;   
+ //               0. ARREGLAR LAS URLS que salen con % y codigos numericos en vez d esimbolos
 //             1. VER MAS de companies (home) no funciona -- SCROLL me lleva al bottom del component sig            
 //             4. revisar que onda con los INDEX como key... no se si deba quedar asi.. leer un poco del tema o ver videos de curso?
 //             8. crear un sort de MAYOR A MENOR para los renders de agregados y sort Alfabetico+mayoramenor? para individuales

@@ -36,7 +36,8 @@ const QuejasCompaniesComplete = () => {
                                 // '#ffba08',
                             ],
                             borderColor:'#000000',
-                            borderWidth:2
+                            // borderWidth:2,
+                            borderRadius: 8
                        }]
                     })                       
                 }
