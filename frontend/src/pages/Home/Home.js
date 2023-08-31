@@ -61,11 +61,11 @@ const Home = () => {
                             borderColor:'#000000',
                             // borderWidth:2,
                             borderRadius: 8,
-                            datalabels:{
-                                color: 'black',
-                                anchor: 'end',
-                                align:'top'
-                            }
+                            // datalabels:{
+                            //     color: 'black',
+                            //     anchor: 'end',
+                            //     align:'top'
+                            // }
                        }]
                     })
                 }
