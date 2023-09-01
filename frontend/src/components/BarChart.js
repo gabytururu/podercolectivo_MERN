@@ -10,6 +10,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 
 let options= {
+    maintainAspectRatio: false,
     scales:{
         y:{
             beginAtZero:true,
@@ -59,8 +60,7 @@ let options= {
             backgroundColor:[
                 'blue'
             ],
-            borderRadius: 50
-            
+            borderRadius: 50  
         }
     }
  }

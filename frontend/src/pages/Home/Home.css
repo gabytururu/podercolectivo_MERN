@@ -23,11 +23,42 @@
 
 .backdropImg{
     width: 1250px;
+    height: 700px;
     margin:auto;
     padding: 20px;
     margin: 25px 0px 25px 0px;
     /* border: solid 2px black; */
     border-radius: 15px;
     /* font-size: 35px; not working to enlarge info inside charts */
-    
+}
+@media only screen and (max-width:1250px){
+    .backdropImg{
+        width: 90%;
+        height: 45%;
+        padding: 20px;
+    }
+}
+@media only screen and (max-width:600px){
+    .backdropImg{
+        width: 90%;
+        height: 45%;
+        padding: 20px;
+    }
+}
+@media only screen and (max-width:400px){
+    .backdropImg{
+        width: 300px;
+        height: 300px;
+        padding: 20px;
+        width: 90%;
+        height: 45%;
+        padding: 20px;
+    }
+}
+@media only screen and (max-width:400px){
+    .backdropImg{
+        width: 90px;
+        height: 45%;
+        padding: 20px;
+    }
 }

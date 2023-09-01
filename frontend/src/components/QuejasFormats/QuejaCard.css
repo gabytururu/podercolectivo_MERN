@@ -72,8 +72,16 @@
     
 }
 
-@media (max-width:600px) {
+@media only screen and (max-width:600px){
+    .quejaContainer{
+        width: 90%;
+        border-left: 5px solid var(--poderColectivo-red);
+    }
+
+}
+
+/* @media (max-width:600px) {
     .queja{
         border-left: 5px solid var(--poderColectivo-red);
     }
-}
+} */
