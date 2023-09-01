@@ -22,10 +22,12 @@
 }
 
 .backdropImg{
-    width: 1200px;
+    width: 1250px;
     margin:auto;
     padding: 20px;
     margin: 25px 0px 25px 0px;
-    border: solid 2px black;
-    border-radius: 15px
+    /* border: solid 2px black; */
+    border-radius: 15px;
+    /* font-size: 35px; not working to enlarge info inside charts */
+    
 }

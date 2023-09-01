@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 import BarChart from '../../components/BarChart'
 import {UserData} from '../../Data'
 import { QuejasContext } from '../../Context/QuejasContext'
+// import ChartDataLabels from 'chartjs-plugin-datalabels'
 //import {Chart as ChartJs} from 'chart.js/auto' <--- only need it on the component
 
 const Home = () => {
@@ -27,7 +28,7 @@ const Home = () => {
                     setGraphPerSector({
                         labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.company),
                         datasets: [{
-                            label: 'Quejas por Empresa',
+                            label: 'Quejas por Sector',
                             data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
                             backgroundColor: [
                                 '#1ac8ed', //blue
@@ -36,14 +37,9 @@ const Home = () => {
                                 // '#ff6347',
                                 // '#ffba08',
                             ],
-                            borderColor:'#000000',
+                            // borderColor:'#000000',
                             // borderWidth:2,
-                            borderRadius: 10,
-                            // datalabels:{
-                            //     color: 'black',
-                            //     anchor: 'end',
-                            //     align:'top'
-                            // }
+                            borderRadius: 10
                        }]
                     })
                     setGraphPerCompany({
@@ -58,14 +54,25 @@ const Home = () => {
                                 // '#ff6347',
                                 // '#ffba08',
                             ],
-                            borderColor:'#000000',
+                            // borderColor:'#000000',
                             // borderWidth:2,
                             borderRadius: 8,
+                            // options: {
+                            //     plugins:{
+                            //         datalabels:{
+                            //             color:'yellow',
+                            //             fontSize: 35
+                            //         }
+                            //     }
+                            // },
                             // datalabels:{
-                            //     color: 'black',
-                            //     anchor: 'end',
-                            //     align:'top'
+                            //     color:'yellow',
+                            //     weight:200,
+                            //     fontSize: 55,
+                            //     align: 'center'
+                                
                             // }
+
                        }]
                     })
                 }
@@ -123,6 +130,7 @@ const Home = () => {
                 // {/* <Link className="button" to={'/sectores'} state={categoryBySector && {quejas:quejas, categoryBySector:categoryBySector }}>Ver Más</Link> */}
 }
 export default Home;   
+  //      0. script para quitar la razon social de los nombres para crear columna con nombres cortos - para el barchart
  //               0. ARREGLAR LAS URLS que salen con % y codigos numericos en vez d esimbolos
 //             1. VER MAS de companies (home) no funciona -- SCROLL me lleva al bottom del component sig            
 //             4. revisar que onda con los INDEX como key... no se si deba quedar asi.. leer un poco del tema o ver videos de curso?
