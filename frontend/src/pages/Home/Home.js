@@ -92,28 +92,35 @@ const Home = () => {
            <div className="heroImage">
                 <div className="heroText">
                     <h1>Poder Colectivo</h1>
-                    <h2>El Mejor Sitio para conocer la Reputación de las Empresas Mexicanas</h2>
-                    <h3>Conoce las estadísticas de quejas interpuestas ante la PROFECO en México y ayúdanos a elevar el poder colectivo</h3>
+                    <h2>Conoce la reputación de las empresas mexicanas a través de las estadísticas de PROFECO</h2> 
+                    <p>Página creada con <span>❤️</span> de Mexas para Mexas</p>
+                    <p>¡Ayúdanos a Elevar el Poder Colectivo!</p>
                 </div>
             </div>
 
             <div className="containerWrap">
-                <h1>Quejas Recibidas en la Procuraduría Federal del Consumidor (PROFECO México)</h1>
-                <BarChart chartData={graphPerSector}/>                                      
                 <div className="data"> 
-                    <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
-                        {quejasPerSector
-                            .sort((a,b)=>b.totalQuejas - a.totalQuejas)
-                            .map((queja)=>(
-                                <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
-                            ))
-                        }
-                    <Link className="button" to={'/sectores'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Más</Link>
+                    <h2>Sectores Comerciales con Más Quejas en PROFECO México</h2> 
+                    <p>La gráfica siguiente presenta la lista de empresas que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado (2022) y lo que va de 2023*</p> 
+                    <BarChart chartData={graphPerSector}/>                                      
+                    <h3>Lista de Quejas Acumuladas por Sector</h3> 
+                    <p>Da click o tap en cada una para conocer las quejas de las empresas de cada sector:</p> 
+                            {quejasPerSector
+                                .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                                .map((queja)=>(
+                                    <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
+                                ))
+                            }
+                        <Link className="button" to={'/sectores'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Más</Link>
                 </div>
-                    <BarChart chartData={graphPerCompany}/>                             
             
                 <div className="data"> 
-                    <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
+                    <h2>Empresas con Más Quejas en PROFECO México</h2> 
+                    <p>La gráfica siguiente presenta la lista de las 10 empresas que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado(2022) y lo que va de 2023*</p> 
+                    <BarChart chartData={graphPerCompany}/>                             
+
+                    <h3>Lista de Quejas Acumuladas por Empresa</h3> 
+                    <p>Da click o tap en cada una para conocer el detalle oficial de cada una de estas quejas por empresa (ej. motivo de la queja, estátus, valor económico asociado y ID oficial de la queja ante PROFECO) quejas de las empresas de cada sector:</p> 
                         {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
                         {quejasPerCompany
                             .sort((a,b)=>b.totalQuejas - a.totalQuejas)
