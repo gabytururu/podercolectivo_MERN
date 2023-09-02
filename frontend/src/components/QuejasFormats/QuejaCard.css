@@ -1,3 +1,5 @@
+/* // ========== GENERAL (APPLIES TO ALL DIFF CARDS)
+===========// */
 .quejaContainer{
     width: 100%;
     margin-left:auto;
@@ -11,21 +13,59 @@
     /* margin: 0px 8px 8px 8px;  */
     border-radius: 6px;
     box-shadow: 3px 3px 5px 0px #8888;  
-    padding: 1px 5px 5px 0px;
+    /* padding: 1px 5px 5px 0px; */
+    padding: 10px 0px 10px 0px;
     transition:0.4s;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    line-height:10%; 
-    /* overflow-wrap: break-word */
-   
+    /* flex-wrap: wrap; */
+    /* line-height:10%;  */
+    /* overflow-wrap: break-word */ 
 }
 
+.queja:hover{
+    background-color: rgba(255, 228, 196, 0.391);   
+}
+
+/* // ======= Quejas Cards w SUMMARY (Per Company + Per Sector)
+======// */
+
+.queja h3{
+    text-align: center;     
+    margin: 0;
+    overflow-wrap: break-word; 
+    font-size: 22px; 
+}
+
+.quejaLegend{
+    font-style: italic;
+    font-size: 15px;
+    text-align:center;
+    margin:10px;
+    line-height:1.5em
+}
+
+.quejaQty{
+    background-color: var(--poderColectivo-red);
+    border-radius: 5px;
+    padding:10px;
+    font-size: 20px;
+    font-weight: 700;
+    margin:0;
+}
+
+.quejaQty .currency{
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* // ========== INDIVIDUAL DETAILED CARD 
+===========// */
 .queja hr{
     height: 3px;
-    width:200px;
+    width:23vw;
     background-color: var(--poderColectivo-yellow);
     border:none;
     line-height: 0;
@@ -33,17 +73,17 @@
     padding:0;
 }
 
-.queja:hover{
-    /* border-left: 10px solid var(--poderColectivo-blue); */
-    /* background-color: var(--poderColectivo-blueTransparent); */
-    background-color: rgba(255, 228, 196, 0.391);
-   
-}
 .quejasParagraphs{
-    margin-top: -20px;
+    margin-top: -20px;    
 }
-.queja p{
-    margin: 0px 0px 0px 0px;
+
+.queja #quejaDetailedCardTitle{
+    padding: 10px;
+    margin:15px;    
+} 
+
+.queja .quejasParagraphs p{
+    margin: 0;
     padding:5px;
     overflow-wrap: break-word; 
     line-height: 1.5em; 
@@ -51,39 +91,10 @@
     font-size: 16px;
 }
 
-.quejaQty{
-    background-color: var(--poderColectivo-red);
-    border-radius: 5px;
-    padding:10px;
-    font-size: 22px;
-    font-weight: 700;
-    
-}
-.quejaLegend{
-    font-style: italic;
-    /* text-align: center; */
-    font-size: 12px;
-}
-
-.queja h3{
-    text-align: center;     
-    margin:20px; 
-    overflow-wrap: break-word;  
-    line-height: 1.5em; 
-}
-
- #quejaCardTitle{
-   
-    /* border-bottom: 3px solid var(--poderColectivo-yellow); */
-    padding: 10px;
-    margin:20px;    
-} 
-
 #quejaId{
     font-size: 13px;
     font-style: italic;
 }
-
 
 @media only screen and (max-width:600px){
     .quejaContainer{
@@ -92,6 +103,9 @@
     }
 
 }
+
+
+
 
 /* @media (max-width:600px) {
     .queja{

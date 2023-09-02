@@ -100,11 +100,11 @@ const Home = () => {
 
             <div className="containerWrap">
                 <div className="data"> 
-                    <h2>Sectores Comerciales con Más Quejas en PROFECO México</h2> 
-                    <p>La gráfica siguiente presenta la lista de empresas que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado (2022) y lo que va de 2023*</p> 
+                    <h2 className="datah2">Sectores Comerciales con Más Quejas en PROFECO México</h2> 
+                    <p className="dataP">La gráfica siguiente presenta los 10 sectores que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado (2022) y lo que va de 2023*</p> 
                     <BarChart chartData={graphPerSector}/>                                      
-                    <h3>Lista de Quejas Acumuladas por Sector</h3> 
-                    <p>Da click o tap en cada una para conocer las quejas de las empresas de cada sector:</p> 
+                    <h3 className="datah3">Lista de Quejas Acumuladas por Sector</h3> 
+                    <p className="dataP">Da click o tap en cada una para conocer qué empresas forman parte de cada sector y los detalles de las quejas acumuladas:</p> 
                             {quejasPerSector
                                 .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                                 .map((queja)=>(
@@ -115,12 +115,12 @@ const Home = () => {
                 </div>
             
                 <div className="data"> 
-                    <h2>Empresas con Más Quejas en PROFECO México</h2> 
-                    <p>La gráfica siguiente presenta la lista de las 10 empresas que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado(2022) y lo que va de 2023*</p> 
+                    <h2 className="datah2">Empresas con Más Quejas en PROFECO México</h2> 
+                    <p className="dataP">La gráfica siguiente presenta la lista de las 10 empresas que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado(2022) y lo que va de 2023*</p> 
                     <BarChart chartData={graphPerCompany}/>                             
 
-                    <h3>Lista de Quejas Acumuladas por Empresa</h3> 
-                    <p>Da click o tap en cada una para conocer el detalle oficial de cada una de estas quejas por empresa (ej. motivo de la queja, estátus, valor económico asociado y ID oficial de la queja ante PROFECO) quejas de las empresas de cada sector:</p> 
+                    <h3 className="datah3">Lista de Quejas Acumuladas por Empresa</h3> 
+                    <p className="dataP">Da click o tap en cada una para conocer los detalles de las quejas acumuladas por empresa (ej. motivo de la queja ante PROFECO, estátus, o valor económico del bien o servicio reclamado):</p> 
                         {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
                         {quejasPerCompany
                             .sort((a,b)=>b.totalQuejas - a.totalQuejas)
@@ -135,12 +135,12 @@ const Home = () => {
             );
 }
 export default Home;   
-              //  0. CSS -- CREO Hace sentido llevar el CSS del barchart de HOME a BARCHART Component. para que se repliquen siempre esos setups asi como las options
+             
   //      0. script para quitar la razon social de los nombres para crear columna con nombres cortos - para el barchart
  //               0. ARREGLAR LAS URLS que salen con % y codigos numericos en vez d esimbolos
 //             1. VER MAS de companies (home) no funciona -- SCROLL me lleva al bottom del component sig            
 //             4. revisar que onda con los INDEX como key... no se si deba quedar asi.. leer un poco del tema o ver videos de curso?
-//             8. crear un sort de MAYOR A MENOR para los renders de agregados y sort Alfabetico+mayoramenor? para individuales
+//         
 //             9. crear rendering views para  "cantidad de quejas" VS "cantidad de monto reclamado" --definir si seran componentes que se renderizan ambos (ej arriba quejas abajo montos) o si         seran conditional rendering tmb
 //             10. test carga de DB real de profeco desde json/excel
 //             12. crear modulo de POST QUEJA y layout UX/UI para definir donde se pondra eso y como nutrira el sitio RELATIVO a la data oficial

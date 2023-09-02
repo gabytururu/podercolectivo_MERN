@@ -8,7 +8,7 @@ const QuejaCard = ({queja}) => {
           <div className="quejaContainer">
                {queja && 
                     <div className="queja">
-                         <h3 id="quejaCardTitle">Queja Emitida a "{nombreComercial}"</h3>
+                         <h3 id="quejaDetailedCardTitle">Queja Emitida a "{nombreComercial}"</h3>
                          <hr />
                          <div className='quejasParagraphs'>
                               <p><b>Motivo de la Queja:</b> {motivo_reclamacion}</p>

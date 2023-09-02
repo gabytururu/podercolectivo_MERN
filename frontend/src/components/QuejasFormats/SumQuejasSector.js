@@ -14,10 +14,9 @@ const SumQuejasSector = ({queja}) => {
                     <p className="quejaLegend">Cantidad de Quejas en este Sector:</p>
                     <p className="quejaQty"> {totalQuejas}</p>
                     <p className="quejaLegend">Costo de los bienes o servicios en disputa:</p>
-                    <p className="quejaQty"> ${costoBienServicio}</p>
+                    <p className="quejaQty"> ${costoBienServicio} <span className="currency">MXN</span></p>
                     {/* <p>Monto total Reclamado: ${montoTotalReclamado}</p>
                     <p>Monto Recuperado: ${montoTotalRecuperado}</p> */}
-                 
                 </div>
               
             }
