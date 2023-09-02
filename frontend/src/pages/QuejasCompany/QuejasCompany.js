@@ -3,7 +3,7 @@ import {useState, useEffect, useContext} from 'react'
 import {useParams} from 'react-router-dom'
 import QuejaCard from '../../components/QuejasFormats/QuejaCard'
 import { QuejasContext } from '../../Context/QuejasContext'
-import BarChart from '../../components/BarChart'
+//import BarChart from '../../components/BarChart'
 
 
 const QuejasCompany = () => {

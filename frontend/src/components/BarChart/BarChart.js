@@ -2,6 +2,7 @@ import{Bar} from 'react-chartjs-2'
 import {Chart as ChartJs, BarElement} from 'chart.js/auto'
 import 'chartjs-plugin-datalabels'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
+import './BarChart.css'
 
 // ChartJs.register(
 //     BarElement,
@@ -66,9 +67,10 @@ let options= {
  }
 const BarChart = ({chartData}) => {
     return ( 
-        // <Bar data={chartData} options={{}}/>
-        <Bar data={chartData}  plugins={[ChartDataLabels]} options={options}/>
-        // <Bar data={chartData}  plugins={[ChartDataLabels]} />
+        <div className="backdropImg">       
+            <Bar data={chartData}  plugins={[ChartDataLabels]} options={options}/>
+        </div>
+        
      );
 }
  

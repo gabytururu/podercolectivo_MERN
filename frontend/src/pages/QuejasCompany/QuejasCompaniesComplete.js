@@ -5,7 +5,8 @@ import {useState, useEffect, useContext} from 'react'
 import {Link, useLocation} from 'react-router-dom'
 import useFetch from "../../Hooks/useFetch";
 import { QuejasContext } from "../../Context/QuejasContext";
-import BarChart from "../../components/BarChart";
+//import BarChart from "../../components/BarChart";
+import BarChart from "../../components/BarChart/BarChart";
 
 const QuejasCompaniesComplete = () => {
 

@@ -1,16 +1,9 @@
 .quejaContainer{
     width: 100%;
-    margin-bottom:25px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:20px;    
 }
-
-
-
-
-/* .quejaContainer a{
-    text-decoration: none;
-    color: white;
-   
-} */
 
 .queja{
     border-left: 10px solid var(--poderColectivo-red);
@@ -26,7 +19,18 @@
     align-items: center;
     flex-wrap: wrap;
     line-height:10%; 
+    /* overflow-wrap: break-word */
    
+}
+
+.queja hr{
+    height: 3px;
+    width:200px;
+    background-color: var(--poderColectivo-yellow);
+    border:none;
+    line-height: 0;
+    translate: 0px -30px;
+    padding:0;
 }
 
 .queja:hover{
@@ -35,9 +39,16 @@
     background-color: rgba(255, 228, 196, 0.391);
    
 }
+.quejasParagraphs{
+    margin-top: -20px;
+}
 .queja p{
     margin: 0px 0px 0px 0px;
-    padding:15px
+    padding:5px;
+    overflow-wrap: break-word; 
+    line-height: 1.5em; 
+    text-align: center; 
+    font-size: 16px;
 }
 
 .quejaQty{
@@ -55,27 +66,29 @@
 }
 
 .queja h3{
-    /* text-align: center; */
-    
-    margin:20px;
-    /* line-height: 1em; */
+    text-align: center;     
+    margin:20px; 
+    overflow-wrap: break-word;  
+    line-height: 1.5em; 
 }
+
+ #quejaCardTitle{
+   
+    /* border-bottom: 3px solid var(--poderColectivo-yellow); */
+    padding: 10px;
+    margin:20px;    
+} 
 
 #quejaId{
     font-size: 13px;
     font-style: italic;
 }
 
-#quejaCardTitle{
-    border-bottom: 3px solid var(--poderColectivo-yellow);
-    padding: 10px
-    
-}
 
 @media only screen and (max-width:600px){
     .quejaContainer{
         width: 90%;
-        border-left: 5px solid var(--poderColectivo-red);
+        /* border-left: 5px solid var(--poderColectivo-red); */
     }
 
 }

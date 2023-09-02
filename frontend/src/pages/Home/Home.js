@@ -5,7 +5,8 @@ import SumQuejasCompany from '../../../src/components/QuejasFormats/SumQuejasCom
 import QuejaCard from '../../../src/components/QuejasFormats/QuejaCard'
 import './Home.css'
 import {Link} from 'react-router-dom'
-import BarChart from '../../components/BarChart'
+//import BarChart from '../../components/BarChart/BarChart'
+import BarChart from '../../components/BarChart/BarChart'
 import {UserData} from '../../Data'
 import { QuejasContext } from '../../Context/QuejasContext'
 // import ChartDataLabels from 'chartjs-plugin-datalabels'
@@ -84,52 +85,50 @@ const Home = () => {
     },[])
 
     return ( 
-        <div className="containerWrap">
+        
 
-
-
-            <div className="backdropImg">  
-                    <BarChart chartData={graphPerSector}/>                                            
-            </div>
-            <div className="data"> 
-                <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
-                    {quejasPerSector
-                        .sort((a,b)=>b.totalQuejas - a.totalQuejas)
-                        .map((queja)=>(
-                            <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
-                        ))
-                    }
-                <Link className="button" to={'/sectores'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Más</Link>
+        <div>
+           
+           <div className="heroImage">
+                <div className="heroText">
+                    <h1>Poder Colectivo</h1>
+                    <h2>El Mejor Sitio para conocer la Reputación de las Empresas Mexicanas</h2>
+                    <h3>Conoce las estadísticas de quejas interpuestas ante la PROFECO en México y ayúdanos a elevar el poder colectivo</h3>
+                </div>
             </div>
 
-            <div className="backdropImg">  
-                <BarChart chartData={graphPerCompany}/>                             
-            </div>
-            <div className="data"> 
-                <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
-                    {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
-                    {quejasPerCompany
-                        .sort((a,b)=>b.totalQuejas - a.totalQuejas)
-                        .map((queja,i)=>(
-                            <Link to={'/'+ queja.sector + '/' + queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>
-                        ))
-                    }
-                <Link className="button" to="/empresas" state={categoryCompany && {quejas:quejas, categoryByCompanies:categoryCompany}}>Ver Más</Link>
+            <div className="containerWrap">
+                <h1>Quejas Recibidas en la Procuraduría Federal del Consumidor (PROFECO México)</h1>
+                <BarChart chartData={graphPerSector}/>                                      
+                <div className="data"> 
+                    <h2>¿Cuáles son los Sectores con más Quejas en México?</h2> 
+                        {quejasPerSector
+                            .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                            .map((queja)=>(
+                                <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
+                            ))
+                        }
+                    <Link className="button" to={'/sectores'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Más</Link>
+                </div>
+                    <BarChart chartData={graphPerCompany}/>                             
+            
+                <div className="data"> 
+                    <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
+                        {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
+                        {quejasPerCompany
+                            .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                            .map((queja,i)=>(
+                                <Link to={'/'+ queja.sector + '/' + queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>
+                            ))
+                        }
+                    <Link className="button" to="/empresas" state={categoryCompany && {quejas:quejas, categoryByCompanies:categoryCompany}}>Ver Más</Link>
+                </div>
             </div>
         </div>
             );
-
-            //old version with useQuejasByCategory hook:             
-                // const QuejasSumByCompany = useQuejasByCategory(quejas, categoryCompany)
-                // const QuejasSumBySector = useQuejasByCategory(quejas,categorySector)
-
-                // {/* {quejas && QuejasSumBySector &&QuejasSumBySector.map((queja)=>(
-                //             <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
-                //         ))
-                //     } */}              
-                // {/* <Link className="button" to={'/sectores'} state={categoryBySector && {quejas:quejas, categoryBySector:categoryBySector }}>Ver Más</Link> */}
 }
 export default Home;   
+              //  0. CSS -- CREO Hace sentido llevar el CSS del barchart de HOME a BARCHART Component. para que se repliquen siempre esos setups asi como las options
   //      0. script para quitar la razon social de los nombres para crear columna con nombres cortos - para el barchart
  //               0. ARREGLAR LAS URLS que salen con % y codigos numericos en vez d esimbolos
 //             1. VER MAS de companies (home) no funciona -- SCROLL me lleva al bottom del component sig            

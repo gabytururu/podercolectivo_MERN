@@ -3,7 +3,8 @@ import useQuejasByCategory from "../../Hooks/useQuejasByCategory";
 import {Link, useLocation} from 'react-router-dom'
 import {useState, useEffect, useContext} from 'react'
 import { QuejasContext } from "../../Context/QuejasContext";
-import BarChart from "../../components/BarChart";
+//import BarChart from "../../components/BarChart";
+import BarChart from "../../components/BarChart/BarChart";
 
 const QuejasSectoresComplete = () => {
     

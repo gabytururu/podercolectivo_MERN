@@ -7,7 +7,8 @@ import useQuejasByCategory from '../../Hooks/useQuejasByCategory'
 import {useContext} from 'react'
 import { QuejasContext } from '../../Context/QuejasContext'
 // import AllQuejas from '../../components/QuejasFormats/QuejaCard'
-import BarChart from '../../components/BarChart'
+//import BarChart from '../../components/BarChart'
+import BarChart from '../../components/BarChart/BarChart'
 
 
 const QuejasSector = () => {
