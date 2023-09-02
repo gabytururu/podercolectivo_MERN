@@ -12,11 +12,6 @@ body {
   /* line-height: 0%; */
 }
 
-/* p{
-  margin:0;
-  padding:0
-} */
-
 :root{
  --poderColectivo-blue: #1ac8ed;
  --poderColectivo-blueTransparent: #1ac6edb0;
@@ -29,12 +24,4 @@ body {
  --poderColectivo-dark: #000000 ;
  
 }
-
-
-
-
-
-/* .data a:hover{
-  color: var(--poderColectivo-blue)
-} */
 

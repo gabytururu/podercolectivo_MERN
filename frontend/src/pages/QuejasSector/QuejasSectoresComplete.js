@@ -63,18 +63,13 @@ const QuejasSectoresComplete = () => {
     return ( 
         <div className="containerWrap">
             <div className="data"> 
-                <h1 >
-                    {/* no funciona ninguna opcion de salto de linea :( ver que falta */}
-                    {`Quejas Recibidas ante PROFECO México \n por sector comercial (ampliada)`}
-                    {/* Quejas Recibidas Ante PROFECO México {"\n"}Por Sector Comercial             */}
+                <h1 className="datah1">
+                    Sectores con más Quejas Acumuladas ante PROFECO México
                 </h1>
-                {/* <div className="barChart">   */}
-                    <BarChart chartData={graphPerSector}/>                                            
-                {/* </div> */}
-           
-                <h2>Lista ampliada de sectores con más quejas acumuladas ante PROFECO México</h2>
-                <p>La gráfica siguiente presenta la lista ampliada de los 50 sectores con más quejas ante la PROFECO México, durante el período 2022 y lo que va de 2023*</p>
-                <p>Puedes dar click o tap a cada uno para conocer detalles de las empresas incluídas en cada sector</p>
+                <p className="dataP">La gráfica siguiente presenta la lista de los 50 sectores con más quejas interpuestas ante la PROFECO México, durante el período 2022 y lo que va de 2023*</p>
+                    <BarChart chartData={graphPerSector}/>                                         
+                <h2 className="datah2">Lista detallada de los Sectores con más quejas presentadas ante PROFECO México</h2>                
+                <p className="dataP">Puedes dar click o tap a cada una para conocer detalles de las empresas con quejas que forman parte de este sector</p>
                   {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
                 {quejasPerSector
                         .sort((a,b)=>b.totalQuejas - a.totalQuejas)

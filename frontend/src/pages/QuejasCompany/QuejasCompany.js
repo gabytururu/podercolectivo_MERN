@@ -74,15 +74,15 @@ const QuejasCompany = () => {
     return ( 
         <div className="containerWrap">
            
-            <div className='data'>   
-                <h1>Quejas Detalladas de la Empresa "{quejasEmpresa && nombreComercial}" Recibidas en la PROFECO</h1>
-                <p>Se han encontrado un total de {quejasEmpresa && quejasEmpresa.length} quejas por bienes o servicios ascendentes a ${quejasEmpresa&& getValorBienOServicio(quejasEmpresa)} MXN  de los cuales han sido reclamados  reclamados  {quejasEmpresa&& getMontoTotalReclamado(quejasEmpresa)} MXN a {nombreComercial}. De estos, un total de {quejasEmpresa&& getMontoTotalRecuperado(quejasEmpresa)} ya han sido recuperados</p>
+            <div className="data">   
+                <h1 className="datah1">Quejas Detalladas de la Empresa "{quejasEmpresa && nombreComercial}" Recibidas en la PROFECO</h1>
+                <p className="dataP">Se han encontrado un total de {quejasEmpresa && quejasEmpresa.length} quejas por bienes o servicios ascendentes a ${quejasEmpresa&& getValorBienOServicio(quejasEmpresa)} MXN  de los cuales han sido reclamados  reclamados  {quejasEmpresa&& getMontoTotalReclamado(quejasEmpresa)} MXN a {nombreComercial}. De estos, un total de {quejasEmpresa&& getMontoTotalRecuperado(quejasEmpresa)} ya han sido recuperados</p>
             </div>
             <div className="data">            
-                <h2>Lista Detallada de Quejas de {nombreComercial} presentadas ante PROFECO:</h2>
-                <p>La siguiente lista, presenta de manera detallada las quejas que han sido sometidas ante PROFECO reclamando una mala práctica, incumplimiento o negativa por parte de {nombreComercial}.</p>
-                <p>Cada una de estas quejas cuenta con un ID oficial de PROFECO, así como el motivo por el cual fué presentada la queja, el costo del bien o servicio reclamado y el estátus de la queja (por ej. conciliada, en trámite, desistida etc).</p>
-                <p>Esta información ha sido tomada de fuentes públicas gubernamentales de México y posteriormente procesada por nuestro equipo para darle una presentación y visualización más sencilla y accesible al público en general.</p>
+                <h2 className="datah2">Lista Detallada de Quejas de {nombreComercial} presentadas ante PROFECO:</h2>
+                <p className="dataP">La siguiente lista, presenta de manera detallada las quejas que han sido sometidas ante PROFECO reclamando una mala práctica, incumplimiento o negativa por parte de {nombreComercial}.</p>
+                <p className="dataP">Cada una de estas quejas cuenta con un ID oficial de PROFECO, así como el motivo por el cual fué presentada la queja, el costo del bien o servicio reclamado y el estátus de la queja (por ej. conciliada, en trámite, desistida etc).</p>
+                <p className="dataP">Esta información ha sido tomada de fuentes públicas gubernamentales de México y posteriormente procesada por nuestro equipo para darle una presentación y visualización más sencilla y accesible al público en general.</p>
                 {quejasEmpresa && quejasEmpresa
                     .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                     .map((queja)=>(

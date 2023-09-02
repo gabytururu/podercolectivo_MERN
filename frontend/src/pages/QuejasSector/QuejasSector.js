@@ -1,4 +1,4 @@
-
+import '../Home/Home.css'
 import {useParams, Link} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import SumQuejasCompany from '../../components/QuejasFormats/SumQuejasCompany'
@@ -112,32 +112,20 @@ const QuejasSector = () => {
 
     return ( 
         <div className="containerWrap">
-            <h1>ACA IRA EL LAY OUT DE QUEJAS POR giro: {sector}</h1>
-
-            <p>Se han encontrado un total de {quejasdelSector && quejasdelSector.length} quejas del sector {sector}</p>
-            <p>Las Quejas de este sector son reclamos por transacciones de bienes o servicios que con un costo de {quejasdelSector&& getValorBienOServicio(quejasdelSector)} Resultante de un total de {quejasdelSector && getMontoTotalReclamado(quejasdelSector)} MXN en montos reclamados de los cuales ha sido recuperado {quejasdelSector && getMontoTotalRecuperado(quejasdelSector)} MXN</p>
-            <div className="barChart">  
-                    <BarChart chartData={graphPerSector}/>                                            
-            </div>
-
-            <h2>Las Empresas del Sector {sector} con Más quejas Acumuladas:</h2>
             <div className="data">
-                {quejasdelSector && sumQuejasPerCategory(quejasdelSector,categoryCompany)
+                <h1 className="datah1">Quejas Recibidas ante la PROFECO del Sector {sector}</h1>
+                <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de {quejasdelSector && quejasdelSector.length} quejas por malas prácticas o incumplimientos de las empresas del sector {sector}</p>
+                <p className="dataP">Las Quejas de este sector son reclamos por transacciones de bienes o servicios que ascienden a un valor de {quejasdelSector&& getValorBienOServicio(quejasdelSector)} MXN</p>
+                    <BarChart chartData={graphPerSector}/>    
+                <h2 className="datah2">Lista Detallada de Quejas Acumuladas por Cada Empresa del sector {sector} </h2>
+                <p className="dataP">Da click o tap en cada una para conocer el motivo y estátus de las quejas acumuladas por empresa </p>
+                    {quejasdelSector && sumQuejasPerCategory(quejasdelSector,categoryCompany)
                     .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                     .map((queja)=>(    
                     <Link to={'/'+ queja.sector + '/' + queja.company}>           
                     <SumQuejasCompany key={queja._id} queja={queja} /></Link>   
-                    // <Link to={"/"+sector+"/"+queja.nombre_comercial}><AllQuejas key={queja._id} queja={queja}/></Link>
                     ))
-                } 
-                {/* {quejasdelSector && getSectorSumPerCompany(quejasdelSector)
-                    .sort((a,b)=>b.totalQuejas - a.totalQuejas)
-                    .map((queja)=>(    
-                    <Link to={'/'+ queja.sector + '/' + queja.company}>           
-                    <SumQuejasCompany key={queja._id} queja={queja} /></Link>   
-                    // <Link to={"/"+sector+"/"+queja.nombre_comercial}><AllQuejas key={queja._id} queja={queja}/></Link>
-                    ))
-                }  */}
+                    } 
             </div>
         </div>
      );

@@ -52,16 +52,14 @@ const QuejasCompaniesComplete = () => {
     
     return ( 
         <div className="containerWrap">
-            <h1 >
-                Aca va la lista ampliada de lAS QUEJAS ACUMULADAS POR COMPAÑIAS             
-            </h1>
-            <div className="barChart">  
-                    <BarChart chartData={graphPerCompany}/>                                            
-            </div>
             <div className="data"> 
-                <h2>¿Cuáles son las Empresas con más Quejas en México?</h2> 
-
-                <h2>va la  data</h2>
+                <h1 className="datah1">
+                    Empresas con más Quejas Acumuladas ante PROFECO México              
+                </h1> 
+                 <p className="dataP">La gráfica siguiente presenta la lista de las 50 empresas con más quejas interpuestas ante la PROFECO México,(incluye todos los sectores activos en el país) durante el período 2022 y lo que va de 2023*</p>        
+                    <BarChart chartData={graphPerCompany}/>                                
+                <h2 className="datah2">Lista detallada de las empresas con más quejas presentadas ante PROFECO México</h2> 
+                <p className="dataP">Puedes dar click o tap a cada una para conocer el motivo, estátus, y el ID Oficial de PROFECO de cada una de las quejas acumuladas por cada empresa</p>
                   {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
                 {quejasPerCompany
                     .sort((a,b) => b.totalQuejas - a.totalQuejas)
