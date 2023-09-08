@@ -1,37 +1,98 @@
-.headerwrap{
+header{
     background-color: var(--poderColectivo-dark);
 }
-.navbar{
-    height: 15vh;
+
+.navbar nav{
+    height: 8vh;
     max-width: 1200px;
     margin:auto;
     display:flex;
-    align-items: center;
+    justify-content: center; 
+    align-items: center;  
+    background-color: var(--poderColectivo-dark);
 }
 
-.navbar a{
+.navbar nav a{
     text-decoration: none;
     list-style: none;
     color: var(--poderColectivo-clear);
-    font-size: 1.5em;
     margin-right:25px;   
-    transition:0.2s
+    transition:0.2s;   
+}
+
+.navbar .menu{
+    font-size: 1.3em;
 }
 
 .navbar a:hover{
     color: var(--poderColectivo-yellow)
 }
 
-.navbar .logo{
+.navbar .menu .active{
+    color: var(--poderColectivo-yellow)
+}
+
+.navbar nav .logo{
     width:25%;
     text-align: center;
 }
 
 .logo img{
-    width: 95%;
-    margin-bottom:15px
+    width: 130px;
 }
 .navbar .menu{
     width: 75%;
     text-align: right;
+}
+
+/* .mobile{
+    background-color: red;
+} */
+
+.icon {
+    color: white;
+    display: none;
+    align-items: right;
+    justify-content: center; 
+}
+
+@media only screen and (max-width:1100px){
+    .navbar .menu{
+        font-size: 1.1em;
+    }
+    .navbar nav .logo{
+        width:25%;
+        text-align: left;
+    }
+}
+@media only screen and (max-width:800px){
+    .navbar .menu {
+        display:none
+    }
+    .navbar nav{
+        justify-content: space-between;  
+    }
+    .navbar nav .logo{
+        width:35%;
+        text-align: left;
+    }
+    .icon {
+        display:block;
+        margin-right:35px 
+    }
+}
+@media only screen and (max-width:600px){
+    .navbar nav .logo{
+        width:45%;        
+    }
+}
+@media only screen and (max-width:450px){
+     .navbar nav .logo{
+        width:45%;
+    } 
+}
+@media only screen and (max-width:300px){
+     .navbar nav .logo{
+        width:35%;
+    } 
 }
