@@ -46,10 +46,6 @@ header{
     text-align: right;
 }
 
-/* .mobile{
-    background-color: red;
-} */
-
 .icon {
     color: white;
     display: none;
@@ -58,14 +54,6 @@ header{
     width: 50%;
 }
 
-.mobile{
-    background-color: red;
-    /* color: white;
-    display: none;
-    align-items: right;
-    justify-content: center; 
-    width: 50%; */
-}
 .overlayBox{
    position:absolute;
     background-color: yellow;
