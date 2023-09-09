@@ -1,6 +1,10 @@
 header{
     background-color: var(--poderColectivo-dark);
 }
+.navbar{
+    position:sticky;
+    top:0px
+}
 
 .navbar nav{
     height: 8vh;

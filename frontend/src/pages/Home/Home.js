@@ -116,9 +116,8 @@ const Home = () => {
 }
 export default Home; 
            
-            //make navbar sticky on top  -- o que aparezca on scroll up
+          // arreglar mini glitch de sticky navbar?
             // incluir un ranking display en el card --> ej. #1 , #2 etc
-            // arreglar color glitch de graficas .. incluir dataset background en todas ni pex
             //  0. mejorar responsiveness de charts?? o no necesario=?
             //  0.poner logo PODERcOLECTIVO en graficas
             // 0. CAMBIAR Display de SECTOR por display DE GIRO 
