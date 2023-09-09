@@ -13,7 +13,7 @@ body {
   box-sizing: border-box;
   font-family: "Lato";
   line-height: 1.5em;
-  background-color: var(--poderColectivo-smoke);
+  background-color: var(--poderColectivo-clear);
   /* line-height: 0%; */
 }
 
@@ -27,6 +27,7 @@ body {
  --poderColectivo-beige: #fff3d6;
  --poderColectivo-clear: #ffffff;
  --poderColectivo-smoke: #f8f7f7;
+ --poderColectivo-backGround: rgba(250, 244, 234, 0.151);
  --poderColectivo-oyster: #f4f4f4;
  --poderColectivo-gray: #464646;
  --poderColectivo-dark: #000000 ;

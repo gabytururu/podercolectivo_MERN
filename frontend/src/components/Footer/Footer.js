@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 const Footer = () => {
     return ( 
         <footer className="footerWrapper">
-           
                 <div className="footLogo">
                     <img src="./poderColectivoLOGO_BL_CLEAR.png" alt="logotipo poder colectivo" />
                 </div>
@@ -19,8 +18,7 @@ const Footer = () => {
                 </div>
                 <div className="footClosure">
                     <p>PoderColectivo© 2023 - Todos los Derechos Reserados</p>
-                </div>
-                  
+                </div>     
         </footer>
      );
 }
