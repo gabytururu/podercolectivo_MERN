@@ -1,5 +1,6 @@
 .backdropImg canvas{
-    background-color: whitesmoke
+    background-color: var(--poderColectivo-clear);
+   
 }
 .backdropImg{
     width: 1250px;
@@ -9,7 +10,8 @@
     margin-top: 50px;
     margin-bottom:50px;
     padding: 5px;
-    background-color: whitesmoke;
+    background-color: var(--poderColectivo-clear);
+    box-shadow: 3px 3px 5px 0px #8888;  
     border-radius: 15px;
     /* font-size: 35px; not working to enlarge info inside charts */
     /* box-shadow: 5px 5px 20px 20px rgba(195, 243, 255, 0.507);   */

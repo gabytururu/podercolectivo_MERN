@@ -11,14 +11,14 @@
     /* background-color: var(--poderColectivo-oyster); */
     background: linear-gradient(
         to right,
-        var(--poderColectivo-yellow) 0,
-        var(--poderColectivo-yellow) 0.5%,
+        var(--poderColectivo-blue) 0,
         var(--poderColectivo-blue) 0.5%,
-        var(--poderColectivo-blue) 1%,
-        var(--poderColectivo-red) 1%,
-        var(--poderColectivo-red) 1.5%,
-        var(--poderColectivo-oyster) 1.5%,
-        var(--poderColectivo-oyster)
+        var(--poderColectivo-yellow) 0.5%,
+        var(--poderColectivo-yellow) 1%,
+        var(--poderColectivo-redTransp) 1%,
+        var(--poderColectivo-redTransp) 1.5%,
+        var(--poderColectivo-clear) 1.5%,
+        var(--poderColectivo-clear)
         )no-repeat
     ;
     /* border-left: 15px solid var(--poderColectivo-blue);
@@ -30,11 +30,13 @@
     display:flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center
 }
 
 .queja:hover{
-    background-color: rgba(255, 228, 196, 0.391);   
+    /* background-color: rgba(255, 228, 196, 0.391);    */
+    transform: translateX(4px) ;
+    
 }
 
 /* // ======= Quejas Cards w SUMMARY (Per Company + Per Sector)
@@ -117,8 +119,8 @@
             var(--poderColectivo-yellow) 1%,
             var(--poderColectivo-blue) 1%,
             var(--poderColectivo-blue) 2%,
-            var(--poderColectivo-red) 2%,
-            var(--poderColectivo-red) 3%,
+            var(--poderColectivo-redTransp) 2%,
+            var(--poderColectivo-redTransp) 3%,
             var(--poderColectivo-oyster) 3%,
             var(--poderColectivo-oyster)
             )no-repeat

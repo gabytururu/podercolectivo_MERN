@@ -13,7 +13,7 @@ import BarChart from '../../components/BarChart/BarChart'
 
 const QuejasSector = () => {
 
-    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany} = useContext(QuejasContext)
+    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany,barChartColor, barChartRadius} = useContext(QuejasContext)
 
     const {sector} = useParams()
     const [quejasdelSector, setQuejasdelSector ] = useState(null)
@@ -31,16 +31,8 @@ const QuejasSector = () => {
                     datasets: [{
                         label: 'Quejas por Sector',
                         data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
-                        // backgroundColor: [
-                        //     '#1ac8ed', //blue
-                        //     // '#1ac6edb0',
-                        //     // '#005494',
-                        //     // '#ff6347',
-                        //     // '#ffba08',
-                        // ],
-                        // borderColor:'#000000',
-                        // // borderWidth:2,
-                        // borderRadius: 8
+                        backgroundColor: barChartColor,
+                        borderRadius: barChartRadius
                    }]
                 })
 

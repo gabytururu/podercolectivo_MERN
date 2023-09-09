@@ -1,18 +1,14 @@
 import SumQuejasCompany from "../../components/QuejasFormats/SumQuejasCompany";
-import SumQuejasSector from "../../components/QuejasFormats/SumQuejasSector";
-import useQuejasByCategory from "../../Hooks/useQuejasByCategory";
-import {useState, useEffect, useContext} from 'react'
-import {Link, useLocation} from 'react-router-dom'
-import useFetch from "../../Hooks/useFetch";
+import {useEffect, useContext} from 'react'
+import {Link} from 'react-router-dom'
 import { QuejasContext } from "../../Context/QuejasContext";
-//import BarChart from "../../components/BarChart";
 import BarChart from "../../components/BarChart/BarChart";
 
 const QuejasCompaniesComplete = () => {
 
     // //  FUNCIONA OK EL USE FETCH PERO COMPITE CON USEQUEJAS BY CATEGORY QUE NO RECIBE A TIEMPO Y DEVUELVE NULL -- FUNCIONA OK SI LO MANEJO COMO FETCH DIRECTO OCN USE EFFECT // PERO NO PUEDO USAR USEFETCH DENTRO DE USEEFFECT PORQUE QUEDARIA CONDITIONAL/COMO CALLBACK Y ESO NO LO DEJA HACER CON HOOKS // QUIZA SI VUELVO USEQUEJASBYCATEGORY ASINCRONA??
 
-    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany} = useContext(QuejasContext)
+    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany,barChartColor, barChartRadius} = useContext(QuejasContext)
     
     useEffect(()=>{
         const fetchQuejas = async()=>{
@@ -29,6 +25,8 @@ const QuejasCompaniesComplete = () => {
                         datasets: [{
                             label: 'Quejas por Empresa',
                             data: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
+                            backgroundColor: barChartColor,
+                            borderRadius: barChartRadius
                        }]
                     })                       
                 }

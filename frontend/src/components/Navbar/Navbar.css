@@ -108,7 +108,10 @@ header{
 }
 @media only screen and (max-width:450px){
      .navbar nav .logo{
-        width:45%;
+        width:40%;
+        margin-bottom:5px
+        
+       
     } 
 }
 @media only screen and (max-width:300px){

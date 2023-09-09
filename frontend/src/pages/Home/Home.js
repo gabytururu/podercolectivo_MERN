@@ -15,7 +15,6 @@ import { QuejasContext } from '../../Context/QuejasContext'
 const Home = () => {
     const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, barChartColor, barChartRadius} = useContext(QuejasContext)
 
-   
 
     useEffect(()=>{
         const fetchQuejas = async()=>{
@@ -29,10 +28,10 @@ const Home = () => {
                     setQuejasPerSector(quejasSector)
                     setQuejasPerCompany(quejasCompany)
                     setGraphPerSector({
-                        labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.company),
+                        labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,9).map((quejas)=>quejas.company),
                         datasets: [{
                             label: 'Quejas por Sector',
-                            data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
+                            data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,9).map((quejas)=> quejas.totalQuejas),
                             backgroundColor: barChartColor,
                             // // borderColor:'#000000',
                             // // borderWidth:2,
@@ -40,10 +39,10 @@ const Home = () => {
                        }]
                     })
                     setGraphPerCompany({
-                        labels: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.company),
+                        labels: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,9).map((quejas)=>quejas.company),
                         datasets: [{
                             label: 'Quejas por Empresa',
-                            data: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
+                            data: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,9).map((quejas)=> quejas.totalQuejas),
                             backgroundColor: barChartColor,
                             borderRadius: barChartRadius,
                             // datalabels:{
@@ -74,7 +73,6 @@ const Home = () => {
                     <h1>Poder Colectivo</h1>
                     <h2>Conoce la reputación de las empresas mexicanas a través de las estadísticas de PROFECO</h2> 
                     <p>Página creada con <span>❤️</span> de Mexas para Mexas</p>
-                    <p>¡Ayúdanos a Elevar el Poder Colectivo!</p>
                 </div>
             </div>
 
@@ -87,11 +85,12 @@ const Home = () => {
                     <p className="dataP">Da click o tap en cada una para conocer qué empresas forman parte de cada sector y los detalles de las quejas acumuladas:</p> 
                             {quejasPerSector
                                 .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                                .slice(0,4)
                                 .map((queja)=>(
                                     <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
                                 ))
                             }
-                        <Link className="button" to={'/sectores'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Más</Link>
+                        <Link className="button" to={'/sectores'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Todos los Sectores</Link>
                 </div>
             
                 <div className="data"> 
@@ -104,18 +103,30 @@ const Home = () => {
                         {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
                         {quejasPerCompany
                             .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                            .slice(0,4)
                             .map((queja,i)=>(
                                 <Link to={'/'+ queja.sector + '/' + queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>
                             ))
                         }
-                    <Link className="button" to="/empresas" state={categoryCompany && {quejas:quejas, categoryByCompanies:categoryCompany}}>Ver Más</Link>
+                    <Link className="button" to="/empresas" state={categoryCompany && {quejas:quejas, categoryByCompanies:categoryCompany}}>Ver Todas las Empresas</Link>
                 </div>
             </div>
         </div>
             );
 }
-export default Home;   
-             
+export default Home; 
+           
+            //make navbar sticky on top  -- o que aparezca on scroll up
+            // incluir un ranking display en el card --> ej. #1 , #2 etc
+            // arreglar color glitch de graficas .. incluir dataset background en todas ni pex
+            //  0. mejorar responsiveness de charts?? o no necesario=?
+            //  0.poner logo PODERcOLECTIVO en graficas
+            // 0. CAMBIAR Display de SECTOR por display DE GIRO 
+            //0. limitar a 10 el num d empresas o sectores graficados en Home BarCharts
+            // 0. GENERAR DASHBOARD DE INFO PARA INDIVIDUAL CARDS
+            // 0. FOOTER incluir info mas seria y mejorar layout y demas
+            // 0. quitar la m que aparece random en el page de detailed cards
+
   //      0. script para quitar la razon social de los nombres para crear columna con nombres cortos - para el barchart
  //               0. ARREGLAR LAS URLS que salen con % y codigos numericos en vez d esimbolos
 //                     

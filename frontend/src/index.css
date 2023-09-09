@@ -1,5 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Pacifico&family=Quicksand:wght@400;500;600;700&family=Roboto:wght@500;700;900&display=swap');
+/* 
+font-family: 'Lato', sans-serif;
+font-family: 'Pacifico', cursive;
+font-family: 'Quicksand', sans-serif;
+font-family: 'Roboto', sans-serif; */
 
 
 body {
@@ -9,19 +13,21 @@ body {
   box-sizing: border-box;
   font-family: "Lato";
   line-height: 1.5em;
+  background-color: var(--poderColectivo-smoke);
   /* line-height: 0%; */
 }
 
 :root{
  --poderColectivo-blue: #1ac8ed;
- --poderColectivo-blueTransparent: #1ac6edb0;
+ --poderColectivo-blueTransparent: #1ac6ed94;
  --poderColectivo-blueDark: #005494;
  --poderColectivo-red: #ff6347;
  --poderColectivo-redTransp: #ff63479f;
  --poderColectivo-yellow: #ffba08;
  --poderColectivo-beige: #fff3d6;
  --poderColectivo-clear: #ffffff;
- --poderColectivo-oyster: #f4f4f46b;
+ --poderColectivo-smoke: #f8f7f7;
+ --poderColectivo-oyster: #f4f4f4;
  --poderColectivo-gray: #464646;
  --poderColectivo-dark: #000000 ;
  

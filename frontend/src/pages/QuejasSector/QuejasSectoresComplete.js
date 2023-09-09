@@ -16,11 +16,8 @@ const QuejasSectoresComplete = () => {
     // console.log("las quejas--->", quejas)
     // console.log("las categoriesbySector--->", categoryBySector
 
-    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany} = useContext(QuejasContext)
+    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany,barChartColor, barChartRadius} = useContext(QuejasContext)
 
-    //const [quejas,setQuejas] = useState(null)
-    // const [categoryBySector, setCategoryBySector] = useState('sector')
-    // const quejasAggregatedBySector = useQuejasByCategory(quejas,categoryBySector)
 
     useEffect(()=>{
         const fetchQuejas = async()=>{
@@ -37,6 +34,8 @@ const QuejasSectoresComplete = () => {
                         datasets: [{
                             label: 'Quejas por Sector',
                             data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
+                            backgroundColor: barChartColor,
+                            borderRadius: barChartRadius
                        }]})
                     
  
