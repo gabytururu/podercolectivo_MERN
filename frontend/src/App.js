@@ -9,14 +9,14 @@ import QuejasSectoresComplete from './pages/QuejasSector/QuejasSectoresComplete'
 import QuejasCompaniesComplete from './pages/QuejasCompany/QuejasCompaniesComplete'
 import SumQuejasSector from './components/QuejasFormats/SumQuejasSector'
 import SumQuejasCompany from './components/QuejasFormats/SumQuejasCompany'
-import ScrollToTop from './Scroll'
+import ScrollToTop from './components/Scroll'
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <ScrollToTop/>
         <Navbar/>
+        <ScrollToTop/>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/sectores" element={<QuejasSectoresComplete/>}/>
@@ -27,7 +27,6 @@ function App() {
         </Routes>
         <Footer/>
       </BrowserRouter>
-
     </div>
   );
 }

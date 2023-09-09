@@ -5,6 +5,9 @@ export const QuejasContext = createContext()
 const initialQuejas = null
 
 export const QuejasContextProvider = ({children}) =>{
+
+    const barChartColor = '#1ac6edb0';
+    const barChartRadius = 5
     
     const [quejas, setQuejas] = useState(null)
     const [categoryCompany, setCategoryCompany] = useState('nombreComercial')
@@ -18,26 +21,16 @@ export const QuejasContextProvider = ({children}) =>{
         datasets: [{
             label: 'Quejas por Sector',
             data: [],
-            backgroundColor: [
-                '#1ac8ed', //blue
-                // '#1ac6edb0',
-                // '#005494',
-                // '#ff6347',
-                // '#ffba08',
-            ],
+            backgroundColor:barChartColor,
+            borderRadius:barChartRadius,
        }]}) 
     const [graphPerCompany, setGraphPerCompany] = useState({
         labels: [],
         datasets: [{
-            label: 'Quejas por Sector',
+            label: 'Quejas por Empresa',
             data: [],
-            backgroundColor: [
-                '#1ac8ed', //blue
-                // '#1ac6edb0',
-                // '#005494',
-                // '#ff6347',
-                // '#ffba08',
-            ],
+            backgroundColor: barChartColor,
+            borderRadius:barChartRadius,
        }]}) 
 
     const sumQuejasPerCategory = (quejas, categorySelected) =>{
@@ -72,7 +65,7 @@ export const QuejasContextProvider = ({children}) =>{
     // const perGiro = quejasSumPerCategory(quejas,categoryGiro)
 
     const data = {
-        quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany
+        quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, barChartRadius, barChartColor
     }
     
     return(

@@ -10,11 +10,9 @@
     margin-bottom:50px;
     padding: 5px;
     background-color: whitesmoke;
-    /* margin: 100px 0px 100px 0px; */
-    /* border: solid 2px black; */
     border-radius: 15px;
     /* font-size: 35px; not working to enlarge info inside charts */
-    box-shadow: 5px 5px 20px 20px rgba(195, 243, 255, 0.507);  
+    /* box-shadow: 5px 5px 20px 20px rgba(195, 243, 255, 0.507);   */
     /* background-image: linear-gradient(var(--poderColectivo-blueTransparent), var(--poderColectivo-oyster)); */
 }
 @media only screen and (max-width:1250px){

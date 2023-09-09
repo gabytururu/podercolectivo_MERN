@@ -8,21 +8,29 @@
 }
 
 .queja{
-    border-left: 10px solid var(--poderColectivo-red);
-    background-color: var(--poderColectivo-oyster);
-    /* margin: 0px 8px 8px 8px;  */
+    /* background-color: var(--poderColectivo-oyster); */
+    background: linear-gradient(
+        to right,
+        var(--poderColectivo-yellow) 0,
+        var(--poderColectivo-yellow) 0.5%,
+        var(--poderColectivo-blue) 0.5%,
+        var(--poderColectivo-blue) 1%,
+        var(--poderColectivo-red) 1%,
+        var(--poderColectivo-red) 1.5%,
+        var(--poderColectivo-oyster) 1.5%,
+        var(--poderColectivo-oyster)
+        )no-repeat
+    ;
+    /* border-left: 15px solid var(--poderColectivo-blue);
+    border-left: 20px solid var(--poderColectivo-red); */
     border-radius: 6px;
     box-shadow: 3px 3px 5px 0px #8888;  
-    /* padding: 1px 5px 5px 0px; */
     padding: 10px 0px 10px 0px;
     transition:0.4s;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* flex-wrap: wrap; */
-    /* line-height:10%;  */
-    /* overflow-wrap: break-word */ 
 }
 
 .queja:hover{
@@ -48,7 +56,7 @@
 }
 
 .quejaQty{
-    background-color: var(--poderColectivo-red);
+    background-color: var(--poderColectivo-redTransp);
     border-radius: 5px;
     padding:10px;
     font-size: 20px;
@@ -100,6 +108,22 @@
     .quejaContainer{
         width: 90%;
         /* border-left: 5px solid var(--poderColectivo-red); */
+    }
+
+    .queja{
+        background: linear-gradient(
+            to right,
+            var(--poderColectivo-yellow) 0,
+            var(--poderColectivo-yellow) 1%,
+            var(--poderColectivo-blue) 1%,
+            var(--poderColectivo-blue) 2%,
+            var(--poderColectivo-red) 2%,
+            var(--poderColectivo-red) 3%,
+            var(--poderColectivo-oyster) 3%,
+            var(--poderColectivo-oyster)
+            )no-repeat
+        ;        
+        padding: 10px 8px 10px 8px;
     }
 
 }

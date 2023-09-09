@@ -31,16 +31,16 @@ const QuejasSector = () => {
                     datasets: [{
                         label: 'Quejas por Sector',
                         data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
-                        backgroundColor: [
-                            '#1ac8ed', //blue
-                            // '#1ac6edb0',
-                            // '#005494',
-                            // '#ff6347',
-                            // '#ffba08',
-                        ],
-                        borderColor:'#000000',
-                        // borderWidth:2,
-                        borderRadius: 8
+                        // backgroundColor: [
+                        //     '#1ac8ed', //blue
+                        //     // '#1ac6edb0',
+                        //     // '#005494',
+                        //     // '#ff6347',
+                        //     // '#ffba08',
+                        // ],
+                        // borderColor:'#000000',
+                        // // borderWidth:2,
+                        // borderRadius: 8
                    }]
                 })
 

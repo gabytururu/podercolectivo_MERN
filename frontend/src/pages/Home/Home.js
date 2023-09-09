@@ -13,7 +13,9 @@ import { QuejasContext } from '../../Context/QuejasContext'
 //import {Chart as ChartJs} from 'chart.js/auto' <--- only need it on the component
 
 const Home = () => {
-    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany} = useContext(QuejasContext)
+    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, barChartColor, barChartRadius} = useContext(QuejasContext)
+
+   
 
     useEffect(()=>{
         const fetchQuejas = async()=>{
@@ -31,16 +33,10 @@ const Home = () => {
                         datasets: [{
                             label: 'Quejas por Sector',
                             data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
-                            backgroundColor: [
-                                '#1ac8ed', //blue
-                                // '#1ac6edb0',
-                                // '#005494',
-                                // '#ff6347',
-                                // '#ffba08',
-                            ],
-                            // borderColor:'#000000',
-                            // borderWidth:2,
-                            borderRadius: 10
+                            backgroundColor: barChartColor,
+                            // // borderColor:'#000000',
+                            // // borderWidth:2,
+                            borderRadius: barChartRadius
                        }]
                     })
                     setGraphPerCompany({
@@ -48,24 +44,8 @@ const Home = () => {
                         datasets: [{
                             label: 'Quejas por Empresa',
                             data: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
-                            backgroundColor: [
-                                '#1ac8ed', //blue
-                                // '#1ac6edb0',
-                                // '#005494',
-                                // '#ff6347',
-                                // '#ffba08',
-                            ],
-                            // borderColor:'#000000',
-                            // borderWidth:2,
-                            borderRadius: 8,
-                            // options: {
-                            //     plugins:{
-                            //         datalabels:{
-                            //             color:'yellow',
-                            //             fontSize: 35
-                            //         }
-                            //     }
-                            // },
+                            backgroundColor: barChartColor,
+                            borderRadius: barChartRadius,
                             // datalabels:{
                             //     color:'yellow',
                             //     weight:200,
@@ -138,7 +118,7 @@ export default Home;
              
   //      0. script para quitar la razon social de los nombres para crear columna con nombres cortos - para el barchart
  //               0. ARREGLAR LAS URLS que salen con % y codigos numericos en vez d esimbolos
-//             1. VER MAS de companies (home) no funciona -- SCROLL me lleva al bottom del component sig            
+//                     
 //             4. revisar que onda con los INDEX como key... no se si deba quedar asi.. leer un poco del tema o ver videos de curso?
 //         
 //             9. crear rendering views para  "cantidad de quejas" VS "cantidad de monto reclamado" --definir si seran componentes que se renderizan ambos (ej arriba quejas abajo montos) o si         seran conditional rendering tmb

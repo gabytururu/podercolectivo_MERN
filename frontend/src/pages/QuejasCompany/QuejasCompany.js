@@ -21,24 +21,6 @@ const QuejasCompany = () => {
                 const fetchQuejasEmpresa = await fetch(`http://localhost:5000/api/quejas/${sector}/${nombreComercial}`)
                 const quejasEmpresaJson = await fetchQuejasEmpresa.json()
                 setQuejasEmpresa(quejasEmpresaJson)  //<--- will help to create a new DASHBOARD with it
-                // const quejasEmpresa= sumQuejasPerCategory(quejasEmpresaJson, categoryCompany)  
-                // setGraphPerCompany({
-                //     labels: quejasEmpresa.map((quejas)=>quejas.company),
-                //     datasets: [{
-                //         label: 'Quejas por Empresa',
-                //         data: quejasEmpresa.map((quejas)=> quejas.totalQuejas),
-                //         backgroundColor: [
-                //             '#1ac8ed', //blue
-                //             // '#1ac6edb0',
-                //             // '#005494',
-                //             // '#ff6347',
-                //             // '#ffba08',
-                //         ],
-                //         borderColor:'#000000',
-                //         borderWidth:2
-                //    }]
-                // })
-
             }catch(err){
                 console.log('el error en GET QUEJAS POR EMPRESA -->')
             }
