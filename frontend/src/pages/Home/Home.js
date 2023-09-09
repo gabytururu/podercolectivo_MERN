@@ -121,7 +121,6 @@ export default Home;
             //  0. mejorar responsiveness de charts?? o no necesario=?
             //  0.poner logo PODERcOLECTIVO en graficas
             // 0. CAMBIAR Display de SECTOR por display DE GIRO 
-            //0. limitar a 10 el num d empresas o sectores graficados en Home BarCharts
             // 0. GENERAR DASHBOARD DE INFO PARA INDIVIDUAL CARDS
             // 0. FOOTER incluir info mas seria y mejorar layout y demas
             // 0. quitar la m que aparece random en el page de detailed cards
