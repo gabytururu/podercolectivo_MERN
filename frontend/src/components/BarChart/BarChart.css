@@ -24,8 +24,13 @@
     inset: -5px; 
     transform: translate(10px, 8px); 
     z-index: -1; 
-    background: linear-gradient(var(--poderColectivo-yellow), var(--poderColectivo-red), var(--poderColectivo-blue));
-    filter: blur(300px); 
+    background: linear-gradient(
+        /* to right, */
+        15deg,
+        var(--poderColectivo-blue),
+        var(--poderColectivo-blueDark)
+        );
+    filter: blur(400px); 
 }
 
 @media only screen and (max-width:1250px){
