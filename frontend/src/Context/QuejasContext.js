@@ -32,6 +32,14 @@ export const QuejasContextProvider = ({children}) =>{
             backgroundColor: barChartColor,
             borderRadius:barChartRadius,
        }]}) 
+    const [graphPerGiro, setGraphPerGiro] = useState({
+        labels: [],
+        datasets: [{
+            label: 'Quejas por Giro Comercial',
+            data: [],
+            backgroundColor: barChartColor,
+            borderRadius:barChartRadius,
+       }]}) 
 
     const sumQuejasPerCategory = (quejas, categorySelected) =>{
         let categoriesArray = []
@@ -57,7 +65,7 @@ export const QuejasContextProvider = ({children}) =>{
             categoriesAggregatedIndicators.push(thisElementinCategoryIndicators)
             console.log('categoriesAgg indicators from context function-->',categoriesAggregatedIndicators)
         }
-        //console.log(categoriesAggregatedIndicators)
+        console.log(categoriesAggregatedIndicators)
         return categoriesAggregatedIndicators
     }
     // const perCompany = quejasSumPerCategory(quejas,categoryCompany)
@@ -65,7 +73,7 @@ export const QuejasContextProvider = ({children}) =>{
     // const perGiro = quejasSumPerCategory(quejas,categoryGiro)
 
     const data = {
-        quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, barChartRadius, barChartColor
+        quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, graphPerGiro, setGraphPerGiro, barChartRadius, barChartColor
     }
     
     return(

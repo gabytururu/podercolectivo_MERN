@@ -2,6 +2,7 @@ import {useState, useEffect, useContext} from 'react'
 import useQuejasByCategory from '../../Hooks/useQuejasByCategory'
 import SumQuejasSector from '../../../src/components/QuejasFormats/SumQuejasSector'
 import SumQuejasCompany from '../../../src/components/QuejasFormats/SumQuejasCompany'
+import SumQuejasGiro from '../../components/QuejasFormats/SumQuejasGiro'
 import QuejaCard from '../../../src/components/QuejasFormats/QuejaCard'
 import './Home.css'
 import {Link} from 'react-router-dom'
@@ -13,7 +14,7 @@ import { QuejasContext } from '../../Context/QuejasContext'
 //import {Chart as ChartJs} from 'chart.js/auto' <--- only need it on the component
 
 const Home = () => {
-    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, barChartColor, barChartRadius} = useContext(QuejasContext)
+    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, graphPerGiro, setGraphPerGiro, barChartColor, barChartRadius} = useContext(QuejasContext)
 
 
     useEffect(()=>{
@@ -25,8 +26,10 @@ const Home = () => {
                     setQuejas(quejasJson)
                     const quejasSector = sumQuejasPerCategory(quejasJson, categorySector)
                     const quejasCompany= sumQuejasPerCategory(quejasJson, categoryCompany)
+                    const quejasGiro= sumQuejasPerCategory(quejasJson,categoryGiro)
                     setQuejasPerSector(quejasSector)
                     setQuejasPerCompany(quejasCompany)
+                    setQuejasPerGiro(quejasGiro)
                     setGraphPerSector({
                         labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,9).map((quejas)=>quejas.company),
                         datasets: [{
@@ -43,6 +46,23 @@ const Home = () => {
                         datasets: [{
                             label: 'Quejas por Empresa',
                             data: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,9).map((quejas)=> quejas.totalQuejas),
+                            backgroundColor: barChartColor,
+                            borderRadius: barChartRadius,
+                            // datalabels:{
+                            //     color:'yellow',
+                            //     weight:200,
+                            //     fontSize: 55,
+                            //     align: 'center'
+                                
+                            // }
+
+                       }]
+                    })
+                    setGraphPerGiro({
+                        labels: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,9).map((quejas)=>quejas.giro),
+                        datasets: [{
+                            label: 'Quejas por Giro Comercial',
+                            data: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,9).map((quejas)=> quejas.totalQuejas),
                             backgroundColor: barChartColor,
                             borderRadius: barChartRadius,
                             // datalabels:{
@@ -77,6 +97,21 @@ const Home = () => {
             </div>
 
             <div className="containerWrap">
+                <div className="data"> 
+                    <h2 className="datah2">Giros Comerciales con Más Quejas en PROFECO México</h2> 
+                    <p className="dataP">La gráfica siguiente presenta los 10 Giros Comerciales que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado (2022) y lo que va de 2023*</p> 
+                    <BarChart chartData={graphPerGiro}/>                                      
+                    <h3 className="datah3">Lista de Quejas Acumuladas por Giro Comercial</h3> 
+                    <p className="dataP">Da click o tap en cada una para conocer qué empresas forman parte de cada sector y los detalles de las quejas acumuladas:</p> 
+                            {quejasPerGiro
+                                .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                                .slice(0,4)
+                                .map((queja)=>(
+                                    <Link to={'/sector/'+ queja.giro}><SumQuejasGiro key={queja._id} queja={queja}/></Link>
+                                ))
+                            }
+                        <Link className="button" to={'/sectores'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Todos los Giros Comerciales</Link>
+                </div>
                 <div className="data"> 
                     <h2 className="datah2">Sectores Comerciales con Más Quejas en PROFECO México</h2> 
                     <p className="dataP">La gráfica siguiente presenta los 10 sectores que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado (2022) y lo que va de 2023*</p> 

@@ -52,9 +52,21 @@ const getbyNombreComercial = async(req,res)=>{
     const {nombreComercial, sector} = req.params
     const getbyNombreEmpresa = await Queja.find({sector, nombreComercial})
     if (!getbyNombreEmpresa){
-        return res.status(400).json({err: 'no funciono la prueba'})
+        return res.status(400).json({err: 'no existen quejas con el parametro de :nombreComercial dado en la DB'})
     }
     res.status(200).json(getbyNombreEmpresa)
+}
+
+// not working
+const getQuejasByGiro = async(req,res)=>{
+    const {giro} = req.params
+    const getQuejasByGiro = await Queja.find({giro})
+    if (!getQuejasByGiro){
+        return res.status(400).json({err: 'no existen quejas con el parametro de :giro dado en la DB'})
+    }
+    const response = res.status(200).json(getQuejasByGiro)
+    console.log(response)
+    
 }
 
 // no longer needed ??
@@ -76,5 +88,7 @@ module.exports = {
     getQuejasPerIndustry,
     // getQuejasPerCompany,
     postQueja,
-    getbyNombreComercial    
+    getbyNombreComercial,
+    getQuejasByGiro    
+
 }

@@ -34,6 +34,7 @@ const Navbar = () => {
                         <NavLink exact activeClassName= "active" to="/">Inicio</NavLink>
                         <NavLink activeClassName= "active" to="/sectores">Quejas por Sector</NavLink>
                         <NavLink activeClassName= "active" to="/empresas">Quejas por Empresa</NavLink>
+                        <NavLink activeClassName= "active" to="/giro">Quejas por Giro</NavLink>
                         <NavLink activeClassName= "active" to="/poner-queja">Poner una Queja</NavLink>
                     </div>
 

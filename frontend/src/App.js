@@ -7,6 +7,7 @@ import NewQueja from '../src/pages/NewQueja/NewQueja'
 import Footer from '../src/components/Footer/Footer'
 import QuejasSectoresComplete from './pages/QuejasSector/QuejasSectoresComplete'
 import QuejasCompaniesComplete from './pages/QuejasCompany/QuejasCompaniesComplete'
+import QuejasGiroComplete from './pages/QuejasGiro/QuejasGiroComplete'
 import SumQuejasSector from './components/QuejasFormats/SumQuejasSector'
 import SumQuejasCompany from './components/QuejasFormats/SumQuejasCompany'
 import ScrollToTop from './components/Scroll'
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/sectores" element={<QuejasSectoresComplete/>}/>
           <Route path="/empresas" element={<QuejasCompaniesComplete/>}/>
+          <Route path="/giro" element={<QuejasGiroComplete/>}/>
           <Route path="/sector/:sector" element={<QuejasSector/>}/>
           <Route path="/:sector/:nombreComercial" element={<QuejasCompany/>}/>
           <Route path="/poner-queja" element={<NewQueja/>}/>
