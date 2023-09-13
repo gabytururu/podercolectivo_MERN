@@ -55,6 +55,7 @@ const Navbar = () => {
                                 <NavLink exact activeClassName= "active" to="/" onClick={()=>{setOpenNavbar(curr=>!curr)}}>Inicio</NavLink>
                                 <NavLink activeClassName= "active" to="/sectores" onClick={()=>{setOpenNavbar(curr=>!curr)}}>Quejas por Sector</NavLink>
                                 <NavLink activeClassName= "active" to="/empresas" onClick={()=>{setOpenNavbar(curr=>!curr)}}>Quejas por Empresa</NavLink>
+                                <NavLink activeClassName= "active" to="/giro" onClick={()=>{setOpenNavbar(curr=>!curr)}}>Quejas por Giro</NavLink>
                                 <NavLink activeClassName= "active" to="/poner-queja" onClick={()=>{setOpenNavbar(curr=>!curr)}}>Poner una Queja</NavLink>
                             </div>       
                         }

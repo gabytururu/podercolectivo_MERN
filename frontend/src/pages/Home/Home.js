@@ -107,7 +107,7 @@ const Home = () => {
                                 .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                                 .slice(0,4)
                                 .map((queja)=>(
-                                    <Link to={'/sector/'+ queja.giro}><SumQuejasGiro key={queja._id} queja={queja}/></Link>
+                                    <Link to={'/giro/'+ queja.giro}><SumQuejasGiro key={queja._id} queja={queja}/></Link>
                                 ))
                             }
                         <Link className="button" to={'/sectores'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Todos los Giros Comerciales</Link>

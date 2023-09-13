@@ -16,7 +16,7 @@ const QuejasGiroComplete = () => {
                 if(quejasObject.ok){
                     setQuejas(quejasJson)
                     const quejasGiro= sumQuejasPerCategory(quejasJson, categoryGiro)
-                    console.log(quejasGiro)
+                    console.log('las quejas por giro--->',quejasGiro)
                     setQuejasPerGiro(quejasGiro)
                     setGraphPerGiro({
                         labels:quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.company),

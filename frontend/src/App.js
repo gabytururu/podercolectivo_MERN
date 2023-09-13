@@ -3,6 +3,7 @@ import Navbar from '../src/components/Navbar/Navbar'
 import Home from '../src/pages/Home/Home'
 import QuejasSector from '../src/pages/QuejasSector/QuejasSector'
 import QuejasCompany from '../src/pages/QuejasCompany/QuejasCompany'
+import QuejasGiro from './pages/QuejasGiro/QuejasGiro'
 import NewQueja from '../src/pages/NewQueja/NewQueja'
 import Footer from '../src/components/Footer/Footer'
 import QuejasSectoresComplete from './pages/QuejasSector/QuejasSectoresComplete'
@@ -23,6 +24,7 @@ function App() {
           <Route path="/sectores" element={<QuejasSectoresComplete/>}/>
           <Route path="/empresas" element={<QuejasCompaniesComplete/>}/>
           <Route path="/giro" element={<QuejasGiroComplete/>}/>
+          <Route path="/giro/:giro" element={<QuejasGiro/>}/>
           <Route path="/sector/:sector" element={<QuejasSector/>}/>
           <Route path="/:sector/:nombreComercial" element={<QuejasCompany/>}/>
           <Route path="/poner-queja" element={<NewQueja/>}/>

@@ -7,7 +7,7 @@ router.get('/:id', getSingleQueja)
 router.get('/sector/:sector', getQuejasPerIndustry)
 // router.get('/:sector/:nombre_comercial', getbyNombreComercial)
 router.get('/:sector/:nombreComercial', getbyNombreComercial)
-// router.get('/sector/:giro', getQuejasByGiro) // not working
+router.get('/giro/:giro', getQuejasByGiro) // not working
 router.post('/', postQueja)
 
 //pending??

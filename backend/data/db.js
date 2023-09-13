@@ -432,9 +432,19 @@ const lasQuejas = [
         "monto_recuperado_b": "103,450"
     }
 ]
+
+// const cleanGiro = (giro) =>{
+
+//     const giroNoComas = giro.find comas and eliminate
+//     const giroNoSpace = giroNoComas.find blankSpace and substituted by _
+//     const giroNoDiacritics = giroNoSpace.find diacritics and eliminate
+//     return giroNoDiacritics
+// }
 const lasNuevasQuejas = lasQuejas.map((queja) =>{
        
     const nuevoModeloQuejas = queja
+
+    // queja.paramGiro = cleanGiro(queja.giro)
 
     queja.costo_bien_servicio = Number(queja.costo_bien_servicio.replace(',',''))
     queja.monto_reclamado = Number(queja.monto_reclamado.replace(',',''))

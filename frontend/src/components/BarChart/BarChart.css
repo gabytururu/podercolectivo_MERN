@@ -22,15 +22,16 @@
     content: "";
     position: absolute;
     inset: -5px; 
-    transform: translate(10px, 8px); 
+    transform: translate(10px, 0px); 
     z-index: -1; 
     background: linear-gradient(
         /* to right, */
-        15deg,
-        var(--poderColectivo-blue),
-        var(--poderColectivo-blueDark)
+        155deg,
+        var(--poderColectivo-blueTransparent),
+        /* var(--poderColectivo-yellowTransparent), */
+        var(--poderColectivo-redTransp)
         );
-    filter: blur(400px); 
+    filter: blur(30px); 
 }
 
 @media only screen and (max-width:1250px){
