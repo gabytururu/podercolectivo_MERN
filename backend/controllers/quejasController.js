@@ -36,12 +36,22 @@ const getQuejasPerIndustry = async(req,res)=>{
     res.status(200).json(getIndustryQueja)
 }
 
+// const getQuejasPerIndustry = async(req,res)=>{
+//     // res.json({mssg: 'GET quejas by IndustryName from DB, you just requested the quejas of Industry :' + req.params.industryName})
+//     const {sectorParamUrl} = req.params
+//     const getIndustryQueja = await Queja.find({sectorParamUrl})
+//     if (!getIndustryQueja){
+//         return res.status(400).json({err: 'no existen quejas con el parametro de :Sector dado en la DB'})
+//     }
+//     res.status(200).json(getIndustryQueja)
+// }
+
 const postQueja = async(req,res)=>{
     //res.json({mssg: 'POST a NEW Queja in a NEW collection'})
-    const { id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombreComercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio,  monto_reclamado, monto_recuperado, monto_recuperado_b} = req.body
+    const { id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombreComercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio,  monto_reclamado, monto_recuperado, monto_recuperado_b,giroParamUrl,nombreComercialParamUrl, nombreComercialCorto,sectorParamUrl} = req.body
     
     try{
-        const queja = await Queja.create({ id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombreComercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio, monto_reclamado, monto_recuperado,monto_recuperado_b })
+        const queja = await Queja.create({ id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombreComercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio, monto_reclamado, monto_recuperado,monto_recuperado_b,giroParamUrl,nombreComercialParamUrl, nombreComercialCorto,sectorParamUrl})
         res.status(200).json(queja)
     }catch(err){
         res.status(400).json({err:err.message})
@@ -59,12 +69,13 @@ const getbyNombreComercial = async(req,res)=>{
 
 // not working
 const getQuejasByGiro = async(req,res)=>{
-    const {giro} = req.params
-    const getQuejasByGiro = await Queja.find({giro})
+    const {giroParamUrl} = req.params
+    console.log(req.params)
+    const getByGiroQuejas = await Queja.find({giroParamUrl})
     if (!getQuejasByGiro){
         return res.status(400).json({err: 'no existen quejas con el parametro de :giro dado en la DB'})
     }
-    const response = res.status(200).json(getQuejasByGiro)
+    const response = res.status(200).json(getByGiroQuejas)
     console.log(response)
     
 }

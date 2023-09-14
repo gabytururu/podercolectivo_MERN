@@ -444,14 +444,55 @@ const lasQuejas = [
         "monto_recuperado_b": "103,450"
     }
 ]
-const lasNuevasQuejas = lasQuejas.map((queja) =>{
-       
-    const nuevoModeloQuejas = queja
 
-    queja.costo_bien_servicio = Number(queja.costo_bien_servicio)
-    queja.monto_reclamado = Number(queja.monto_reclamado)
-    queja.monto_recuperado = Number(queja.monto_recuperado)
-    queja.monto_recuperado_b = Number(queja.monto_recuperado_b)
+// TO BE USED AS URL PARAMS (must eliminate diacritics, spaces + shorten length)
+const cleanGiro = (giro) =>{
+    const cleanGiro = giro.replace(/,/ig,'').replace(/\s/ig,'-').normalize("NFD").replace(/\p{Diacritic}/gu,'')
+    return cleanGiro
+}
+
+const cleanNombreComercial = (nombreComercial) =>{
+    const shortenNombreComercial = nombreComercial.replace('S.A de C.V','').replace('Sapi De Cv','').replace('S De Rl De Cv','').replace(/,+\s/ig,'')
+    const cleanNombreComercial = shortenNombreComercial.replace(/,/ig,'').replace(/\s/ig,'-').normalize("NFD").replace(/\p{Diacritic}/gu,'')
+    return cleanNombreComercial
+}
+
+const cleanSector = (sector) =>{
+    const cleanSector = sector.replace(/,/ig,'').replace(/\s/ig,'-').normalize("NFD").replace(/\p{Diacritic}/gu,'')
+    return cleanSector
+}
+
+// TO BE USED IN GRAPH (no need to remove diacritics or spaces)
+const shortenNombreComercial = (nombreComercial) =>{
+    const shortenNombreComercial = nombreComercial.replace('S.A de C.V','').replace('Sapi De Cv','').replace('S De Rl De Cv','').replace(/,+\s/ig,'')
+    return shortenNombreComercial
+}
+
+const checkAmounts = (amount) =>{
+    if(amount === "" || amount === "##########"){
+         amount = 0
+    }else if(amount !== ""){
+        const numberAmount = Number(amount.replace(',',''))
+        amount = numberAmount
+    }
+   
+    return amount
+}
+
+const lasNuevasQuejas = lasQuejas.map((queja) =>{    
+    const nuevoModeloQuejas = queja
+    // queja.costo_bien_servicio = Number(queja.costo_bien_servicio)
+    // queja.monto_reclamado = Number(queja.monto_reclamado)
+    // queja.monto_recuperado = Number(queja.monto_recuperado)
+    // queja.monto_recuperado_b = Number(queja.monto_recuperado_b)
+    queja.costo_bien_servicio = checkAmounts(queja.costo_bien_servicio)
+    queja.monto_reclamado = checkAmounts(queja.monto_reclamado)
+    queja.monto_recuperado =checkAmounts(queja.monto_recuperado)
+    queja.monto_recuperado_b = checkAmounts(queja.monto_recuperado_b)
+    queja.giroParamUrl = cleanGiro(queja.giro)
+    queja.nombreComercialParamUrl = cleanNombreComercial(queja.nombreComercial)
+    queja.sectorParamUrl = cleanSector(queja.sector)
+    queja.nombreComercialCorto = shortenNombreComercial(queja.nombreComercial)
     
     return nuevoModeloQuejas
 })
@@ -459,7 +500,11 @@ const lasNuevasQuejas = lasQuejas.map((queja) =>{
 use('poderColectivo');
 
 // Insert a few documents into the sales collection.
-db.getCollection('quejas').insertMany(lasNuevasQuejas);
+   db.getCollection('quejas').insertMany(lasNuevasQuejas);
+
+// delete all documents from a collection
+    // db.getCollection('quejas').deleteMany({})
+
 
 // Run a find command to view items sold on April 4th, 2014.
     // const salesOnApril4th = db.getCollection('sales').find({

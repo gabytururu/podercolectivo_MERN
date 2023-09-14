@@ -82,7 +82,27 @@ const quejaSchema = new Schema ({
     count:{
         type: Number,
         required: true,
+    },
+
+    giroParamUrl:{
+        type: String,
+        required: true,
+    },
+
+    nombreComercialParamUrl:{
+        type: String,
+        required: true,
+    },
+
+    nombreComercialCorto:{
+        type: String,
+        required: true,
+    },
+    sectorParamUrl:{
+        type: String,
+        required: true,
     }
+
 })
 
 module.exports = mongoose.model('Queja', quejaSchema)
