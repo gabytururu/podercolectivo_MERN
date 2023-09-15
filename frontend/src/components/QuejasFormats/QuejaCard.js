@@ -8,13 +8,13 @@ const QuejaCard = ({queja}) => {
           <div className="quejaContainer">
                {queja && 
                     <div className="queja">
-                         <h3 id="quejaDetailedCardTitle">Queja Emitida a "{nombreComercial}"</h3>
+                         <h3 id="quejaDetailedCardTitle">Queja de "{nombreComercial}" Id#{id_exp} </h3>
                          <hr />
                          <div className='quejasParagraphs'>
                               <p><b>Motivo de la Queja:</b> {motivo_reclamacion}</p>
                               <p><b>Costo del Bien o Servicio Reclamado:</b> ${costo_bien_servicio} MXN</p>
                               <p><b>Estado Procesal: </b>{estado_procesal}</p>
-                              <p id="quejaId"><small>*Id de queja ante PROFECO: {id_exp}*</small></p>
+                              <p id="quejaId"><small>*El Id# es el número oficial de seguimeinto de esta queja asignado por PROFECO: {id_exp}*</small></p>
                          </div>
                     </div>
                }                        

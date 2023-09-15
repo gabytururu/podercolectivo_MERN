@@ -34,7 +34,19 @@ const QuejasCompany = () => {
         for(let queja of quejasEmpresa){
             valorBienServicio = valorBienServicio + queja.costo_bien_servicio
         }
-        return valorBienServicio
+
+        let valorMoneyFormat = valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0,
+        maximumFractionDigits: 0,});
+       // return valorBienServicio
+        return valorMoneyFormat
+    }
+
+    const getStatus =()=>{
+
+    }
+
+    const getMotivos = ()=>{
+
     }
 
     const getMontoTotalReclamado =(quejasEmpresa)=>{
@@ -58,20 +70,38 @@ const QuejasCompany = () => {
            
             <div className="data">   
                 <h1 className="datah1">Quejas Detalladas de la Empresa "{quejasEmpresa && nombreComercial}" Recibidas en la PROFECO</h1>
-                <p className="dataP">Se han encontrado un total de {quejasEmpresa && quejasEmpresa.length} quejas por bienes o servicios ascendentes a ${quejasEmpresa&& getValorBienOServicio(quejasEmpresa)} MXN  de los cuales han sido reclamados  reclamados  {quejasEmpresa&& getMontoTotalReclamado(quejasEmpresa)} MXN a {nombreComercial}. De estos, un total de {quejasEmpresa&& getMontoTotalRecuperado(quejasEmpresa)} ya han sido recuperados</p>
+                <p className="dataP">Existen un total de total de {quejasEmpresa && quejasEmpresa.length} quejas de {nombreComercial} interpuestas ante PROFECO. El valor total de los bienes o servicios vinculados a estas quejas asciende a {quejasEmpresa&& getValorBienOServicio(quejasEmpresa)} MXN</p>
+            </div>
+            <div className="infoGraphic">
+                <div className="info">
+                    <h2>Cantidad Total de las Quejas de {'\n'} {nombreComercial}</h2>
+                    <p>{quejasEmpresa && quejasEmpresa.length}</p>
+                </div>
+                <div className="info">
+                    <h2>Valor Total de las Quejas de {nombreComercial}</h2>
+                    <p>{quejasEmpresa&& getValorBienOServicio(quejasEmpresa)}</p>
+                    <p><small>*Valor en MXN</small></p>
+                </div>
+                <div className="info">
+                    <h2>Estátus de las Quejas de {nombreComercial}</h2>
+                    <p>GRAFICO</p>
+                </div>
+                <div className="info">
+                    <h2>Motivos Principales de las Queja de {nombreComercial}</h2>
+                    <p>GRAFICO</p>
+                </div>
             </div>
             <div className="data">            
                 <h2 className="datah2">Lista Detallada de Quejas de {nombreComercial} presentadas ante PROFECO:</h2>
                 <p className="dataP">La siguiente lista, presenta de manera detallada las quejas que han sido sometidas ante PROFECO reclamando una mala práctica, incumplimiento o negativa por parte de {nombreComercial}.</p>
                 <p className="dataP">Cada una de estas quejas cuenta con un ID oficial de PROFECO, así como el motivo por el cual fué presentada la queja, el costo del bien o servicio reclamado y el estátus de la queja (por ej. conciliada, en trámite, desistida etc).</p>
-                <p className="dataP">Esta información ha sido tomada de fuentes públicas gubernamentales de México y posteriormente procesada por nuestro equipo para darle una presentación y visualización más sencilla y accesible al público en general.</p>
                 {quejasEmpresa && quejasEmpresa
                     .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                     .map((queja)=>(
                     <QuejaCard key={queja._id} queja={queja}/>
                 ))}
-            </div>
-m 
+                <p className="dataP">Toda la información presentada en estas fichas ha sido recabada de fuentes oficiales, públicas, y gubernamentales de México y posteriormente procesada por nuestro equipo para crear una  visualización más sencilla y accesible al público en general.</p>
+            </div> 
 
         </div>
      );

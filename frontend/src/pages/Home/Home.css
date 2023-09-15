@@ -152,8 +152,7 @@ font-weight: 600;
 
 /* // ======================== DATA IN PAGES (CARDS CONTAINERS)=======================// */
 
-.data{
-    /* background: var(--poderColectivo-oyster); */
+    .data{
     display:flex;
     flex-direction: column;
     width: 90vw;
@@ -163,12 +162,6 @@ font-weight: 600;
     align-items: center;   
   }
 
-
-  /* 
-font-family: 'Lato', sans-serif;
-font-family: 'Pacifico', cursive;
-font-family: 'Quicksand', sans-serif;
-font-family: 'Roboto', sans-serif; */
   .data .datah1{
     text-align: center;
     font-size:30px;
@@ -270,3 +263,102 @@ font-family: 'Roboto', sans-serif; */
             }
         }
     }
+
+
+/* ================= INFOGRAPHIC FOR INDIVIDUAL DATACARDS VIEW ================= */
+/* .containerWrap{
+    background-color: aquamarine;
+} */
+.infoGraphic{
+    max-width: 1200px;
+    width:90vw;
+    height:60vh;
+    background-color: var(--poderColectivo-clear);
+    margin: auto;
+    border-radius: 8px;
+    display:flex;
+    /* flex: 1; */
+    flex-wrap: wrap;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    gap:10px 20px;
+    position:relative
+}
+
+.infoGraphic::before{
+    content: "";
+    position: absolute;
+    inset: -5px; 
+    transform: translate(10px, 0px); 
+    z-index: -1; 
+    background: linear-gradient(
+        155deg,
+        var(--poderColectivo-blueTransparent),
+        var(--poderColectivo-redTransp)
+        );
+    filter: blur(30px); 
+}
+
+.info{
+    background-color: var(--poderColectivo-oyster);
+    border-radius: 7px;
+    /* width:auto; */
+    /* height:auto; */
+    padding:20px;
+    flex: 1 2 30%;
+    height:25vh;
+    line-height: 1.7em;
+   
+}
+
+.info h2{
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    background-color: antiquewhite;
+}
+.info p{
+    text-align: center;
+    font-size: 42px;
+    font-family: 'Pacifico', cursive;
+    color: var(--poderColectivo-yellow);
+    background-color: beige;
+    margin:0
+}
+
+small{
+    font-size: 15px;
+    transform: translateY(-15px);
+    
+}
+
+/* .valor .total h2{
+    font-size: 10px;
+    font-weight: 700;
+} */
+/* .valor{
+    background-color: blue;
+    border-radius: 7px;
+    padding:20px;
+    flex: 1 2 30%;
+    height:15vh;
+    
+
+}
+.estatus{
+    background-color: yellow;
+    border-radius: 7px;
+  
+    padding:20px;
+    flex: 1 2 30%;
+    height:15vh;
+}
+.motivo{
+    background-color: yellowgreen;
+    border-radius: 7px;
+    padding:20px;
+    flex: 1 2 30%;
+    height:15vh;
+} */

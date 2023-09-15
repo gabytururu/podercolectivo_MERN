@@ -28,8 +28,8 @@ const getSingleQueja = async(req,res)=>{
 
 const getQuejasPerIndustry = async(req,res)=>{
     // res.json({mssg: 'GET quejas by IndustryName from DB, you just requested the quejas of Industry :' + req.params.industryName})
-    const {sectorParamUrl} = req.params
-    const getIndustryQueja = await Queja.find({sectorParamUrl})
+    const {sector} = req.params
+    const getIndustryQueja = await Queja.find({sector})
     if (!getIndustryQueja){
         return res.status(400).json({err: 'no existen quejas con el parametro de :Sector dado en la DB'})
     }
@@ -73,13 +73,22 @@ const getbyNombreComercial = async(req,res)=>{
 //     res.json({mssg:`get las quejas del giro ${giroParamUrl}`})
 // }
 const getQuejasByGiro = async(req,res)=>{
-    const {giroParamUrl} = req.params
-    const getGiroQueja = await Queja.find({giroParamUrl})
+    const {giro} = req.params
+    const getGiroQueja = await Queja.find({giro:giro})
     if (!getGiroQueja){
         return res.status(400).json({err: 'no existen quejas con el parametro de :giro dado en la DB'})
     }
     res.status(200).json(getGiroQueja)
     
+}
+
+const testResponse =async(req,res)=>{
+    const {giroParamUrl} = req.params
+    const quejaPorGiro = await Queja.find({giroParamUrl})
+    if(!quejaPorGiro){
+        return res.status(400).json({err:'no existen quejas con ese parametro de giro'})
+    }
+    res.status(200).json(quejaPorGiro)
 }
 
 // no longer needed ??
@@ -102,6 +111,7 @@ module.exports = {
     // getQuejasPerCompany,
     postQueja,
     getbyNombreComercial,
-    getQuejasByGiro    
+    getQuejasByGiro,
+    testResponse   
 
 }
