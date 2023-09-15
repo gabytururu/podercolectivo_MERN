@@ -12,7 +12,8 @@ const QuejaCard = ({queja}) => {
                          <hr />
                          <div className='quejasParagraphs'>
                               <p><b>Motivo de la Queja:</b> {motivo_reclamacion}</p>
-                              <p><b>Costo del Bien o Servicio Reclamado:</b> ${costo_bien_servicio} MXN</p>
+                              <p><b>Costo del Bien o Servicio Reclamado:</b> {costo_bien_servicio.toLocaleString("es-MX", {style:"currency", currency:"MXN", minimumFractionDigits: 0, maximumFractionDigits: 0,})
+                              }   MXN</p>
                               <p><b>Estado Procesal: </b>{estado_procesal}</p>
                               <p id="quejaId"><small>*El Id# es el número oficial de seguimeinto de esta queja asignado por PROFECO: {id_exp}*</small></p>
                          </div>

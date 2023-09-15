@@ -13,7 +13,7 @@ const SumQuejasCompany = ({queja}) => {
                     <p className="quejaLegend">Quejas Recibidas:</p>
                     <p className="quejaQty">{totalQuejas} </p>
                     <p className="quejaLegend">Costo de los Bienes o Servicios en Disputa:</p>
-                    <p className="quejaQty">${costoBienServicio} <span className="currency">MXN</span></p>
+                    <p className="quejaQty">{costoBienServicio} <span className="currency">MXN</span></p>
                     <p className="quejaLegend">El Giro de esta empresa es {giro}</p>
                 </div>
             }

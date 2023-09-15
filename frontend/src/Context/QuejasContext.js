@@ -48,7 +48,9 @@ export const QuejasContextProvider = ({children}) =>{
         let categoriesAggregatedIndicators = []
         for (let category of categoriesArray){
             let montoReclamado = 0
+                // montoReclamado.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,});
             let montoRecuperado = 0
+                // montoRecuperado.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,});
             let costoBienServicio = 0
             let sector = ''
             let giro = ''
@@ -61,7 +63,15 @@ export const QuejasContextProvider = ({children}) =>{
                 sector = queja.sector
                 giro = queja.giro
             }
-            const thisElementinCategoryIndicators = {company: category, totalQuejas: quejasQtyThisCategory, montoTotalReclamado: montoReclamado, montoTotalRecuperado: montoRecuperado, sector: sector, costoBienServicio: costoBienServicio, giro:giro}
+            const thisElementinCategoryIndicators = {
+                company: category, 
+                totalQuejas: quejasQtyThisCategory, 
+                montoTotalReclamado: montoReclamado, 
+                montoTotalRecuperado: montoRecuperado, 
+                sector: sector, 
+                costoBienServicio: costoBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,}), 
+                giro:giro
+            }
             categoriesAggregatedIndicators.push(thisElementinCategoryIndicators)
             console.log('categoriesAgg indicators from context function-->',categoriesAggregatedIndicators)
         }

@@ -34,35 +34,17 @@ const QuejasCompany = () => {
         for(let queja of quejasEmpresa){
             valorBienServicio = valorBienServicio + queja.costo_bien_servicio
         }
-
-        let valorMoneyFormat = valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0,
-        maximumFractionDigits: 0,});
-       // return valorBienServicio
-        return valorMoneyFormat
+        return valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,})
     }
 
-    const getStatus =()=>{
+    // const getStatus =()=>{
 
-    }
+    // }
 
-    const getMotivos = ()=>{
+    // const getMotivos = ()=>{
 
-    }
+    // }
 
-    const getMontoTotalReclamado =(quejasEmpresa)=>{
-        let montoTotalReclamado = 0
-        for(let queja of quejasEmpresa){
-            montoTotalReclamado = montoTotalReclamado + queja.monto_reclamado
-        }
-        return montoTotalReclamado
-    }
-    const getMontoTotalRecuperado =(quejasEmpresa)=>{
-        let montoTotalRecuperado = 0
-        for(let queja of quejasEmpresa){
-            montoTotalRecuperado = montoTotalRecuperado + queja.monto_recuperado_b
-        }
-        return montoTotalRecuperado
-    }
    
 
     return ( 
@@ -70,7 +52,7 @@ const QuejasCompany = () => {
            
             <div className="data">   
                 <h1 className="datah1">Quejas Detalladas de la Empresa "{quejasEmpresa && nombreComercial}" Recibidas en la PROFECO</h1>
-                <p className="dataP">Existen un total de total de {quejasEmpresa && quejasEmpresa.length} quejas de {nombreComercial} interpuestas ante PROFECO. El valor total de los bienes o servicios vinculados a estas quejas asciende a {quejasEmpresa&& getValorBienOServicio(quejasEmpresa)} MXN</p>
+                <p className="dataP">Existen un total de total de <b>{quejasEmpresa && quejasEmpresa.length} quejas de {nombreComercial}</b> interpuestas ante PROFECO. El valor total de los bienes o servicios vinculados a estas quejas asciende a <b>{quejasEmpresa&& getValorBienOServicio(quejasEmpresa)} MXN</b></p>
             </div>
             <div className="infoGraphic">
                 <div className="info">

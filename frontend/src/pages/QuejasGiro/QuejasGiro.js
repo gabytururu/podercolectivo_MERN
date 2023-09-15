@@ -43,15 +43,15 @@ const QuejasGiro = () => {
         for(let queja of quejasdelGiro){
             valorBienServicio = valorBienServicio + queja.costo_bien_servicio
         }
-        return valorBienServicio
+        return valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,})
     }
 
     return ( 
         <div className="containerWrap">
         <div className="data">
             <h1 className="datah1">Quejas Recibidas ante la PROFECO del Giro Comercial {giro}</h1>
-            <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de {quejasDelGiro && quejasDelGiro.length} quejas por malas prácticas o incumplimientos de las empresas del giro comercial{giro}</p>
-            <p className="dataP">Las Quejas de este sector son reclamos por transacciones de bienes o servicios que ascienden a un valor de {quejasDelGiro && getValorBienOServicio(quejasDelGiro)} MXN</p>
+            <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de <b>{quejasDelGiro && quejasDelGiro.length} quejas</b> por malas prácticas o incumplimientos de las <b>empresas del giro comercial{giro}</b></p>
+            <p className="dataP">Las Quejas de este sector son reclamos por transacciones de bienes o servicios que ascienden a un valor de <b>{quejasDelGiro && getValorBienOServicio(quejasDelGiro)} MXN</b></p>
                 <BarChart chartData={graphPerGiro}/>    
             <h2 className="datah2">Lista Detallada de Quejas Acumuladas por Cada Empresa del giro comercial {giro} </h2>
             <p className="dataP">Da click o tap en cada una para conocer el motivo y estátus de las quejas acumuladas por empresa </p>

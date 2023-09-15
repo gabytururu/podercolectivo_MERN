@@ -52,7 +52,7 @@ const QuejasSector = () => {
         for(let queja of quejasdelSector){
             valorBienServicio = valorBienServicio + queja.costo_bien_servicio
         }
-        return valorBienServicio
+        return valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,})
     }
 
     const getMontoTotalReclamado =(quejasdelSector)=>{
@@ -106,8 +106,8 @@ const QuejasSector = () => {
         <div className="containerWrap">
             <div className="data">
                 <h1 className="datah1">Quejas Recibidas ante la PROFECO del Sector {sector}</h1>
-                <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de {quejasdelSector && quejasdelSector.length} quejas por malas prácticas o incumplimientos de las empresas del sector {sector}</p>
-                <p className="dataP">Las Quejas de este sector son reclamos por transacciones de bienes o servicios que ascienden a un valor de {quejasdelSector&& getValorBienOServicio(quejasdelSector)} MXN</p>
+                <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de <b>{quejasdelSector && quejasdelSector.length} quejas</b> por malas prácticas o incumplimientos de las <b>empresas del sector {sector}</b></p>
+                <p className="dataP">Las Quejas de este sector son reclamos por transacciones de bienes o servicios que ascienden a un valor de <b>{quejasdelSector&& getValorBienOServicio(quejasdelSector)} MXN</b></p>
                     <BarChart chartData={graphPerSector}/>    
                 <h2 className="datah2">Lista Detallada de Quejas Acumuladas por Cada Empresa del sector {sector} </h2>
                 <p className="dataP">Da click o tap en cada una para conocer el motivo y estátus de las quejas acumuladas por empresa </p>
