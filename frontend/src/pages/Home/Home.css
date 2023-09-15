@@ -126,7 +126,7 @@
 
 .button{
     background-color: var(--poderColectivo-yellow);
-    max-width:250px;
+    max-width:50vw;
     height: 25px;
     padding:5px;
     border-radius: 8px;
@@ -134,7 +134,7 @@
     text-decoration: none;
     color: white;
     opacity:1;
-    font-size:18px;
+    font-size:20px;
     font-weight: 600;
     margin-left:auto;
     margin-right:auto;
@@ -149,6 +149,25 @@ opacity:0.6;
 transition:0.3s;
 font-weight: 600;
 }
+
+@media only screen and (max-width:1000px){
+    .button{
+        font-size:18px;
+        height: 22px;
+        min-width: 285px;
+        margin:0;
+       
+    }
+}
+/* @media only screen and (max-width:600px){
+    .button{
+        font-size:16px;
+        height: 50px;
+        padding:10; 
+        text-anchor: middle;
+       
+    }
+} */
 
 /* // ======================== DATA IN PAGES (CARDS CONTAINERS)=======================// */
 
@@ -283,7 +302,8 @@ font-weight: 600;
     justify-content: center;
     align-items: center;
     gap:10px 20px;
-    position:relative
+    position:relative;
+    /* flex-grow: grow */
 }
 
 .infoGraphic::before{
@@ -299,6 +319,27 @@ font-weight: 600;
         );
     filter: blur(30px); 
 }
+
+@media only screen and (max-width:600px){
+    .infoGraphic{
+        overflow:auto
+    }
+    /* .infoGraphic::before{
+        content: "";
+        position: absolute;
+        inset: -5px; 
+        transform: translate(10px, 0px); 
+        z-index: -1; 
+        background: linear-gradient(
+            155deg,
+            var(--poderColectivo-blueTransparent),
+            var(--poderColectivo-redTransp)
+            );
+        filter: blur(500px); 
+    } */
+}
+
+
 
 .info{
     background-color: var(--poderColectivo-oyster);
