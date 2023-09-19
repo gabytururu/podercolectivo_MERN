@@ -1,8 +1,8 @@
-import{Bar} from 'react-chartjs-2'
-import {Chart as ChartJs, BarElement} from 'chart.js/auto'
+import{Pie} from 'react-chartjs-2'
+import {Chart as ChartJs, PieElement} from 'chart.js/auto'
 import 'chartjs-plugin-datalabels'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
-import './BarChart.css'
+import './PieChart.css'
 // import { useContext } from 'react'
 // import {QuejasContext} from '../../Context/QuejasContext' 
 
@@ -11,7 +11,7 @@ import './BarChart.css'
 //     ChartDataLabels
 // )
 
-const BarChart = ({chartData}) => {
+const PieChart = ({chartData}) => {
     // const {barChartRadius, barChartColor} = useContext(QuejasContext)
     let options= {
         maintainAspectRatio: false,
@@ -73,10 +73,10 @@ const BarChart = ({chartData}) => {
 
     return ( 
         <div className="backdropImg">       
-            <Bar data={chartData}  plugins={[ChartDataLabels]} options={options}/>
+            <Pie data={chartData}  plugins={[ChartDataLabels]} options={options}/>
         </div>
         
      );
 }
  
-export default BarChart;        
+export default PieChart;        

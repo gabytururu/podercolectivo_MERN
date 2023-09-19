@@ -2,8 +2,9 @@
 import {useState, useEffect, useContext} from 'react'
 import {useParams} from 'react-router-dom'
 import QuejaCard from '../../components/QuejasFormats/QuejaCard'
+import BarChart from '../../components/BarChart/BarChart'
 import { QuejasContext } from '../../Context/QuejasContext'
-//import BarChart from '../../components/BarChart'
+import PieChart from '../../components/PieChart/PieChart'
 
 
 const QuejasCompany = () => {
@@ -37,13 +38,55 @@ const QuejasCompany = () => {
         return valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,})
     }
 
-    // const getStatus =()=>{
+    const getStatus =(quejasEmpresa)=>{
+        let statusArr =[]
+        quejasEmpresa.map(queja => statusArr.includes(queja.estado_procesal)?'':statusArr.push(queja.estado_procesal))
+        console.log('statusArr after map', statusArr)
+        let statusDetailsAggregator = []
+        console.log('typeof ArrayStatus PRE LOOP', typeof arrayDeEstatus)
+        const qtyStatusArr = statusArr.length
+       for(let status of statusArr){
+        
+        const quejasEsteStatus = quejasEmpresa.filter((el)=> el.estado_procesal === status)
+        console.log(`las Quejas Este status llamado ${status} inside forOf loop son en total ${quejasEsteStatus.length}-->`, quejasEsteStatus)
 
-    // }
+        const thisStatusDetails ={
+            statusName : status,
+            qtyQuejasThisStatus : quejasEsteStatus.length,
+            percentageThisStatusFromTotal: quejasEsteStatus.length / qtyStatusArr
+        }
 
-    // const getMotivos = ()=>{
+        statusDetailsAggregator.push(thisStatusDetails)
+      
+        console.log('typeof ArrayStatus DENTRO LOOP', typeof arrayDeEstatus)
+        console.log('detalles del status DENTRO de este loop-->', statusDetailsAggregator)
+        console.log('tipo del statusDteails agg DENTRO', typeof statusDetailsAggregator)
+       }
 
-    // }
+       console.log('detalles del status FUERA del loop-->', statusDetailsAggregator)
+       console.log('el tipo de statusDetailsAgg',typeof statusDetailsAggregator)
+       return statusDetailsAggregator
+
+    } 
+
+    const getMotivos = (quejasEmpresa)=>{
+        let motivosArr=[]
+        quejasEmpresa.map(queja=>motivosArr.includes(queja.motivo_reclamacion)?'':motivosArr.push(queja.motivo_reclamacion))
+        let motivosDetailsAggregator=[]
+        for(let motivo of motivosArr){
+            const quejasForThisMotivo = quejasEmpresa.filter((el)=>el.motivo_reclamacion === motivo)
+
+            const thisMotivoDetails ={
+                motivoName : motivo,
+                qtyThisMotivo : quejasForThisMotivo.length,
+                percentageThisMotivo : quejasForThisMotivo.length/motivosArr.length
+            }
+
+            motivosDetailsAggregator.push(thisMotivoDetails)
+        }
+        console.log('motivosDetailsAggregator',motivosDetailsAggregator)
+        return motivosDetailsAggregator
+    }
 
    
 
@@ -56,21 +99,38 @@ const QuejasCompany = () => {
             </div>
             <div className="infoGraphic">
                 <div className="info">
-                    <h2>Cantidad Total de las Quejas de {'\n'} {nombreComercial}</h2>
-                    <p>{quejasEmpresa && quejasEmpresa.length}</p>
+                    <h2>Cantidad Total de las Quejas de {'\n'} {nombreComercial}</h2>  
+                    <p className="qtyContainer">
+                        {quejasEmpresa && quejasEmpresa.length}                  
+                    </p>               
                 </div>
                 <div className="info">
                     <h2>Valor Total de las Quejas de {nombreComercial}</h2>
-                    <p>{quejasEmpresa&& getValorBienOServicio(quejasEmpresa)}</p>
+                    <p id="value">{quejasEmpresa&& getValorBienOServicio(quejasEmpresa)}</p>
                     <p><small>*Valor en MXN</small></p>
                 </div>
                 <div className="info">
                     <h2>Estátus de las Quejas de {nombreComercial}</h2>
-                    <p>GRAFICO</p>
+                    {quejasEmpresa && getStatus(quejasEmpresa)
+                        .map((queja,i)=>(
+                            <li key={i}>{queja.statusName}={queja.percentageThisStatusFromTotal.toFixed(2)*100}%</li>
+                        ))
+                    }
+                    {/* <PieChart chartData={quejasEmpresa}/> */}
+
+            
+                    {/* <BarChart chartData={graphPerCompany}/> */}
                 </div>
                 <div className="info">
-                    <h2>Motivos Principales de las Queja de {nombreComercial}</h2>
-                    <p>GRAFICO</p>
+                    <h2>Motivos de las Quejas de {nombreComercial}</h2>
+                    { quejasEmpresa && getMotivos(quejasEmpresa)
+                        .map((queja,i)=>(
+                            <li key={i}>{queja.motivoName} = {queja.percentageThisMotivo.toFixed(2)*100}%</li>
+                        ))
+
+                    
+
+                    }
                 </div>
             </div>
             <div className="data">            

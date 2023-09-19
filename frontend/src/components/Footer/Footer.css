@@ -1,19 +1,32 @@
 .footerWrapper{
     background-color: var(--poderColectivo-dark);
-    height: 15vh; 
+    /* height: 15vh;  */
     color: var(--poderColectivo-clear); 
+    /* position:fixed; */
+    width:100%;
+    bottom:0;
+    left:0;
     display:flex;
+    flex-direction: column;
+    /* align-items: center;
+    justify-content: center; */
+    /* display:flex;
     flex-direction: column;
     justify-content:space-evenly;
     text-align:center;
-    padding: 30px;
+    padding: 30px; */
     /* min-height: auto */
 }
 
 
-.footerWrapper .footLogo img{
+/* .footLogo{
+    width: 20vw;
+    height: 8vw;
+    background-color: red;
+} */
+
+img{
     width:20%;
-   
     background-color: crimson;
     line-height: 0;
     margin: 0;
@@ -35,9 +48,7 @@
     max-width: 80vw;
     margin:10px 20vw;
     align-items: center;
-    line-height: 1.5em;
-   
-    
+    line-height: 1.5em;   
    
 }
 
