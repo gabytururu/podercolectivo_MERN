@@ -6,28 +6,49 @@ import './PieChart.css'
 // import { useContext } from 'react'
 // import {QuejasContext} from '../../Context/QuejasContext' 
 
-// ChartJs.register(
-//     ArcElement, Tooltip, Legend
-// )
+ChartJs.register(
+    ArcElement, Tooltip, Legend
+)
 
 // const PieChart = ({chartData}) => {
 const PieChart = ({chartData}) => {
     
-    // const data = {
-    //     labels:['one','two','three'],
-    //     datasets:[{
-    //             data:[3,6,9],
-    //             backgroundColor: ['aqua', 'bloodorange','purple']
-    //         }]
-    // };
+   
 
-    // const options={}
+    const options={
+        maintainAspectRatio:false,
+        responsive:true,
+        scales:{},
+        plugins:{
+            legend:{
+                // labels:{
+                //     color: 'blue',
+                //     font:{
+                //         size:17,
+                //         weight:700,
+                //     }
+                // },
+               display:true,
+                position:'bottom',           
+            },       
+            datalabels:{
+                color:'#464646',
+                align: 'center',
+                anchor: 'center',
+                offset: 0,
+                font:{
+                    size:15,
+                    weight:700
+                },
+            }
+        }
+    }
 
     return ( 
         <div className="pieChartContainer">       
             {/* <Pie data={chartData}  plugins={[ChartDataLabels]} options={options}/> */}
             {/* <Pie data={chartData} options={options}  /> */}
-            <Pie data={chartData} />
+            <Pie data={chartData} plugins={[ChartDataLabels]} options={options} />
         </div>
         
      );

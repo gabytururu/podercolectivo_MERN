@@ -7,6 +7,11 @@ const initialQuejas = null
 export const QuejasContextProvider = ({children}) =>{
 
     const barChartColor = '#1ac6edb0';
+    const barChartColorB = '#ff63479f';
+    const barChartColorC = '#ffb9087e';
+    const barChartColorD = '#005494';
+    const barChartColorE = '##ff6347';
+
     const barChartRadius = 5
     
     const [quejas, setQuejas] = useState(null)
@@ -49,13 +54,13 @@ export const QuejasContextProvider = ({children}) =>{
             backgroundColor: barChartColor,
         }]
     }) 
-    // const [graphPerMotivos, setGraphPerMotivos] = useState({
-    //     labels: [],
-    //     datasets: [{
-    //         label: 'Motivos principales de las Quejas',
-    //         data: [],
-    //         backgroundColor: barChartColor,
-    //    }]}) 
+    const [graphPerMotivos, setGraphPerMotivos] = useState({
+        labels: [],
+        datasets: [{
+            label: 'Motivos principales de las Quejas',
+            data: [],
+            backgroundColor: barChartColor,
+       }]}) 
 
     const sumQuejasPerCategory = (quejas, categorySelected) =>{
         let categoriesArray = []
@@ -113,14 +118,34 @@ export const QuejasContextProvider = ({children}) =>{
        return statusDetailsAggregator
     }
 
+      const getMotivos = (quejasEmpresa)=>{
+        let motivosArr=[]
+        let totalQtyQuejasThisEmpresa = quejasEmpresa.length
+        quejasEmpresa.map(queja=>motivosArr.includes(queja.motivo_reclamacion)?'':motivosArr.push(queja.motivo_reclamacion))
+        let motivosDetailsAggregator=[]
+        for(let motivo of motivosArr){
+            const quejasForThisMotivo = quejasEmpresa.filter((el)=>el.motivo_reclamacion === motivo)
+
+            const thisMotivoDetails ={
+                motivoName : motivo,
+                qtyThisMotivo : quejasForThisMotivo.length,
+                percentageThisMotivo : quejasForThisMotivo.length/totalQtyQuejasThisEmpresa
+            }
+
+            motivosDetailsAggregator.push(thisMotivoDetails)
+        }
+        console.log('motivosDetailsAggregator',motivosDetailsAggregator)
+        return motivosDetailsAggregator
+    }
+
     // const perCompany = quejasSumPerCategory(quejas,categoryCompany)
     // const perSector = quejasSumPerCategory(quejas,categorySector)
     // const perGiro = quejasSumPerCategory(quejas,categoryGiro)
 
     const data = {
-        quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, graphPerGiro, setGraphPerGiro, barChartRadius, barChartColor, graphPerStatus, setGraphPerStatus, getStatus
+        quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, graphPerGiro, setGraphPerGiro, barChartRadius, barChartColor,barChartColorB,barChartColorC,barChartColorD,barChartColorE, graphPerStatus, setGraphPerStatus, getStatus, getMotivos, graphPerMotivos, setGraphPerMotivos
     }
-    // graphPerMotivos, setGraphPerMotivos,
+    
     
     return(
         <QuejasContext.Provider value={data}>

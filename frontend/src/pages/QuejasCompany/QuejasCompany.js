@@ -9,7 +9,7 @@ import PieChart from '../../components/PieChart/PieChart'
 
 const QuejasCompany = () => {
 
-    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, graphPerStatus, setGraphPerStatus, graphPerMotivos, setGraphPerMotivos, barChartColor,barChartRadiusgetStatus, getStatus} = useContext(QuejasContext)
+    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, graphPerStatus, setGraphPerStatus, graphPerMotivos, setGraphPerMotivos, barChartColor,barChartColorB,barChartColorC,barChartColorD,barChartColorE,barChartRadiusgetStatus, getStatus, getMotivos} = useContext(QuejasContext)
     
     // const {sector, nombre_comercial} = useParams()
     const {sector, nombreComercial} = useParams()
@@ -26,19 +26,24 @@ const QuejasCompany = () => {
                 if(fetchQuejasEmpresa.ok){
                     setQuejasEmpresa(quejasEmpresaJson) 
                     const infoStatus = getStatus(quejasEmpresaJson)
-                    console.log('XXXXXXXXXXXXXXXXXXXXXX GRAPH PER STATUS XXXXXXXXXXXXXXXXXXXXXXXXXXXXX', graphPerStatus)
-                    console.log('<--------- INFO STATUS ------><--------- INFO STATUS ------>',infoStatus)
-                    // setStatusChartData(infoStatus)
-                    console.log('<--------- INFO STATUS NAME ------><--------- INFO STATUS NAME ------>',infoStatus.map((status)=>status.statusName))
-                    console.log('<--------- INFO STATUS %------><--------- INFO STATUS % ------>',infoStatus.map((status)=>status.percentageThisStatusFromTotal))
-
+                    const infoMotivos = getMotivos(quejasEmpresaJson)
 
                     setGraphPerStatus({
                         labels: infoStatus.map((status)=>status.statusName),
                         datasets:[{
                             label: 'Quejas por Estatus',
-                            data: infoStatus && infoStatus.map((status)=> status.percentageThisStatusFromTotal)
+                            data: infoStatus && infoStatus.map((status)=> status.percentageThisStatusFromTotal.toFixed(2)*100)
                         }],
+                        backgroundColor: [barChartColor,barChartColorB,barChartColorC, barChartColorD, barChartColorE]
+                    })
+
+                    setGraphPerMotivos({
+                        labels:infoMotivos.map((motivo)=>motivo.motivoName),
+                        datasets:[{
+                            label:'Quejas por Motivo',
+                            data: infoMotivos && infoMotivos.map((motivo)=>motivo.percentageThisMotivo.toFixed(2)*100),
+                            backgroundColor: [barChartColor,barChartColorB,barChartColorC, barChartColorD, barChartColorE]
+                        }]
                     })
                           
                 }
@@ -67,25 +72,6 @@ const QuejasCompany = () => {
     }
 
 
-    // const getMotivos = (quejasEmpresa)=>{
-    //     let motivosArr=[]
-    //     let totalQtyQuejasThisEmpresa = quejasEmpresa.length
-    //     quejasEmpresa.map(queja=>motivosArr.includes(queja.motivo_reclamacion)?'':motivosArr.push(queja.motivo_reclamacion))
-    //     let motivosDetailsAggregator=[]
-    //     for(let motivo of motivosArr){
-    //         const quejasForThisMotivo = quejasEmpresa.filter((el)=>el.motivo_reclamacion === motivo)
-
-    //         const thisMotivoDetails ={
-    //             motivoName : motivo,
-    //             qtyThisMotivo : quejasForThisMotivo.length,
-    //             percentageThisMotivo : quejasForThisMotivo.length/totalQtyQuejasThisEmpresa
-    //         }
-
-    //         motivosDetailsAggregator.push(thisMotivoDetails)
-    //     }
-    //     console.log('motivosDetailsAggregator',motivosDetailsAggregator)
-    //     return motivosDetailsAggregator
-    // }
 
     return ( 
         <div className="containerWrap">
@@ -118,14 +104,15 @@ const QuejasCompany = () => {
                  
                     {/* <BarChart chartData={graphPerCompany}/> */}
                 </div>
-                {/* <div className="info">
+                <div className="info">
                     <h2>Motivos de las Quejas de {nombreComercial}</h2>
-                    { quejasEmpresa && getMotivos(quejasEmpresa)
+                    <PieChart chartData={graphPerMotivos}/>
+                    {/* { quejasEmpresa && getMotivos(quejasEmpresa)
                         .map((queja,i)=>(
                             <li key={i}>{queja.motivoName} = {queja.percentageThisMotivo.toFixed(2)*100}%</li>
                         ))
-                    }
-                </div> */}
+                    } */}
+                </div>
             </div>
             <div className="data">            
                 <h2 className="datah2">Lista Detallada de Quejas de {nombreComercial} presentadas ante PROFECO:</h2>
