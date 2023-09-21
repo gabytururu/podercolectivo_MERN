@@ -42,10 +42,12 @@ header{
 .navbar nav .logo{
     width:25%;
     text-align: center;
+   
 }
 
 .logo img{
     width: 130px;
+    background-color: black;
 }
 .navbar .menu{
     width: 75%;

@@ -26,8 +26,10 @@ const Navbar = () => {
             <header className="navbar">
                 <nav>
                     <div className="logo">
+                        {/* <img src="./podercolectivoLOGO_BL_CLEAR.png" alt="poder coletivo logo" /> */}
                         <Link to="/">
-                            <img src="./podercolectivoLOGO_BL_CLEAR.png" alt="poder coletivo logo"/>
+                            {/* <img src="./podercolectivoLOGO_BL_CLEAR.png" alt="poder coletivo logo" onError={(e)=>{console.error('Error loading logo:', e.message)}}/> */}
+                            <img src="/podercolectivoLOGO_BL_CLEAR.png" alt="poder coletivo logo" />
                         </Link>
                     </div>
                     <div className="menu">
