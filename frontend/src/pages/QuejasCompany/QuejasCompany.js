@@ -9,11 +9,23 @@ import PieChart from '../../components/PieChart/PieChart'
 
 const QuejasCompany = () => {
 
-    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany} = useContext(QuejasContext)
+    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, graphPerStatus, setGraphPerStatus, graphPerMotivos, setGraphPerMotivos, barChartColor,barChartRadiusgetStatus, getStatus} = useContext(QuejasContext)
     
     // const {sector, nombre_comercial} = useParams()
     const {sector, nombreComercial} = useParams()
     const [quejasEmpresa, setQuejasEmpresa] = useState(null)
+    
+    const [statusChartData, setStatusChartData] = useState(null)
+
+     
+    
+    // const data = {
+    //         labels:['one','two','three'],
+    //         datasets:[{
+    //                 data:[3,6,9],
+    //                 backgroundColor: ['aqua', 'bloodorange','purple']
+    //             }]
+    //         }
 
     useEffect(()=>{
         const getQuejasEmpresa = async() =>{
@@ -21,7 +33,21 @@ const QuejasCompany = () => {
                 
                 const fetchQuejasEmpresa = await fetch(`http://localhost:5000/api/quejas/${sector}/${nombreComercial}`)
                 const quejasEmpresaJson = await fetchQuejasEmpresa.json()
-                setQuejasEmpresa(quejasEmpresaJson)  //<--- will help to create a new DASHBOARD with it
+
+                if(fetchQuejasEmpresa.ok){
+                    setQuejasEmpresa(quejasEmpresaJson) 
+                    const infoStatus = getStatus(quejasEmpresa)
+                    setStatusChartData(infoStatus)
+                    setGraphPerStatus({
+                        labels: statusChartData?.map((status)=>status.statusName),
+                        datasets:[{
+                            label: 'Quejas por Estatus',
+                            data:statusChartData?.map((status)=> status.percentageThisStatusFromTotal)
+                        }]
+                    })
+                }
+
+                
             }catch(err){
                 console.log('el error en GET QUEJAS POR EMPRESA -->')
             }
@@ -29,6 +55,8 @@ const QuejasCompany = () => {
         } 
         getQuejasEmpresa()
     },[])
+
+
 
     const getValorBienOServicio = (quejasEmpresa) =>{
         let valorBienServicio = 0
@@ -38,39 +66,10 @@ const QuejasCompany = () => {
         return valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,})
     }
 
-    const getStatus =(quejasEmpresa)=>{
-        let statusArr =[]
-        quejasEmpresa.map(queja => statusArr.includes(queja.estado_procesal)?'':statusArr.push(queja.estado_procesal))
-        console.log('statusArr after map', statusArr)
-        let statusDetailsAggregator = []
-        console.log('typeof ArrayStatus PRE LOOP', typeof arrayDeEstatus)
-        const qtyStatusArr = statusArr.length
-       for(let status of statusArr){
-        
-        const quejasEsteStatus = quejasEmpresa.filter((el)=> el.estado_procesal === status)
-        console.log(`las Quejas Este status llamado ${status} inside forOf loop son en total ${quejasEsteStatus.length}-->`, quejasEsteStatus)
-
-        const thisStatusDetails ={
-            statusName : status,
-            qtyQuejasThisStatus : quejasEsteStatus.length,
-            percentageThisStatusFromTotal: quejasEsteStatus.length / qtyStatusArr
-        }
-
-        statusDetailsAggregator.push(thisStatusDetails)
-      
-        console.log('typeof ArrayStatus DENTRO LOOP', typeof arrayDeEstatus)
-        console.log('detalles del status DENTRO de este loop-->', statusDetailsAggregator)
-        console.log('tipo del statusDteails agg DENTRO', typeof statusDetailsAggregator)
-       }
-
-       console.log('detalles del status FUERA del loop-->', statusDetailsAggregator)
-       console.log('el tipo de statusDetailsAgg',typeof statusDetailsAggregator)
-       return statusDetailsAggregator
-
-    } 
 
     const getMotivos = (quejasEmpresa)=>{
         let motivosArr=[]
+        let totalQtyQuejasThisEmpresa = quejasEmpresa.length
         quejasEmpresa.map(queja=>motivosArr.includes(queja.motivo_reclamacion)?'':motivosArr.push(queja.motivo_reclamacion))
         let motivosDetailsAggregator=[]
         for(let motivo of motivosArr){
@@ -79,7 +78,7 @@ const QuejasCompany = () => {
             const thisMotivoDetails ={
                 motivoName : motivo,
                 qtyThisMotivo : quejasForThisMotivo.length,
-                percentageThisMotivo : quejasForThisMotivo.length/motivosArr.length
+                percentageThisMotivo : quejasForThisMotivo.length/totalQtyQuejasThisEmpresa
             }
 
             motivosDetailsAggregator.push(thisMotivoDetails)
@@ -87,8 +86,6 @@ const QuejasCompany = () => {
         console.log('motivosDetailsAggregator',motivosDetailsAggregator)
         return motivosDetailsAggregator
     }
-
-   
 
     return ( 
         <div className="containerWrap">
@@ -116,9 +113,8 @@ const QuejasCompany = () => {
                             <li key={i}>{queja.statusName}={queja.percentageThisStatusFromTotal.toFixed(2)*100}%</li>
                         ))
                     }
-                    {/* <PieChart chartData={quejasEmpresa}/> */}
-
-            
+                    
+                    <PieChart data={graphPerStatus}/>
                     {/* <BarChart chartData={graphPerCompany}/> */}
                 </div>
                 <div className="info">
@@ -127,9 +123,6 @@ const QuejasCompany = () => {
                         .map((queja,i)=>(
                             <li key={i}>{queja.motivoName} = {queja.percentageThisMotivo.toFixed(2)*100}%</li>
                         ))
-
-                    
-
                     }
                 </div>
             </div>
