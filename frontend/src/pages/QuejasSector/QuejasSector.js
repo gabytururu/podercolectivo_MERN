@@ -15,14 +15,14 @@ const QuejasSector = () => {
 
     const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany,barChartColor, barChartRadius} = useContext(QuejasContext)
 
-    const {sector} = useParams()
+    const {sectorParamUrl} = useParams()
     const [quejasdelSector, setQuejasdelSector ] = useState(null)
     // const [categoryBySector, setCategoryBySector] = useState('sector')
 
     useEffect(()=>{
         const getQuejasSector = async() =>{
             try{
-                const fetchQuejasSector = await fetch(`http://localhost:5000/api/quejas/sector/${sector}`)
+                const fetchQuejasSector = await fetch(`http://localhost:5000/api/quejas-profeco/sector/${sectorParamUrl}`)
                 const quejasSectorJson = await fetchQuejasSector.json()
                 setQuejasdelSector(quejasSectorJson)
                 const quejasSector = sumQuejasPerCategory(quejasSectorJson, categoryCompany)
@@ -105,11 +105,11 @@ const QuejasSector = () => {
     return ( 
         <div className="containerWrap">
             <div className="data">
-                <h1 className="datah1">Quejas Recibidas ante la PROFECO del Sector {sector}</h1>
-                <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de <b>{quejasdelSector && quejasdelSector.length} quejas</b> por malas prácticas o incumplimientos de las <b>empresas del sector {sector}</b></p>
+                <h1 className="datah1">Quejas Recibidas ante la PROFECO del Sector {sectorParamUrl}</h1>
+                <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de <b>{quejasdelSector && quejasdelSector.length} quejas</b> por malas prácticas o incumplimientos de las <b>empresas del sector {sectorParamUrl}</b></p>
                 <p className="dataP">Las Quejas de este sector son reclamos por transacciones de bienes o servicios que ascienden a un valor de <b>{quejasdelSector&& getValorBienOServicio(quejasdelSector)} MXN</b></p>
                     <BarChart chartData={graphPerSector}/>    
-                <h2 className="datah2">Lista Detallada de Quejas Acumuladas por Cada Empresa del sector {sector} </h2>
+                <h2 className="datah2">Lista Detallada de Quejas Acumuladas por Cada Empresa del sector {sectorParamUrl} </h2>
                 <p className="dataP">Da click o tap en cada una para conocer el motivo y estátus de las quejas acumuladas por empresa </p>
                     {quejasdelSector && sumQuejasPerCategory(quejasdelSector,categoryCompany)
                     .sort((a,b)=>b.totalQuejas - a.totalQuejas)

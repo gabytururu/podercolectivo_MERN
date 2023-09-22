@@ -1,14 +1,18 @@
 const express = require('express')
 const router = express.Router()
-const  {getAllQuejas, getSingleQueja, getQuejasPerIndustry, getQuejasPerCompany, postQueja, getbyNombreComercial, getQuejasByGiro, testResponse} = require('../controllers/quejasController')
+const  {getAllQuejas, getSingleQueja, getQuejasPerIndustryParam, postQueja, getQuejasByGiro, getQuejasByEmpresa,} = require('../controllers/quejasController')
+
+// getQuejasPerIndustry, testResponse, getbyNombreComercial,
 
 router.get('/', getAllQuejas) 
 router.get('/:id', getSingleQueja)
-router.get('/sector/:sector', getQuejasPerIndustry)
+// router.get('/sector/:sector', getQuejasPerIndustry)
+router.get('/sector/:sectorParamUrl', getQuejasPerIndustryParam)
+router.get('/giro/:giroParamUrl', getQuejasByGiro) // not working
+router.get('/empresa/:nombreComercialParamUrl', getQuejasByEmpresa)
 // router.get('/:sector/:nombre_comercial', getbyNombreComercial)
-router.get('/:sector/:nombreComercial', getbyNombreComercial)
-router.get('/giro/:giro', getQuejasByGiro) // not working
-router.get('/test/:giroParamUrl', testResponse)
+// router.get('/:sector/:nombreComercial', getbyNombreComercial)
+// router.get('/test/:giroParamUrl', testResponse)
 router.post('/', postQueja)
 
 //pending??

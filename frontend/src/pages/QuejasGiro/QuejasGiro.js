@@ -15,7 +15,7 @@ const QuejasGiro = () => {
     useEffect(()=>{
         const getQuejasGiro = async() =>{
             try{
-                const fetchQuejasGiro = await fetch(`http://localhost:5000/api/quejas/giro/${giro}`)
+                const fetchQuejasGiro = await fetch(`http://localhost:5000/api/quejas-profeco/giro/${giro}`)
                 const quejasGiroJson = await fetchQuejasGiro.json()
                 setQuejasDelGiro(quejasGiroJson)
                 const quejasGiro = sumQuejasPerCategory(quejasGiroJson, categoryGiro)

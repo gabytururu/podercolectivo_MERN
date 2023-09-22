@@ -20,7 +20,7 @@ const Home = () => {
     useEffect(()=>{
         const fetchQuejas = async()=>{
             try{
-                const quejasObject = await fetch('http://localhost:5000/api/quejas/')
+                const quejasObject = await fetch('http://localhost:5000/api/quejas-profeco/')
                 const quejasJson = await quejasObject.json()
             if(quejasObject.ok){
                     setQuejas(quejasJson)
@@ -122,7 +122,7 @@ const Home = () => {
                                 .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                                 .slice(0,4)
                                 .map((queja)=>(
-                                    <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={queja._id} queja={queja}/></Link>
+                                    <Link to={'/sector/'+ queja.sectorParamUrl}><SumQuejasSector key={queja._id} queja={queja}/></Link>
                                 ))
                             }
                         <Link className="button" to={'/sectores'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Todos los Sectores</Link>

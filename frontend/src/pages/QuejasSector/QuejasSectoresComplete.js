@@ -22,7 +22,7 @@ const QuejasSectoresComplete = () => {
     useEffect(()=>{
         const fetchQuejas = async()=>{
             try{
-                const quejasObject = await fetch('http://localhost:5000/api/quejas/')
+                const quejasObject = await fetch('http://localhost:5000/api/quejas-profeco/')
                 const quejasJson = await quejasObject.json()
     
                 if(quejasObject.ok){

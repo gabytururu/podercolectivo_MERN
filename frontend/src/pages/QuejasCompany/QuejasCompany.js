@@ -20,7 +20,7 @@ const QuejasCompany = () => {
         const getQuejasEmpresa = async() =>{
             try{
                 
-                const fetchQuejasEmpresa = await fetch(`http://localhost:5000/api/quejas/${sector}/${nombreComercial}`)
+                const fetchQuejasEmpresa = await fetch(`http://localhost:5000/api/quejas-profeco/${sector}/${nombreComercial}`)
                 const quejasEmpresaJson = await fetchQuejasEmpresa.json()
 
                 if(fetchQuejasEmpresa.ok){
