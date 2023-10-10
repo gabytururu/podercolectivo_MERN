@@ -179,6 +179,7 @@ font-weight: 600;
     margin: auto; 
     justify-content: center;
     align-items: center;   
+    
   }
 
   .data .datah1{
@@ -189,6 +190,7 @@ font-weight: 600;
     line-height:1.3em;
     font-family: 'Roboto', sans-serif;
     font-size:50px;
+    
   }
   
   .data .datah2{
@@ -199,6 +201,7 @@ font-weight: 600;
     line-height:1.3em;
     font-family: 'Roboto', sans-serif;
     
+    
   }
   .data .datah3{
     text-align: center;
@@ -207,6 +210,7 @@ font-weight: 600;
     max-width:1000px;
     line-height:1.3em;
     font-family: 'Roboto', sans-serif;
+   
     
   }
   .data .dataP{
@@ -215,6 +219,7 @@ font-weight: 600;
     max-width:1000px;
     line-height:1.5em;
     margin-bottom: 45px;
+    
    
   }
 

@@ -50,7 +50,7 @@ const QuejasSectoresComplete = () => {
 
     
     return ( 
-        <div className="containerWrap">
+        <div className="containerWrap" style={{ whiteSpace: 'pre-line' }}>
             <div className="data"> 
                 <h1 className="datah1">
                     Sectores con más Quejas Acumuladas ante PROFECO México

@@ -47,14 +47,22 @@ const QuejasGiro = () => {
     }
 
     return ( 
-        <div className="containerWrap">
-        <div className="data">
-            <h1 className="datah1">Quejas Recibidas ante la PROFECO del Giro Comercial {giroParamUrl}</h1>
-            <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de <b>{quejasDelGiro && quejasDelGiro.length} quejas</b> por malas prácticas o incumplimientos de las <b>empresas del giro comercial{giroParamUrl}</b></p>
-            <p className="dataP">Las Quejas de este sector son reclamos por transacciones de bienes o servicios que ascienden a un valor de <b>{quejasDelGiro && getValorBienOServicio(quejasDelGiro)} MXN</b></p>
+        <div className="containerWrap" style={{ whiteSpace: 'pre-line' }}>
+        <div className="data" >
+            <h1 className="datah1">Quejas Recibidas ante la PROFECO del {'\n'}Giro Comercial: {'\n'} "{quejasDelGiro&&quejasDelGiro[0].giro}"</h1>
+            <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de 
+            {
+                quejasDelGiro && quejasDelGiro.length === 1 ?
+                <b> {quejasDelGiro &&quejasDelGiro.length} queja </b>
+                :
+                <b> {quejasDelGiro &&quejasDelGiro.length} quejas </b>
+                
+            } 
+            por malas prácticas o incumplimientos de las <b>empresas del giro: "{quejasDelGiro&&quejasDelGiro[0].giro.toLowerCase()}"</b></p>
+            <p className="dataP">Las Quejas de este giro comercial corresponden a reclamos o controversias por transacciones de bienes o servicios que ascienden a un valor de <b>{quejasDelGiro && getValorBienOServicio(quejasDelGiro)} MXN</b></p>
                 <BarChart chartData={graphPerGiro}/>    
-            <h2 className="datah2">Lista Detallada de Quejas Acumuladas por Cada Empresa del giro comercial {giroParamUrl} </h2>
-            <p className="dataP">Da click o tap en cada una para conocer el motivo y estátus de las quejas acumuladas por empresa </p>
+            <h2 className="datah2">Lista detallada de quejas acumuladas por empresas del giro {'\n'} "{quejasDelGiro&&quejasDelGiro[0].giro}" </h2>
+            <p className="dataP">Da click a cada una si quieres conocer el motivo o el estátus de las quejas y controversias vinculadas a empresas de este giro comercial </p>
                 {quejasDelGiro && sumQuejasPerCategory(quejasDelGiro,categoryCompany)
                 .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                 .map((queja)=>(    
