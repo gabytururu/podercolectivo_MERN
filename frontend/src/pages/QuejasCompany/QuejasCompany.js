@@ -14,6 +14,7 @@ const QuejasCompany = () => {
     // const {sector, nombre_comercial} = useParams()
     //const {sector, nombreComercial, nombreComercialParamUrl} = useParams()
     const {nombreComercialParamUrl} = useParams()
+    console.log('nombre comercial Param fuera del USE EFFECT',nombreComercialParamUrl)
     const [quejasEmpresa, setQuejasEmpresa] = useState(null)
     
 
@@ -22,9 +23,12 @@ const QuejasCompany = () => {
             try{
                 
                 const fetchQuejasEmpresa = await fetch(`http://localhost:5000/api/quejas-profeco/empresa/${nombreComercialParamUrl}`)
+                console.log('las quejas fetcheadas #1==>',fetchQuejasEmpresa)
                 const quejasEmpresaJson = await fetchQuejasEmpresa.json()
+                console.log('las quejas fetcheadas en JSON #2==>',quejasEmpresaJson)
 
                 if(fetchQuejasEmpresa.ok){
+                    console.log('las quejas por empresa fetcheadas ==>', quejasEmpresaJson)
                     setQuejasEmpresa(quejasEmpresaJson) 
                     const infoStatus = getStatus(quejasEmpresaJson)
                     const infoMotivos = getMotivos(quejasEmpresaJson)

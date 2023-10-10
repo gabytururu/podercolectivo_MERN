@@ -114,7 +114,7 @@ const QuejasSector = () => {
                     {quejasdelSector && sumQuejasPerCategory(quejasdelSector,categoryCompany)
                     .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                     .map((queja)=>(    
-                    <Link to={'/'+ queja.sector + '/' + queja.company}>           
+                    <Link to={'/empresa/' + queja.nombreComercialParamUrl}>           
                     <SumQuejasCompany key={queja._id} queja={queja} /></Link>   
                     ))
                     } 
