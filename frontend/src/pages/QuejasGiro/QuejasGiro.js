@@ -49,7 +49,7 @@ const QuejasGiro = () => {
     return ( 
         <div className="containerWrap" style={{ whiteSpace: 'pre-line' }}>
         <div className="data" >
-            <h1 className="datah1">Quejas Recibidas ante la PROFECO del {'\n'}Giro Comercial: {'\n'} "{quejasDelGiro&&quejasDelGiro[0].giro}"</h1>
+            <h1 className="datah1">Quejas en PROFECO de Empresas del Giro: {'\n'} "{quejasDelGiro&&quejasDelGiro[0].giro}"</h1>
             <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de 
             {
                 quejasDelGiro && quejasDelGiro.length === 1 ?

@@ -110,7 +110,7 @@ const Home = () => {
                                     <Link to={'/giro/'+ queja.giroParamUrl}><SumQuejasGiro key={queja._id} queja={queja}/></Link>
                                 ))
                             }
-                        <Link className="button" to={'/sectores'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Todos los Giros Comerciales</Link>
+                        <Link className="button" to={'/giro'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Todos los Giros Comerciales</Link>
                 </div>
                 <div className="data"> 
                     <h2 className="datah2">Sectores Comerciales con Más Quejas en PROFECO México</h2> 
@@ -140,7 +140,7 @@ const Home = () => {
                             .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                             .slice(0,4)
                             .map((queja,i)=>(
-                                <Link to={'/'+ queja.sector + '/' + queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>
+                                <Link to={'/empresa/' + queja.nombreComercialParamUrl}><SumQuejasCompany key={i} queja={queja}/></Link>
                             ))
                         }
                     <Link className="button" to="/empresas" state={categoryCompany && {quejas:quejas, categoryByCompanies:categoryCompany}}>Ver Todas las Empresas</Link>
