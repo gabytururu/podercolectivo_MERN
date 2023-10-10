@@ -20,7 +20,7 @@ const QuejasGiro = () => {
                 setQuejasDelGiro(quejasGiroJson)
                 const quejasGiro = sumQuejasPerCategory(quejasGiroJson, categoryCompany)
                 setGraphPerGiro({
-                    labels: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.company),
+                    labels: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.nombreComercialCorto),
                     datasets: [{
                         label: 'Quejas por Giro',
                         data: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),

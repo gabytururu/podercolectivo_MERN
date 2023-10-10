@@ -19,7 +19,7 @@ const QuejasGiroComplete = () => {
                     console.log('las quejas por giro--->',quejasGiro)
                     setQuejasPerGiro(quejasGiro)
                     setGraphPerGiro({
-                        labels:quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.company),
+                        labels:quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.giro),
                         datasets:[{
                             label:'Quejas por Giro Comercial',
                             data: quejasGiro.sort((a,b)=>b.totalQuejas-a.totalQuejas).map((quejas)=> quejas.totalQuejas),

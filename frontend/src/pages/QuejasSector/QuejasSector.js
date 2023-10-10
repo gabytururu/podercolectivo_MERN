@@ -27,7 +27,7 @@ const QuejasSector = () => {
                 setQuejasdelSector(quejasSectorJson)
                 const quejasSector = sumQuejasPerCategory(quejasSectorJson, categoryCompany)
                 setGraphPerSector({
-                    labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.company),
+                    labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.nombreComercialCorto),
                     datasets: [{
                         label: 'Quejas por Sector',
                         data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
