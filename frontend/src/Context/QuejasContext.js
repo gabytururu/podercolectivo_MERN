@@ -75,6 +75,10 @@ export const QuejasContextProvider = ({children}) =>{
             let costoBienServicio = 0
             let sector = ''
             let giro = ''
+            let nombreComercialParamUrl = ''
+            let giroParamUrl = ''
+            let sectorParamUrl = ''
+            let nombreComercialCorto= ''
             const quejasThisCategory = quejas.filter((queja)=> queja[categorySelected] === category)
             const quejasQtyThisCategory = quejasThisCategory.length
             for(let queja of quejasThisCategory){
@@ -83,6 +87,11 @@ export const QuejasContextProvider = ({children}) =>{
                 costoBienServicio = queja.costo_bien_servicio + costoBienServicio
                 sector = queja.sector
                 giro = queja.giro
+                nombreComercialParamUrl = queja.nombreComercialParamUrl
+                sectorParamUrl = queja.sectorParamUrl
+                giroParamUrl = queja.giroParamUrl
+                nombreComercialCorto= queja.nombreComercialCorto
+
             }
             const thisElementinCategoryIndicators = {
                 company: category, 
@@ -91,7 +100,12 @@ export const QuejasContextProvider = ({children}) =>{
                 montoTotalRecuperado: montoRecuperado, 
                 sector: sector, 
                 costoBienServicio: costoBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,}), 
-                giro:giro
+                giro:giro,
+                nombreComercialParamUrl: nombreComercialParamUrl,
+                sectorParamUrl: sectorParamUrl,
+                giroParamUrl: giroParamUrl,
+                nombreComercialCorto: nombreComercialCorto
+
             }
             categoriesAggregatedIndicators.push(thisElementinCategoryIndicators)
             console.log('categoriesAgg indicators from context function-->',categoriesAggregatedIndicators)

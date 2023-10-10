@@ -49,7 +49,7 @@ const QuejasGiroComplete = () => {
                 {quejasPerGiro
                         .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                         .map((queja,i)=>(
-                            <Link to={'/giro/'+ queja.giro}><SumQuejasGiro key={i} queja={queja}/></Link>
+                            <Link to={'/giro/'+ queja.giroParamUrl}><SumQuejasGiro key={i} queja={queja}/></Link>
                         ))
                     }
             

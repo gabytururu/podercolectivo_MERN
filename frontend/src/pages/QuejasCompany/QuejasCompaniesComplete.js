@@ -52,7 +52,8 @@ const QuejasCompaniesComplete = () => {
                 {quejasPerCompany
                     .sort((a,b) => b.totalQuejas - a.totalQuejas)
                     .map((queja,i)=>(
-                            <Link to={'/'+ queja.sector+'/'+ queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>
+                            //<Link to={'/'+ queja.sector+'/'+ queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>
+                            <Link to={'/empresa/'+ queja.nombreComercialParamUrl}><SumQuejasCompany key={i} queja={queja}/></Link>
                         ))
                     }
             

@@ -63,7 +63,7 @@ const QuejasSectoresComplete = () => {
                 {quejasPerSector
                         .sort((a,b)=>b.totalQuejas - a.totalQuejas)
                         .map((queja,i)=>(
-                            <Link to={'/sector/'+ queja.sector}><SumQuejasSector key={i} queja={queja}/></Link>
+                            <Link to={'/sector/'+ queja.sectorParamUrl}><SumQuejasSector key={i} queja={queja}/></Link>
                         ))
                     }
             
