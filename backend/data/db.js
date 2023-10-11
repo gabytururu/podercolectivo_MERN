@@ -1,453 +1,95 @@
-// const lasQuejas = [
-//     {
-//         "id_exp": "2022_5695",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "14/06/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Conciliada",
-//         "proveedor": "Promotora Turistica Vaera, S.A de C.V",
-//         "nombreComercial": "Promotora Turistica Vaera, S.A de C.V",
-//         "giro": "Hoteles, Moteles Y Similares",
-//         "sector": "Turístico",
-//         "odeco": "Hoteles, Moteles Y Similares",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Negativa a bonificación por cambio de producto",
-//         "costo_bien_servicio": "1,091",
-//         "monto_reclamado": "1,091",
-//         "monto_recuperado": "1,091",
-//         "monto_recuperado_b": "1,091"
-//     },
-//     {
-//         "id_exp": "2022_1523",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "01/08/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Desistimiento",
-//         "proveedor": "Aerovias De Mexico, S.A de C.V",
-//         "nombreComercial": "Aeroméxico",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Incumplimiento de plazos para la entrega del prod. o serv.",
-//         "costo_bien_servicio": "",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_1524",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "02/05/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Conciliada",
-//         "proveedor": "Aerovias De Mexico, S.A de C.V",
-//         "nombreComercial": "Aeroméxico",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Incumplimiento de plazos para la entrega del prod. o serv.",
-//         "costo_bien_servicio": "15,442",
-//         "monto_reclamado": "15,442",
-//         "monto_recuperado": "15,442",
-//         "monto_recuperado_b": "15,442"
-//     },
-//     {
-//         "id_exp": "2022_1",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "06/09/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Desistimiento",
-//         "proveedor": "Concesionaria Vuela Compañia De Aviacion, Sapi De Cv",
-//         "nombreComercial": "Volaris",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Negativa a cambio o devolución",
-//         "costo_bien_servicio": "1,995",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_3587",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "En Trámite",
-//         "proveedor": "Aerovias De Mexico, S.A de C.V",
-//         "nombreComercial": "Aeroméxico",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Negativa a devolución del precio pagado",
-//         "costo_bien_servicio": "34,571",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_4500",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "01/04/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Conciliada",
-//         "proveedor": "Aeroenlaces Nacionales, S.A de C.V",
-//         "nombreComercial": "Viva Aerobus",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Cancelación de vuelo",
-//         "costo_bien_servicio": "5,304",
-//         "monto_reclamado": "5,304",
-//         "monto_recuperado": "5,304",
-//         "monto_recuperado_b": "5,304"
-//     },
-//     {
-//         "id_exp": "2022_5605",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "03/05/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Conciliada",
-//         "proveedor": "Rivera Apizaco, S.A de C.V",
-//         "nombreComercial": "Rivera Apizaco, S.A de C.V",
-//         "giro": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Nuevos",
-//         "sector": "Automotriz",
-//         "odeco": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Nuevos",
-//         "estado_ua": "Automotriz",
-//         "motivo_reclamacion": "Negativa a la entrega del producto o servicio",
-//         "costo_bien_servicio": "339,400",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_5696",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "30/06/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Conciliada",
-//         "proveedor": "Aeroenlaces Nacionales, S.A de C.V",
-//         "nombreComercial": "Viva Aerobus",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Negativa al servicio",
-//         "costo_bien_servicio": "9,715",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_1970",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "13/04/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Conciliada",
-//         "proveedor": "American Airlines, Inc",
-//         "nombreComercial": "American Airlines",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Negativa al servicio",
-//         "costo_bien_servicio": "33,210",
-//         "monto_reclamado": "33,210",
-//         "monto_recuperado": "22,000",
-//         "monto_recuperado_b": "22,000"
-//     },
-//     {
-//         "id_exp": "2022_1533",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "En Trámite",
-//         "proveedor": "Aerovias De Mexico, S.A de C.V",
-//         "nombreComercial": "Aeroméxico",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Incumplimiento de plazos para la entrega del prod. o serv.",
-//         "costo_bien_servicio": "",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_1360",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "27/01/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "No Conciliada",
-//         "proveedor": "Roval Automotriz, S.A de C.V",
-//         "nombreComercial": "Roval Automotriz, S.A de C.V",
-//         "giro": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "sector": "Automotriz",
-//         "odeco": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "estado_ua": "Automotriz",
-//         "motivo_reclamacion": "Negativa a la entrega del producto o servicio",
-//         "costo_bien_servicio": "332,000",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_1851",
-//         "fecha_ingreso": "03/01/2022",
-//         "fecha_fin": "09/11/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Desistimiento",
-//         "proveedor": "Aeroenlaces Nacionales, S.A de C.V",
-//         "nombreComercial": "Viva Aerobus",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Negativa al servicio",
-//         "costo_bien_servicio": "26,101",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_3596",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "En Trámite",
-//         "proveedor": "Aerovias De Mexico, S.A de C.V",
-//         "nombreComercial": "Aeroméxico",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Responsabilidad del proveedor por actos de sus dependientes",
-//         "costo_bien_servicio": "20,601",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_3442",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "17/06/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Desistimiento",
-//         "proveedor": "Alitalia-Societa Aerea Italiana, Spa",
-//         "nombreComercial": "Alitalia",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Negativa a cambio o devolución",
-//         "costo_bien_servicio": "22,166",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_1540",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "09/08/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Desistimiento",
-//         "proveedor": "Auto Shat, S.A de C.V",
-//         "nombreComercial": "Auto Shat, S.A de C.V",
-//         "giro": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "sector": "Automotriz",
-//         "odeco": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "estado_ua": "Automotriz",
-//         "motivo_reclamacion": "Negativa a hacer efectiva la garantía",
-//         "costo_bien_servicio": "185,000",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_3312",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "06/04/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "No Conciliada",
-//         "proveedor": "Rile Texcoco, S.A de C.V",
-//         "nombreComercial": "Rile Texcoco, S.A de C.V",
-//         "giro": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "sector": "Automotriz",
-//         "odeco": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "estado_ua": "Automotriz",
-//         "motivo_reclamacion": "Negativa a la entrega del producto o servicio",
-//         "costo_bien_servicio": "160,000",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_9",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "10/01/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Conciliada",
-//         "proveedor": "Aerovias De Mexico, S.A de C.V",
-//         "nombreComercial": "Aeroméxico",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Solicitud de cambio de producto",
-//         "costo_bien_servicio": "4,433",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_5704",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "04/04/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "No Conciliada",
-//         "proveedor": "Maya Motriz, S.A de C.V",
-//         "nombreComercial": "Maya Motriz, S.A de C.V",
-//         "giro": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Nuevos",
-//         "sector": "Automotriz",
-//         "odeco": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Nuevos",
-//         "estado_ua": "Automotriz",
-//         "motivo_reclamacion": "Negativa a hacer efectiva la garantía",
-//         "costo_bien_servicio": "##########",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_158",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "03/09/2022",
-//         "tipo_conciliacion": "Turnada a Concil Resi p/ segui",
-//         "estado_procesal": "Desistimiento",
-//         "proveedor": "Abc Aerolineas, S.A de C.V",
-//         "nombreComercial": "Interjet",
-//         "giro": "Aerolínea Comercial",
-//         "sector": "Turístico",
-//         "odeco": "Aerolínea Comercial",
-//         "estado_ua": "Turístico",
-//         "motivo_reclamacion": "Cancelación de vuelo",
-//         "costo_bien_servicio": "",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_2327",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "18/02/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Conciliada",
-//         "proveedor": "Uvi Tech, Sapi De Cv",
-//         "nombreComercial": "Kavak",
-//         "giro": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "sector": "Automotriz",
-//         "odeco": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "estado_ua": "Automotriz",
-//         "motivo_reclamacion": "Negativa a la entrega del producto o servicio",
-//         "costo_bien_servicio": "329,986",
-//         "monto_reclamado": "32,998",
-//         "monto_recuperado": "32,998",
-//         "monto_recuperado_b": "32,998"
-//     },
-//     {
-//         "id_exp": "2022_4238",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "04/03/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Desistimiento",
-//         "proveedor": "Autocom Alfa, Sapi De Cv",
-//         "nombreComercial": "Autocom Alfa, Sapi De Cv",
-//         "giro": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Nuevos",
-//         "sector": "Automotriz",
-//         "odeco": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Nuevos",
-//         "estado_ua": "Automotriz",
-//         "motivo_reclamacion": "Negativa a la entrega del producto o servicio",
-//         "costo_bien_servicio": "365,900",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_4238",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "04/03/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Desistimiento",
-//         "proveedor": "Nissan Mexicana, S.A de C.V",
-//         "nombreComercial": "Nissan",
-//         "giro": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Nuevos",
-//         "sector": "Automotriz",
-//         "odeco": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Nuevos",
-//         "estado_ua": "Automotriz",
-//         "motivo_reclamacion": "Negativa a la entrega del producto o servicio",
-//         "costo_bien_servicio": "365,900",
-//         "monto_reclamado": "",
-//         "monto_recuperado": "",
-//         "monto_recuperado_b": ""
-//     },
-//     {
-//         "id_exp": "2022_4503",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "28/04/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Conciliada",
-//         "proveedor": "Fca Mexico, S.A de C.V",
-//         "nombreComercial": "Fca Mexico, S.A de C.V",
-//         "giro": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "sector": "Automotriz",
-//         "odeco": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "estado_ua": "Automotriz",
-//         "motivo_reclamacion": "Negativa a hacer efectiva la garantía",
-//         "costo_bien_servicio": "206,900",
-//         "monto_reclamado": "103,450",
-//         "monto_recuperado": "103,450",
-//         "monto_recuperado_b": "103,450"
-//     },
-//     {
-//         "id_exp": "2022_4503",
-//         "fecha_ingreso": "04/01/2022",
-//         "fecha_fin": "28/04/2022",
-//         "tipo_conciliacion": "Turnada a Concil Person p/seg",
-//         "estado_procesal": "Conciliada",
-//         "proveedor": "Refran Autos, S De Rl De Cv",
-//         "nombreComercial": "Refran Autos, S De Rl De Cv",
-//         "giro": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "sector": "Automotriz",
-//         "odeco": "Agencia Automotriz Y Concesionaria De Automóviles Y Camionetas Usados",
-//         "estado_ua": "Automotriz",
-//         "motivo_reclamacion": "Negativa a hacer efectiva la garantía",
-//         "costo_bien_servicio": "206,900",
-//         "monto_reclamado": "103,450",
-//         "monto_recuperado": "103,450",
-//         "monto_recuperado_b": "103,450"
-//     }
-// ]
+const lasQuejas =[
+    {
+      id_exp: "2022_1",
+      fecha_ingreso: 44564,
+      fecha_fin: 44810,
+      estado_procesal: "Desistimiento",
+      proveedor: "CONCESIONARIA VUELA COMPAÑIA DE AVIACION, SAPI DE CV",
+      nombreComercial: "VOLARIS",
+      giro: "AEROLÍNEA COMERCIAL",
+      sector: "TURÍSTICO",
+      odeco: "AEROLÍNEA COMERCIAL",
+      estado_ua: "AGUASCALIENTES",
+      tipo_reclamacion_causaCorta: "Cambios, devoluciones o bonificaciones",
+      motivo_reclamacion_causaLarga: "Negativa a cambio o devolución",
+      costo_bien_servicio: "asdfa1,222.25asdf69ek"
+    },
+    {
+      id_exp: "2022_2",
+      fecha_ingreso: 44564,
+      fecha_fin: 44742,
+      estado_procesal: "Desistimiento",
+      proveedor: "COMERCIAL IAC, SA DE CV",
+      nombreComercial: "COMERCIAL IAC, SA DE CV",
+      giro: "TIENDA DE ROPA",
+      sector: "TIENDA DE ROPA",
+      odeco: "TIENDA DE ROPA",
+      estado_ua: "AGUASCALIENTES",
+      tipo_reclamacion_causaCorta: "Cobro indebido",
+      motivo_reclamacion_causaLarga: "Cobro de cuota extraordinaria",
+      costo_bien_servicio: 279.98
+    },
+]
 
-// const lasNuevasQuejas = lasQuejas.map((queja) =>{
-       
-//     const nuevoModeloQuejas = queja
 
-//     // queja.paramGiro = cleanGiro(queja.giro)
 
-//     queja.costo_bien_servicio = Number(queja.costo_bien_servicio.replace(',',''))
-//     queja.monto_reclamado = Number(queja.monto_reclamado.replace(',',''))
-//     queja.monto_recuperado = Number(queja.monto_recuperado.replace(',',''))
-//     queja.monto_recuperado_b = Number(queja.monto_recuperado_b.replace(',',''))
-    
-//     return nuevoModeloQuejas
-// })
+// TO BE USED AS URL PARAMS (must eliminate diacritics, spaces + shorten length)
+        const cleanGiro = (giro) =>{
+            const cleanGiro = giro.replace(/,/ig,'').replace(/\s/ig,'-').normalize("NFD").replace(/\p{Diacritic}/gu,'').toLowerCase()
+            return cleanGiro
+        }
 
-// use('poderColectivo');
+        const cleanNombreComercial = (nombreComercial) =>{
+            const shortenNombreComercial = nombreComercial.replace('S.A de C.V','').replace('Sapi De Cv','').replace('S De Rl De Cv','').replace(/,+\s/ig,'')
+            const cleanNombreComercial = shortenNombreComercial.replace(/,/ig,'').replace(/\s/ig,'-').normalize("NFD").replace(/\p{Diacritic}/gu,'').toLowerCase()
+            return cleanNombreComercial
+        }
+
+        const cleanSector = (sector) =>{
+            const cleanSector = sector.replace(/,/ig,'').replace(/\s/ig,'-').normalize("NFD").replace(/\p{Diacritic}/gu,'').toLowerCase()
+            return cleanSector
+        }
+
+        // TO BE USED IN GRAPH (no need to remove diacritics or spaces)
+        const shortenNombreComercial = (nombreComercial) =>{
+            const shortenNombreComercial = nombreComercial.replace('S.A de C.V','').replace('Sapi De Cv','').replace('S De Rl De Cv','').replace(/,+\s/ig,'')
+            return shortenNombreComercial
+        }
+
+        const checkAmounts = (amount) =>{
+            if(amount === "" || amount === "##########"){
+                amount = 0
+            }else if(typeof amount === 'number'){
+                amount = amount
+            }else if(typeof amount === 'string' && amount.includes(',') || amount.includes('.')){
+                const numberAmount = Number(amount.replace(',',''))
+                amount = numberAmount
+                isNaN(amount) ? amount = 0 : amount = amount
+            }else if(isNaN(amount)){
+                amount = 0
+            }        
+            return amount
+        }
+
+        // const checkAmounts = (amount) =>{
+        //     console.log('the typeof Amount costo_bien_servicio es--->', typeof amount)
+        //     return typeof amount
+        // }
+
+    const lasNuevasQuejas = lasQuejas.map((queja) =>{    
+        const nuevoModeloQuejas = queja    
+        queja.costo_bien_servicio = checkAmounts(queja.costo_bien_servicio)   
+        queja.giroParamUrl = cleanGiro(queja.giro)
+        queja.nombreComercialParamUrl = cleanNombreComercial(queja.nombreComercial)
+        queja.sectorParamUrl = cleanSector(queja.sector)
+        queja.nombreComercialCorto = shortenNombreComercial(queja.nombreComercial)
+        
+        return nuevoModeloQuejas
+    })
+
+    console.log('el objeto con el modelo de quejas ---> ', lasNuevasQuejas)
+
+    use('poderColectivo');
 
 // // Insert a few documents into the sales collection.
-// db.getCollection('quejas').insertMany(lasNuevasQuejas);
+    db.getCollection('quejas').insertMany(lasNuevasQuejas);

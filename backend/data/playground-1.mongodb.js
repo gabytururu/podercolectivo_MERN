@@ -9,13 +9,6 @@
 // For more documentation on playgrounds please refer to
 // https://www.mongodb.com/docs/mongodb-vscode/playgrounds/
 
-// Select the database to use.
-const lasQuejas =[
-    
-/// aca irian las quejas de la db pero pues es masivo... toca resolver via mongodb methods
-
-]
-
 
 //wont work bc this requires a runtime environment while the rest of the code is actually made for a web-based code environment - so this would only work if instead i was just running a backend application where i need to work w data like the scrapping app for instance
 
@@ -51,6 +44,43 @@ const lasQuejas =[
 
 
 
+
+// Select the database to use.
+const lasQuejas =[
+    {
+      id_exp: "2022_1",
+      fecha_ingreso: 44564,
+      fecha_fin: 44810,
+      estado_procesal: "Desistimiento",
+      proveedor: "CONCESIONARIA VUELA COMPAÑIA DE AVIACION, SAPI DE CV",
+      nombreComercial: "VOLARIS",
+      giro: "AEROLÍNEA COMERCIAL",
+      sector: "TURÍSTICO",
+      odeco: "AEROLÍNEA COMERCIAL",
+      estado_ua: "AGUASCALIENTES",
+      tipo_reclamacion_causaCorta: "Cambios, devoluciones o bonificaciones",
+      motivo_reclamacion_causaLarga: "Negativa a cambio o devolución",
+      costo_bien_servicio: '1233.16'
+    },
+    {
+      id_exp: "2022_2",
+      fecha_ingreso: 44564,
+      fecha_fin: 44742,
+      estado_procesal: "Desistimiento",
+      proveedor: "COMERCIAL IAC, SA DE CV",
+      nombreComercial: "COMERCIAL IAC, SA DE CV",
+      giro: "TIENDA DE ROPA",
+      sector: "TIENDA DE ROPA",
+      odeco: "TIENDA DE ROPA",
+      estado_ua: "AGUASCALIENTES",
+      tipo_reclamacion_causaCorta: "Cobro indebido",
+      motivo_reclamacion_causaLarga: "Cobro de cuota extraordinaria",
+      costo_bien_servicio: 279.98
+    },
+]
+
+
+
 // TO BE USED AS URL PARAMS (must eliminate diacritics, spaces + shorten length)
         const cleanGiro = (giro) =>{
             const cleanGiro = giro.replace(/,/ig,'').replace(/\s/ig,'-').normalize("NFD").replace(/\p{Diacritic}/gu,'').toLowerCase()
@@ -77,17 +107,20 @@ const lasQuejas =[
         const checkAmounts = (amount) =>{
             if(amount === "" || amount === "##########"){
                 amount = 0
-            }else if(amount !== ""){
+            }else if(typeof amount === 'number'){
+                amount = amount
+            }else if(typeof amount === 'string' && amount.includes(',') || amount.includes('.')){
                 const numberAmount = Number(amount.replace(',',''))
                 amount = numberAmount
-            }
-        
+                isNaN(amount) ? amount = 0 : amount = amount
+            }else if(isNaN(amount)){
+                amount = 0
+            }                
             return amount
         }
 
     const lasNuevasQuejas = lasQuejas.map((queja) =>{    
-        const nuevoModeloQuejas = queja
-    
+        const nuevoModeloQuejas = queja    
         queja.costo_bien_servicio = checkAmounts(queja.costo_bien_servicio)   
         queja.giroParamUrl = cleanGiro(queja.giro)
         queja.nombreComercialParamUrl = cleanNombreComercial(queja.nombreComercial)
@@ -104,6 +137,35 @@ const lasQuejas =[
 
 // delete all documents from a collection
    // db.getCollection('quejas').deleteMany({})
+
+
+// create or select a databaase
+    // const databasename = 'store' <-- or whatever name i choose
+    // use(databasename)
+
+//create a new collection 
+    // const collection = "orders" <-- or whatever name i choose
+    // db.createCollection(collection)
+
+// INSERT ONE Document in the collection
+    // db.orders.insertOne({
+    //     "user_id": 1,
+    //     "first_name": "gaby",
+    //     "orders":[
+    //         {
+    //             "order_id": 1,
+    //             "product": "watch xp 20012",
+    //             "quantity": 1,
+    //             "price":99.99
+    //         },
+    //         {
+    //             "order_id": 2,
+    //             "product": "shirt medium pink 2012",
+    //             "quantity": 2,
+    //             "price":24.99
+    //         }]
+    // })
+
 
     // queja.costo_bien_servicio = Number(queja.costo_bien_servicio)
     // queja.monto_reclamado = Number(queja.monto_reclamado)
