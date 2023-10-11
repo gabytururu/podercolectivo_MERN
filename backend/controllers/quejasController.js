@@ -88,10 +88,10 @@ const getQuejasByEmpresa = async(req,res)=>{
 
 const postQueja = async(req,res)=>{
     //res.json({mssg: 'POST a NEW Queja in a NEW collection'})
-    const { id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombreComercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio,  monto_reclamado, monto_recuperado, monto_recuperado_b, giroParamUrl,nombreComercialParamUrl, nombreComercialCorto,sectorParamUrl} = req.body
+    const { id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombreComercial,giro, sector, odeco, estado_ua, tipo_reclamacion_causaCorta, motivo_reclamacion_causaLarga, costo_bien_servicio, giroParamUrl, nombreComercialParamUrl, nombreComercialCorto, sectorParamUrl } = req.body
     
     try{
-        const queja = await Queja.create({ id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombreComercial,giro, sector, odeco, estado_ua, motivo_reclamacion, costo_bien_servicio, monto_reclamado, monto_recuperado,monto_recuperado_b, giroParamUrl,nombreComercialParamUrl, nombreComercialCorto,sectorParamUrl})
+        const queja = await Queja.create({ id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombreComercial,giro, sector, odeco, estado_ua, tipo_reclamacion_causaCorta, motivo_reclamacion_causaLarga, costo_bien_servicio, giroParamUrl, nombreComercialParamUrl, nombreComercialCorto, sectorParamUrl})
         res.status(200).json(queja)
     }catch(err){
         res.status(400).json({err:err.message})

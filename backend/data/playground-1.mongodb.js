@@ -486,9 +486,9 @@ const lasNuevasQuejas = lasQuejas.map((queja) =>{
     // queja.monto_recuperado = Number(queja.monto_recuperado)
     // queja.monto_recuperado_b = Number(queja.monto_recuperado_b)
     queja.costo_bien_servicio = checkAmounts(queja.costo_bien_servicio)
-    queja.monto_reclamado = checkAmounts(queja.monto_reclamado)
-    queja.monto_recuperado =checkAmounts(queja.monto_recuperado)
-    queja.monto_recuperado_b = checkAmounts(queja.monto_recuperado_b)
+    // queja.monto_reclamado = checkAmounts(queja.monto_reclamado)
+    // queja.monto_recuperado =checkAmounts(queja.monto_recuperado)
+    // queja.monto_recuperado_b = checkAmounts(queja.monto_recuperado_b)
     queja.giroParamUrl = cleanGiro(queja.giro)
     queja.nombreComercialParamUrl = cleanNombreComercial(queja.nombreComercial)
     queja.sectorParamUrl = cleanSector(queja.sector)
@@ -500,10 +500,10 @@ const lasNuevasQuejas = lasQuejas.map((queja) =>{
 use('poderColectivo');
 
 // Insert a few documents into the sales collection.
-   db.getCollection('quejas').insertMany(lasNuevasQuejas);
+   //db.getCollection('quejas').insertMany(lasNuevasQuejas);
 
 // delete all documents from a collection
-    // db.getCollection('quejas').deleteMany({})
+    db.getCollection('quejas').deleteMany({})
 
 
 // Run a find command to view items sold on April 4th, 2014.

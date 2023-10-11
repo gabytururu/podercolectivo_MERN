@@ -4,42 +4,38 @@ const Schema = mongoose.Schema;
 const quejaSchema = new Schema ({
     id_exp:{
         type:'String',
-        required:false,
+        required:true,
     },
     //can you set a DATE format?
     fecha_ingreso:{
         type: Number,
-        required:false,
+        required:true,
     },
     //can you set a DATE format?
     fecha_fin:{
         type: Number,
         required: false
     },
-    tipo_conciliacion:{
-        type: String,
-        required: false
-    },
+    // tipo_conciliacion:{
+    //     type: String,
+    //     required: false
+    // },
     estado_procesal:{
         type: String,
-        required: false,
+        required: true,
     },
 
     proveedor:{
         type: String,
-        required: false,
+        required: true,
     },
     nombreComercial:{
         type: String,
         required: true,
     },
-    // nombre_comercial:{
-    //     type: String,
-    //     required: true,
-    // },
     giro:{
         type: String,
-        required: false, 
+        required: true, 
     },
     sector:{
         type: String,
@@ -51,9 +47,13 @@ const quejaSchema = new Schema ({
     },
     estado_ua:{
         type: String,
-        required:false,
+        required:true,
     },
-    motivo_reclamacion:{
+    tipo_reclamacion_causaCorta:{
+        type:String,
+        required:false
+    },
+    motivo_reclamacion_causaLarga:{
         type:String,
         required:false
     },
@@ -64,25 +64,25 @@ const quejaSchema = new Schema ({
         required: false
     },
     //can you set a MONETARY format?+ false required?
-    monto_reclamado:{
-        type: Number,
-        required:true,
-    },
+    // monto_reclamado:{
+    //     type: Number,
+    //     required:true,
+    // },
     //can you set a MONETARY format? + false required?
-    monto_recuperado:{
-        type: Number,
-        required:false,
-    },
+    // monto_recuperado:{
+    //     type: Number,
+    //     required:false,
+    // },
 
-    monto_recuperado_b:{
-        type: Number,
-        required:true,
-    },   
+    // monto_recuperado_b:{
+    //     type: Number,
+    //     required:true,
+    // },   
 
-    count:{
-        type: Number,
-        required: true,
-    },
+    // count:{
+    //     type: Number,
+    //     required: true,
+    // },
 
     giroParamUrl:{
         type: String,
