@@ -4,7 +4,7 @@ const XLSX = require('xlsx');
 const excelFilePath = 'pc_sep2023.xlsx'
 const workbook = XLSX.readFile(excelFilePath)
 const sheetName = workbook.SheetNames[0]
-const worksheet = woorkbook.Sheets[sheetName]
+const worksheet = workbook.Sheets[sheetName]
 const jsonData = XLSX.utils.sheet_to_json(worksheet)
 
 const jsonFilePath = 'dbPoderColectivo.json'
