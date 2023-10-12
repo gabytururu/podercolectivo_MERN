@@ -55,6 +55,8 @@ const checkAmounts = (amount) =>{
     }                
     return amount
 }
+
+//MUST CHECK , SOMETHING NOT WORKING IS PROVOKING THOUSANDS OF NO PUBLICADO IN TIPO RECLAMACION -- specially in motivo y tipo reclamacion --- also check... BOTH JSON FILES have "no publicado" when the first json should actually have the 0 AND JUST the 2nd should have the NO PUBLICADO... REVIEW WHATS UP
 const cleanZerosInStrings = (queja) =>{
     if (queja.proveedor === 0){
         queja.proveedor = "No Publicado"
@@ -71,10 +73,10 @@ const cleanZerosInStrings = (queja) =>{
     if(queja.odeco ===0){
         queja.odeco = "No Publicado"
     }
-    if(queja.tipo_reclamacion_causaCorta){
+    if(queja.tipo_reclamacion_causaCorta === 0){
         queja.tipo_reclamacion_causaCorta = "No Publicado"
     }
-    if(queja.motivo_reclamacion_causaLarga){
+    if(queja.motivo_reclamacion_causaLarga === 0){
         queja.motivo_reclamacion_causaLarga = "No Publicado"
     }
     
