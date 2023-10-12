@@ -6,12 +6,12 @@ const quejaSchema = new Schema ({
         type: String,
         required:true,
     },
-    //can you set a DATE format?
+    //reset back to Date format once cleanDate function works properly
     fecha_ingreso:{
         type: Number,
         required:true,
     },
-    //can you set a DATE format?
+    //reset back to Date format once cleanDate function works properly
     fecha_fin:{
         type: Number,
         required: false
