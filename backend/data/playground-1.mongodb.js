@@ -133,10 +133,10 @@ const lasQuejas =[
     use('poderColectivo');
 
 // Insert a few documents into the sales collection.
-   db.getCollection('quejas').insertMany(lasNuevasQuejas);
+   //db.getCollection('quejas').insertMany(lasNuevasQuejas);
 
 // delete all documents from a collection
-   // db.getCollection('quejas').deleteMany({})
+   //db.getCollection('quejas').deleteMany({})
 
 
 // create or select a databaase

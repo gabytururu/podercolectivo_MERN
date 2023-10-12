@@ -1,7 +1,8 @@
+backend/data
 backend/node_modules
 frontend/node_modules
 backend/.env
-backend/data
+
 
 # dependencies
 frontend/node_modules

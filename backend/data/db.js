@@ -19,6 +19,36 @@ const lasQuejas =[
       fecha_ingreso: 44564,
       fecha_fin: 44742,
       estado_procesal: "Desistimiento",
+      proveedor: 0,
+      nombreComercial: "COMERCIAL IAC, SA DE CV",
+      giro: "TIENDA DE ROPA",
+      sector: 0,
+      odeco: "TIENDA DE ROPA",
+      estado_ua: "AGUASCALIENTES",
+      tipo_reclamacion_causaCorta: "Cobro indebido",
+      motivo_reclamacion_causaLarga: "Cobro de cuota extraordinaria",
+      costo_bien_servicio: 279.98
+    },
+    {
+      id_exp: "2022_2",
+      fecha_ingreso: 44564,
+      fecha_fin: 44742,
+      estado_procesal: "Desistimiento",
+      proveedor: 0,
+      nombreComercial: "COMERCIAL IAC, SA DE CV",
+      giro: 0,
+      sector: 0,
+      odeco: 0,
+      estado_ua: "AGUASCALIENTES",
+      tipo_reclamacion_causaCorta: "Cobro indebido",
+      motivo_reclamacion_causaLarga: "Cobro de cuota extraordinaria",
+      costo_bien_servicio: 279.98
+    },
+    {
+      id_exp: "2022_2",
+      fecha_ingreso: 44564,
+      fecha_fin: 44742,
+      estado_procesal: "Desistimiento",
       proveedor: "COMERCIAL IAC, SA DE CV",
       nombreComercial: "COMERCIAL IAC, SA DE CV",
       giro: "TIENDA DE ROPA",
@@ -71,25 +101,48 @@ const lasQuejas =[
             return amount
         }
 
-        // const checkAmounts = (amount) =>{
-        //     console.log('the typeof Amount costo_bien_servicio es--->', typeof amount)
-        //     return typeof amount
-        // }
+        const cleanZerosInStrings = (queja) =>{
+            if (queja.proveedor === 0){
+                queja.proveedor = "No Publicado"
+            }
+            if(queja.nombreComercial === 0){
+                queja.nombreComercial = "No Publicado"
+            }
+            if(queja.giro === 0){
+                queja.giro = "No Publicado"
+            }
+            if(queja.sector === 0){
+                queja.sector = "No Publicado"
+            }
+            if(queja.odeco ===0){
+                queja.odeco = "No Publicado"
+            }
+            if(queja.tipo_reclamacion_causaCorta){
+                queja.tipo_reclamacion_causaCorta = "No Publicado"
+            }
+            if(queja.motivo_reclamacion_causaLarga){
+                queja.motivo_reclamacion_causaLarga = "No Publicado"
+            }
+            
+            return queja
+        }
 
-    const lasNuevasQuejas = lasQuejas.map((queja) =>{    
-        const nuevoModeloQuejas = queja    
-        queja.costo_bien_servicio = checkAmounts(queja.costo_bien_servicio)   
-        queja.giroParamUrl = cleanGiro(queja.giro)
-        queja.nombreComercialParamUrl = cleanNombreComercial(queja.nombreComercial)
-        queja.sectorParamUrl = cleanSector(queja.sector)
-        queja.nombreComercialCorto = shortenNombreComercial(queja.nombreComercial)
-        
-        return nuevoModeloQuejas
-    })
+
+        const lasNuevasQuejas = lasQuejas.map((queja) =>{    
+            const nuevoModeloQuejas = cleanZerosInStrings(queja)    
+            
+            queja.costo_bien_servicio = checkAmounts(queja.costo_bien_servicio)   
+            queja.giroParamUrl = cleanGiro(queja.giro)
+            queja.nombreComercialParamUrl = cleanNombreComercial(queja.nombreComercial)
+            queja.sectorParamUrl = cleanSector(queja.sector)
+            queja.nombreComercialCorto = shortenNombreComercial(queja.nombreComercial)
+            
+            return nuevoModeloQuejas
+        })
 
     console.log('el objeto con el modelo de quejas ---> ', lasNuevasQuejas)
 
-    use('poderColectivo');
+    // use('poderColectivo');
 
 // // Insert a few documents into the sales collection.
-    db.getCollection('quejas').insertMany(lasNuevasQuejas);
+    // db.getCollection('quejas').insertMany(lasNuevasQuejas);
