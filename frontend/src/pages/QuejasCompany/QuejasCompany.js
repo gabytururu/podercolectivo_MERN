@@ -132,6 +132,8 @@ const QuejasCompany = () => {
                 <p className="dataP">Cada una de estas quejas cuenta con un ID oficial de PROFECO, así como el motivo por el cual fué presentada la queja o controversia, el costo del bien o servicio reclamado y el estátus de la queja (por ej. conciliada, en trámite, desistida etc).</p>
                 {quejasEmpresa && quejasEmpresa
                     .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                    //.sort({createdAt:-1 }) <--not working cuz is backend arg?
+                    .slice(0,9)
                     .map((queja)=>(
                     <QuejaCard key={queja._id} queja={queja}/>
                 ))}

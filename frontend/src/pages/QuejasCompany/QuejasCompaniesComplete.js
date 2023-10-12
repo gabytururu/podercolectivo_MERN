@@ -21,10 +21,10 @@ const QuejasCompaniesComplete = () => {
                     const quejasCompany = sumQuejasPerCategory(quejasJson, categoryCompany)
                     setQuejasPerCompany(quejasCompany)
                     setGraphPerCompany({
-                        labels: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.nombreComercialCorto),
+                        labels: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.nombreComercialCorto).slice(1,20),
                         datasets: [{
                             label: 'Quejas por Empresa',
-                            data: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
+                            data: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas).slice(1,20),
                             backgroundColor: barChartColor,
                             borderRadius: barChartRadius
                        }]

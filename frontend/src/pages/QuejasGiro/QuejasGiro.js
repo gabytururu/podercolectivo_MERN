@@ -20,10 +20,10 @@ const QuejasGiro = () => {
                 setQuejasDelGiro(quejasGiroJson)
                 const quejasGiro = sumQuejasPerCategory(quejasGiroJson, categoryCompany)
                 setGraphPerGiro({
-                    labels: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.nombreComercialCorto),
+                    labels: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=>quejas.nombreComercialCorto),
                     datasets: [{
                         label: 'Quejas por Giro',
-                        data: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
+                        data: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=> quejas.totalQuejas),
                         backgroundColor: barChartColor,
                         borderRadius: barChartRadius
                    }]
@@ -65,6 +65,7 @@ const QuejasGiro = () => {
             <p className="dataP">Da click a cada una si quieres conocer el motivo o el estátus de las quejas y controversias vinculadas a empresas de este giro comercial </p>
                 {quejasDelGiro && sumQuejasPerCategory(quejasDelGiro,categoryCompany)
                 .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                .slice(0,9)
                 .map((queja)=>(    
                 <Link to={'/empresa/' + queja.nombreComercialParamUrl}>           
                 <SumQuejasCompany key={queja._id} queja={queja} /></Link>   

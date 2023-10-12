@@ -19,10 +19,10 @@ const QuejasGiroComplete = () => {
                     console.log('las quejas por giro--->',quejasGiro)
                     setQuejasPerGiro(quejasGiro)
                     setGraphPerGiro({
-                        labels:quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.giro),
+                        labels:quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,9).map((quejas)=>quejas.giro),
                         datasets:[{
                             label:'Quejas por Giro Comercial',
-                            data: quejasGiro.sort((a,b)=>b.totalQuejas-a.totalQuejas).map((quejas)=> quejas.totalQuejas),
+                            data: quejasGiro.sort((a,b)=>b.totalQuejas-a.totalQuejas).slice(0,9).map((quejas)=> quejas.totalQuejas),
                             backgroundColor: barChartColor,
                             borderRadius: barChartRadius
                         }]
@@ -48,6 +48,7 @@ const QuejasGiroComplete = () => {
                   {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
                 {quejasPerGiro
                         .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                        .slice(0,9)
                         .map((queja,i)=>(
                             <Link to={'/giro/'+ queja.giroParamUrl}><SumQuejasGiro key={i} queja={queja}/></Link>
                         ))

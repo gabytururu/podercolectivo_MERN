@@ -132,13 +132,13 @@ export const QuejasContextProvider = ({children}) =>{
        return statusDetailsAggregator
     }
 
-      const getMotivos = (quejasEmpresa)=>{
+    const getMotivos = (quejasEmpresa)=>{
         let motivosArr=[]
         let totalQtyQuejasThisEmpresa = quejasEmpresa.length
-        quejasEmpresa.map(queja=>motivosArr.includes(queja.motivo_reclamacion)?'':motivosArr.push(queja.motivo_reclamacion))
+        quejasEmpresa.map(queja=>motivosArr.includes(queja.tipo_reclamacion_causaCorta)?'':motivosArr.push(queja.tipo_reclamacion_causaCorta))
         let motivosDetailsAggregator=[]
         for(let motivo of motivosArr){
-            const quejasForThisMotivo = quejasEmpresa.filter((el)=>el.motivo_reclamacion === motivo)
+            const quejasForThisMotivo = quejasEmpresa.filter((el)=>el.tipo_reclamacion_causaCorta === motivo)
 
             const thisMotivoDetails ={
                 motivoName : motivo,

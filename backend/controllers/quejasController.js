@@ -1,11 +1,105 @@
 const mongoose = require('mongoose')
 const Queja = require('../models/quejasModel')
 
+const sumQuejasPerCategory = (quejas, categorySelected) =>{
+    let categoriesArray = []
+    quejas && quejas.map( queja => categoriesArray.includes(queja[categorySelected])?'':categoriesArray.push(queja[categorySelected]))
+
+    let categoriesAggregatedIndicators = []
+    for (let category of categoriesArray){
+        let montoReclamado = 0
+            // montoReclamado.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,});
+        let montoRecuperado = 0
+            // montoRecuperado.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,});
+        let costoBienServicio = 0
+        let sector = ''
+        let giro = ''
+        let nombreComercialParamUrl = ''
+        let giroParamUrl = ''
+        let sectorParamUrl = ''
+        let nombreComercialCorto= ''
+        const quejasThisCategory = quejas.filter((queja)=> queja[categorySelected] === category)
+        const quejasQtyThisCategory = quejasThisCategory.length
+        for(let queja of quejasThisCategory){
+            montoReclamado = queja.monto_reclamado + montoReclamado
+            montoRecuperado = queja.monto_recuperado_b + montoRecuperado
+            costoBienServicio = queja.costo_bien_servicio + costoBienServicio
+            sector = queja.sector
+            giro = queja.giro
+            nombreComercialParamUrl = queja.nombreComercialParamUrl
+            sectorParamUrl = queja.sectorParamUrl
+            giroParamUrl = queja.giroParamUrl
+            nombreComercialCorto= queja.nombreComercialCorto
+
+        }
+        const thisElementinCategoryIndicators = {
+            company: category, 
+            totalQuejas: quejasQtyThisCategory, 
+            montoTotalReclamado: montoReclamado, 
+            montoTotalRecuperado: montoRecuperado, 
+            sector: sector, 
+            costoBienServicio: costoBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,}), 
+            giro:giro,
+            nombreComercialParamUrl: nombreComercialParamUrl,
+            sectorParamUrl: sectorParamUrl,
+            giroParamUrl: giroParamUrl,
+            nombreComercialCorto: nombreComercialCorto
+
+        }
+        categoriesAggregatedIndicators.push(thisElementinCategoryIndicators)
+        console.log('categoriesAgg indicators from context function-->',categoriesAggregatedIndicators)
+    }
+    console.log(categoriesAggregatedIndicators)
+    return categoriesAggregatedIndicators
+}
+const getStatus =(quejasEmpresa)=>{
+    let totalQtyQuejasThisEmpresa = quejasEmpresa.length
+    let statusArr =[]
+    quejasEmpresa.map(queja => statusArr.includes(queja.estado_procesal)?'':statusArr.push(queja.estado_procesal))
+    let statusDetailsAggregator = []
+    for(let status of statusArr){        
+        const quejasEsteStatus = quejasEmpresa.filter((el)=> el.estado_procesal === status)
+        console.log('quejas este status -->filter function-->',quejasEsteStatus)
+        const thisStatusDetails ={
+            statusName : status,
+            qtyQuejasThisStatus : quejasEsteStatus.length,
+            percentageThisStatusFromTotal: quejasEsteStatus.length / totalQtyQuejasThisEmpresa
+        }
+        statusDetailsAggregator.push(thisStatusDetails)
+   }
+   console.log('result getStatus()--> ',statusDetailsAggregator)
+   return statusDetailsAggregator
+}
+
+  const getMotivos = (quejasEmpresa)=>{
+    let motivosArr=[]
+    let totalQtyQuejasThisEmpresa = quejasEmpresa.length
+    quejasEmpresa.map(queja=>motivosArr.includes(queja.motivo_reclamacion)?'':motivosArr.push(queja.motivo_reclamacion))
+    let motivosDetailsAggregator=[]
+    for(let motivo of motivosArr){
+        const quejasForThisMotivo = quejasEmpresa.filter((el)=>el.motivo_reclamacion === motivo)
+
+        const thisMotivoDetails ={
+            motivoName : motivo,
+            qtyThisMotivo : quejasForThisMotivo.length,
+            percentageThisMotivo : quejasForThisMotivo.length/totalQtyQuejasThisEmpresa
+        }
+
+        motivosDetailsAggregator.push(thisMotivoDetails)
+    }
+    console.log('motivosDetailsAggregator',motivosDetailsAggregator)
+    return motivosDetailsAggregator
+}
 
 const getAllQuejas = async(req,res)=>{
     // res.json({mssg: 'GET all quejas from DB'})
     try{
-        const getAllQuejas = await Queja.find({}).sort({createdAt:-1})
+        //const getAllQuejas = await Queja.find({}).sort({createdAt:-1})
+        const getAllQuejas = await Queja.find({})
+
+        for (let queja of getAllQuejas){
+
+        }
         res.status(200).json(getAllQuejas)
     }catch(err){
         res.status(400).json({err:err.message})        
@@ -40,6 +134,11 @@ const getQuejasByGiro = async(req,res)=>{
     if (!getGiroQuejaParam){
         return res.status(400).json({err: 'no existen quejas con el parametro de :giro dado en la DB'})
     }
+    // aplica la summary function para ver cuales son las top 50 o top 100 por # quejas o por costo
+  
+
+    //ya que aplicaste eso, tienes un array the la lista de giros que quieres incluir en el envio... por que son solo los top giros. 
+
     res.status(200).json(getGiroQuejaParam)
     
 }
