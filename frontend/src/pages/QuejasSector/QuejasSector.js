@@ -27,10 +27,10 @@ const QuejasSector = () => {
                 setQuejasdelSector(quejasSectorJson)
                 const quejasSector = sumQuejasPerCategory(quejasSectorJson, categoryCompany)
                 setGraphPerSector({
-                    labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.nombreComercialCorto),
+                    labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=>quejas.nombreComercialCorto),
                     datasets: [{
                         label: 'Quejas por Sector',
-                        data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas),
+                        data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=> quejas.totalQuejas),
                         backgroundColor: barChartColor,
                         borderRadius: barChartRadius
                    }]
@@ -120,6 +120,7 @@ const QuejasSector = () => {
                 <p className="dataP">Da click o tap en cada una para conocer el motivo y estátus de las quejas acumuladas por empresa </p>
                     {quejasdelSector && sumQuejasPerCategory(quejasdelSector,categoryCompany)
                     .sort((a,b)=>b.totalQuejas - a.totalQuejas)
+                    .slice(0,9)
                     .map((queja)=>(    
                     <Link to={'/empresa/' + queja.nombreComercialParamUrl}>           
                     <SumQuejasCompany key={queja._id} queja={queja} /></Link>   

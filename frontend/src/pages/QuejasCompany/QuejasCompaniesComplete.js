@@ -21,10 +21,10 @@ const QuejasCompaniesComplete = () => {
                     const quejasCompany = sumQuejasPerCategory(quejasJson, categoryCompany)
                     setQuejasPerCompany(quejasCompany)
                     setGraphPerCompany({
-                        labels: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=>quejas.nombreComercialCorto).slice(1,20),
+                        labels: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=>quejas.nombreComercialCorto),
                         datasets: [{
                             label: 'Quejas por Empresa',
-                            data: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).map((quejas)=> quejas.totalQuejas).slice(1,20),
+                            data: quejasCompany.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=> quejas.totalQuejas).slice(1,20),
                             backgroundColor: barChartColor,
                             borderRadius: barChartRadius
                        }]
@@ -51,6 +51,7 @@ const QuejasCompaniesComplete = () => {
                   {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
                 {quejasPerCompany
                     .sort((a,b) => b.totalQuejas - a.totalQuejas)
+                    .slice(0,9)
                     .map((queja,i)=>(
                             //<Link to={'/'+ queja.sector+'/'+ queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>
                             <Link to={'/empresa/'+ queja.nombreComercialParamUrl}><SumQuejasCompany key={i} queja={queja}/></Link>
