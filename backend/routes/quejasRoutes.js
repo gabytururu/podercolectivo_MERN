@@ -1,13 +1,16 @@
 const express = require('express')
 const router = express.Router()
-const  {getAllQuejas, getSingleQueja, getQuejasPerIndustryParam, postQueja, getQuejasByGiro, getQuejasByEmpresa,getTopQuejasPerCompany, getTopQuejasPerSector,getTopQuejasPerGiro} = require('../controllers/quejasController')
+const  {getAllQuejas, getSingleQueja, getQuejasPerIndustryParam, postQueja, getQuejasByGiro, getQuejasByEmpresa,getTopQuejasCompanyCount, getTopQuejasSectorCount,getTopQuejasSectorValue,getTopQuejasGiroCount, getTopQuejasGiroValue, getTopQuejasCompanyValue} = require('../controllers/quejasController')
 
 // getQuejasPerIndustry, testResponse, getbyNombreComercial,
 
 router.get('/', getAllQuejas) 
-router.get('/topEmpresa',getTopQuejasPerCompany) //getAllQuejas+sum+sortPerCompany+top30
-router.get('/topSector',getTopQuejasPerSector) //getAllQuejas+sum+sortPerSector+top30
-router.get('/topGiro',getTopQuejasPerGiro) //getAllQuejas+sum+sortPerGiro+top30
+router.get('/topEmpresa',getTopQuejasCompanyCount) //getAllQuejas+sum+sortPerCompany+top30
+router.get('/topEmpresaValue',getTopQuejasCompanyValue) //getAllQuejas+sum+sortPerCompany+top30
+router.get('/topSector',getTopQuejasSectorCount) //getAllQuejas+sum+sortPerSector+top30
+router.get('/topSectorValue',getTopQuejasSectorValue) //getAllQuejas+sum+sortPerSector+top30
+router.get('/topGiro',getTopQuejasGiroCount) //getAllQuejas+sum+sortPerGiro+top30
+router.get('/topGiroValue',getTopQuejasGiroValue) //getAllQuejas+sum+sortPerGiro+top30
 router.get('/:id', getSingleQueja)
 // router.get('/sector/:sector', getQuejasPerIndustry)
 router.get('/sector/:sectorParamUrl', getQuejasPerIndustryParam)

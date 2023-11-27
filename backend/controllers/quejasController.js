@@ -114,7 +114,7 @@ const getAllQuejas = async(req,res)=>{
     }
 }
 
-const getTopQuejasPerCompany = async(req,res)=>{
+const getTopQuejasCompanyCount = async(req,res)=>{
     try{
         const topCompanies = await Queja.aggregate([
             {$group:{
@@ -138,7 +138,31 @@ const getTopQuejasPerCompany = async(req,res)=>{
     // ])
 }
 
-const getTopQuejasPerSector = async(req,res)=>{
+const getTopQuejasCompanyValue = async(req,res)=>{
+    try{
+        const topCompanies = await Queja.aggregate([
+            {$group:{
+                _id:"$nombreComercialCorto", 
+                totalComplaints:{$sum:1},
+                totalValueMXN: {$sum: "$costo_bien_servicio"},
+                giro: {$first: "$giro"}
+                }
+            },
+            {$sort: {totalValueMXN: -1}},
+            {$limit: 30} 
+        ])
+        res.status(200).json(topCompanies)
+    }catch(err){
+        res.status(400).json({err:err.message})
+    }
+    // const topCompanies = await Queja.aggregate([
+    //     {$group:{_id: "$nombreComercialCorto", count:{$sum: 1}}},
+    //     {$sort: {count:-1}},
+    //     {$limit:30}
+    // ])
+}
+
+const getTopQuejasSectorCount = async(req,res)=>{
     try{
         const topSectors = await Queja.aggregate([
             {$group:{
@@ -156,7 +180,25 @@ const getTopQuejasPerSector = async(req,res)=>{
     }
 
 }
-const getTopQuejasPerGiro = async(req,res)=>{
+const getTopQuejasSectorValue = async(req,res)=>{
+    try{
+        const topSectors = await Queja.aggregate([
+            {$group:{
+                _id:"$sector",
+                totalComplaints:{$sum:1},
+                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
+                }
+            },
+            {$sort: {totalValueMXN: -1}},
+            {$limit:30}
+        ])
+        res.status(200).json(topSectors)
+    }catch(err){
+        res.status(400).json({err:err.message})
+    }
+
+}
+const getTopQuejasGiroCount = async(req,res)=>{
     try{
         const topGiros = await Queja.aggregate([
             {$group:{
@@ -166,6 +208,24 @@ const getTopQuejasPerGiro = async(req,res)=>{
                 }
             },
             {$sort: {totalComplaints: -1}},
+            {$limit:30}
+        ])
+        res.status(200).json(topGiros)
+    }catch(err){
+        res.status(400).json({err:err.message})
+    }
+
+}
+const getTopQuejasGiroValue = async(req,res)=>{
+    try{
+        const topGiros = await Queja.aggregate([
+            {$group:{
+                _id:"$giro",
+                totalComplaints:{$sum:1},
+                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
+                }
+            },
+            {$sort: {totalValueMXN: -1}},
             {$limit:30}
         ])
         res.status(200).json(topGiros)
@@ -253,11 +313,11 @@ module.exports = {
     getQuejasPerIndustryParam,
     getQuejasByEmpresa,
     // getQuejasPerCompany,
+    getTopQuejasCompanyCount,
+    getTopQuejasCompanyValue,
+    getTopQuejasSectorCount,
+    getTopQuejasSectorValue,
+    getTopQuejasGiroCount,
+    getTopQuejasGiroValue,
     postQueja,
-    getTopQuejasPerCompany,
-    getTopQuejasPerSector,
-    getTopQuejasPerGiro,
-    // getbyNombreComercial,
-    // testResponse   
-
 }
