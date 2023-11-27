@@ -90,22 +90,6 @@ const getStatus =(quejasEmpresa)=>{
     console.log('motivosDetailsAggregator',motivosDetailsAggregator)
     return motivosDetailsAggregator
 }
-
-const getAllQuejas = async(req,res)=>{
-    // res.json({mssg: 'GET all quejas from DB'})
-    try{
-        //const getAllQuejas = await Queja.find({}).sort({createdAt:-1})
-        const getAllQuejas = await Queja.find({})
-
-        for (let queja of getAllQuejas){
-
-        }
-        res.status(200).json(getAllQuejas)
-    }catch(err){
-        res.status(400).json({err:err.message})        
-    }
-}
-
 const getSingleQueja = async(req,res)=>{
     //res.json({mssg: 'GET single queja from DB'})
     const {id} = req.params         
@@ -119,15 +103,101 @@ const getSingleQueja = async(req,res)=>{
     res.status(200).json(getSingleQueja)
 }
 
-// const getQuejasPerIndustry = async(req,res)=>{
-//     // res.json({mssg: 'GET quejas by IndustryName from DB, you just requested the quejas of Industry :' + req.params.industryName})
-//     const {sector} = req.params
-//     const getIndustryQueja = await Queja.find({sector})
-//     if (!getIndustryQueja){
-//         return res.status(400).json({err: 'no existen quejas con el parametro de :Sector dado en la DB'})
+const getAllQuejas = async(req,res)=>{
+    // res.json({mssg: 'GET all quejas from DB'})
+    try{
+        //const getAllQuejas = await Queja.find({}).sort({createdAt:-1})
+        const getAllQuejas = await Queja.find({})        
+        res.status(200).json(topCompanies)
+    }catch(err){
+        res.status(400).json({err:err.message})        
+    }
+}
+
+const getTopQuejasPerCompany = async(req,res)=>{
+    try{
+        const topCompanies = await Queja.aggregate([
+            {$group:{
+                _id:"$nombreComercialCorto", 
+                totalComplaints:{$sum:1},
+                totalValueMXN: {$sum: "$costo_bien_servicio"},
+                giro: {$first: "$giro"}
+                }
+            },
+            {$sort: {totalComplaints: -1}},
+            {$limit: 30} 
+        ])
+        res.status(200).json(topCompanies)
+    }catch(err){
+        res.status(400).json({err:err.message})
+    }
+    // const topCompanies = await Queja.aggregate([
+    //     {$group:{_id: "$nombreComercialCorto", count:{$sum: 1}}},
+    //     {$sort: {count:-1}},
+    //     {$limit:30}
+    // ])
+}
+
+const getTopQuejasPerSector = async(req,res)=>{
+    try{
+        const topSectors = await Queja.aggregate([
+            {$group:{
+                _id:"$sector",
+                totalComplaints:{$sum:1},
+                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
+                }
+            },
+            {$sort: {totalComplaints: -1}},
+            {$limit:30}
+        ])
+        res.status(200).json(topSectors)
+    }catch(err){
+        res.status(400).json({err:err.message})
+    }
+
+}
+const getTopQuejasPerGiro = async(req,res)=>{
+    try{
+        const topGiros = await Queja.aggregate([
+            {$group:{
+                _id:"$giro",
+                totalComplaints:{$sum:1},
+                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
+                }
+            },
+            {$sort: {totalComplaints: -1}},
+            {$limit:30}
+        ])
+        res.status(200).json(topGiros)
+    }catch(err){
+        res.status(400).json({err:err.message})
+    }
+
+}
+
+// const getQuejasByGiro = async (req, res) => {
+//     const { giroParamUrl } = req.params;
+  
+//     try {
+//       const industrySummary = await Queja.aggregate([
+//         { $match: { giroParamUrl: giroParamUrl } }, // Filter complaints by industry
+//         { $group: { _id: "$sectorParamUrl", totalComplaints: { $sum: 1 } } }, // Group by sector and count complaints
+//         { $sort: { totalComplaints: -1 } }, // Sort sectors by total complaints in descending order
+//         { $limit: 30 } // Limit to the top 30 sectors
+//       ]);
+  
+//       if (!industrySummary.length) {
+//         return res.status(404).json({ err: 'No existen quejas con el parametro de giro dado en la DB' });
+//       }
+  
+//       res.status(200).json(industrySummary);
+//     } catch (err) {
+//       res.status(500).json({ error: err.message });
 //     }
-//     res.status(200).json(getIndustryQueja)
-// }
+//   };
+
+
+
 const getQuejasByGiro = async(req,res)=>{
     const {giroParamUrl} = req.params
     const getGiroQuejaParam = await Queja.find({giroParamUrl})
@@ -161,29 +231,6 @@ const getQuejasByEmpresa = async(req,res)=>{
     }
     res.status(200).json(getbyNombreEmpresa)
 }
-// const getbyNombreComercial = async(req,res)=>{
-//     const {nombreComercial, sector} = req.params
-//     const getbyNombreEmpresa = await Queja.find({sector, nombreComercial})
-//     if (!getbyNombreEmpresa){
-//         return res.status(400).json({err: 'no existen quejas con el parametro de :nombreComercial dado en la DB'})
-//     }
-//     res.status(200).json(getbyNombreEmpresa)
-// }
-
-// not working
-// const getQuejasByGiro = (req,res)=>{
-//     const {giroParamUrl} = req.body
-//     res.json({mssg:`get las quejas del giro ${giroParamUrl}`})
-// }
-
-// const testResponse =async(req,res)=>{
-//     const {giroParamUrl} = req.params
-//     const quejaPorGiro = await Queja.find({giroParamUrl})
-//     if(!quejaPorGiro){
-//         return res.status(400).json({err:'no existen quejas con ese parametro de giro'})
-//     }
-//     res.status(200).json(quejaPorGiro)
-// }
 
 const postQueja = async(req,res)=>{
     //res.json({mssg: 'POST a NEW Queja in a NEW collection'})
@@ -197,18 +244,6 @@ const postQueja = async(req,res)=>{
     }
 }
 
-// no longer needed ??
-// const getQuejasPerCompany = async(req,res)=>{
-//     // res.json({mssg: 'GET quejas by CompanyName, You just requested the quejas of company: ' + req.params.companyName})
-//     const {nombre_comercial} = req.params
-//     const getCompanyQueja = await Queja.find({nombre_comercial})
-
-//     if (!getCompanyQueja){
-//         return res.status(400).json({err: 'no existen quejas con el parametro ese CompanyName/nombreComercial en la DB'})
-//     }
-//     res.status(200).json(getCompanyQueja)
-// }
-
 
 module.exports = {
     getAllQuejas,
@@ -219,6 +254,9 @@ module.exports = {
     getQuejasByEmpresa,
     // getQuejasPerCompany,
     postQueja,
+    getTopQuejasPerCompany,
+    getTopQuejasPerSector,
+    getTopQuejasPerGiro,
     // getbyNombreComercial,
     // testResponse   
 
