@@ -235,43 +235,123 @@ const getTopQuejasGiroValue = async(req,res)=>{
 
 }
 
-// const getQuejasByGiro = async (req, res) => {
-//     const { giroParamUrl } = req.params;
-  
-//     try {
-//       const industrySummary = await Queja.aggregate([
-//         { $match: { giroParamUrl: giroParamUrl } }, // Filter complaints by industry
-//         { $group: { _id: "$sectorParamUrl", totalComplaints: { $sum: 1 } } }, // Group by sector and count complaints
-//         { $sort: { totalComplaints: -1 } }, // Sort sectors by total complaints in descending order
-//         { $limit: 30 } // Limit to the top 30 sectors
-//       ]);
-  
-//       if (!industrySummary.length) {
-//         return res.status(404).json({ err: 'No existen quejas con el parametro de giro dado en la DB' });
-//       }
-  
-//       res.status(200).json(industrySummary);
-//     } catch (err) {
-//       res.status(500).json({ error: err.message });
-//     }
-//   };
 
+const getQuejasBySingleGiroCount = async(req,res)=>{
+    const {giroParamUrl} = req.params;
 
-
-const getQuejasByGiro = async(req,res)=>{
-    const {giroParamUrl} = req.params
-    const getGiroQuejaParam = await Queja.find({giroParamUrl})
-    if (!getGiroQuejaParam){
-        return res.status(400).json({err: 'no existen quejas con el parametro de :giro dado en la DB'})
+    try{
+        const quejasByGiroParam = await Queja.aggregate([
+            {$match: {giroParamUrl : giroParamUrl}},
+            {$group: {
+                _id: "$nombreComercialCorto",
+                totalComplaints:{$sum:1},
+                totalValueMxn: {$sum:"$costo_bien_servicio"}
+                }
+            },
+            {$sort:{totalComplaints: -1}},
+            {$limit:30}
+        ]);
+        if(!quejasByGiroParam.length){
+            return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
+        }
+        res.status(200).json(quejasByGiroParam)
+    }catch(err){
+        res.status(500).json({err:err.message})
     }
-    // aplica la summary function para ver cuales son las top 50 o top 100 por # quejas o por costo
+}
+const getQuejasBySingleGiroValue = async(req,res)=>{
+    const {giroParamUrl} = req.params;
+
+    try{
+        const quejasByGiroParam = await Queja.aggregate([
+            {$match: {giroParamUrl : giroParamUrl}},
+            {$group: {
+                _id: "$nombreComercialCorto",
+                totalComplaints:{$sum:1},
+                totalValueMxn: {$sum:"$costo_bien_servicio"}
+                }
+            },
+            {$sort:{totalValueMxn: -1}},
+            {$limit:30}
+        ]);
+        if(!quejasByGiroParam.length){
+            return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
+        }
+        res.status(200).json(quejasByGiroParam)
+    }catch(err){
+        res.status(500).json({err:err.message})
+    }
+}
+
+//not working.. figure out why
+const getQuejasByEmpresa = async(req,res)=>{
+    const {nombreComercialParamUrl} = req.params;
+
+    try{
+        const quejasByCompany = await Queja.aggregate([
+            {$match: {nombreComercialParamUrl : nombreComercialParamUrl}},
+            {$group: {
+                _id: "$nombreComercialCorto",
+                totalComplaints:{$sum:1},
+                totalValueMxn: {$sum:"$costo_bien_servicio"}
+                }
+            },
+            {$sort:{totalComplaints: -1}},
+            {$limit:30}
+        ]);
+        if(!quejasByCompany.length){
+            return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
+        }
+        res.status(200).json(quejasByCompany)
+    }catch(err){
+        res.status(500).json({err:err.message})
+    }
+}
+// const getQuejasBySingleCompanyValue = async(req,res)=>{
+//     const {giroParamUrl} = req.params;
+
+//     try{
+//         const quejasByGiroParam = await Queja.aggregate([
+//             {$match: {giroParamUrl : giroParamUrl}},
+//             {$group: {
+//                 _id: "$nombreComercialCorto",
+//                 totalComplaints:{$sum:1},
+//                 totalValueMxn: {$sum:"$costo_bien_servicio"}
+//                 }
+//             },
+//             {$sort:{totalValueMxn: -1}},
+//             {$limit:30}
+//         ]);
+//         if(!quejasByGiroParam.length){
+//             return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
+//         }
+//         res.status(200).json(quejasByGiroParam)
+//     }catch(err){
+//         res.status(500).json({err:err.message})
+//     }
+// }
+
+// const getQuejasByEmpresa = async(req,res)=>{
+//     const {nombreComercialParamUrl} = req.params
+//     const getbyNombreEmpresa = await Queja.find({nombreComercialParamUrl})
+//     if (!getbyNombreEmpresa){
+//         return res.status(400).json({err: 'no existen quejas con el parametro de :nombreComercial dado en la DB'})
+//     }
+//     res.status(200).json(getbyNombreEmpresa)
+// }
+//const getQuejasByGiro = async(req,res)=>{
+//     const getGiroQuejaParam = await Queja.find({giroParamUrl})
+//     if (!getGiroQuejaParam){
+//         return res.status(400).json({err: 'no existen quejas con el parametro de :giro dado en la DB'})
+//     }
+//     // aplica la summary function para ver cuales son las top 50 o top 100 por # quejas o por costo
   
 
-    //ya que aplicaste eso, tienes un array the la lista de giros que quieres incluir en el envio... por que son solo los top giros. 
+//     //ya que aplicaste eso, tienes un array the la lista de giros que quieres incluir en el envio... por que son solo los top giros. 
 
-    res.status(200).json(getGiroQuejaParam)
+//     res.status(200).json(getGiroQuejaParam)
     
-}
+// }
 
 const getQuejasPerIndustryParam = async(req,res)=>{
     // res.json({mssg: 'GET quejas by IndustryName from DB, you just requested the quejas of Industry :' + req.params.industryName})
@@ -283,14 +363,6 @@ const getQuejasPerIndustryParam = async(req,res)=>{
     res.status(200).json(getIndustryQuejaParam)
 }
 
-const getQuejasByEmpresa = async(req,res)=>{
-    const {nombreComercialParamUrl} = req.params
-    const getbyNombreEmpresa = await Queja.find({nombreComercialParamUrl})
-    if (!getbyNombreEmpresa){
-        return res.status(400).json({err: 'no existen quejas con el parametro de :nombreComercial dado en la DB'})
-    }
-    res.status(200).json(getbyNombreEmpresa)
-}
 
 const postQueja = async(req,res)=>{
     //res.json({mssg: 'POST a NEW Queja in a NEW collection'})
