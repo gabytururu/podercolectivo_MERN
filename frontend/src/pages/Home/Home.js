@@ -37,35 +37,26 @@ const Home = () => {
                 console.log('LAS QUEJAS OBJECT --> ',topCompanies)
                 const topCompaniesJson = await topCompanies.json()
                 console.log('las Quejas Json', topCompaniesJson)
-                // setTopQuejasAllCompanies(topCompaniesJson) 
-                
                 if(topCompanies.ok ){
                     // no logro entender porqué al hacer el puente con este nuevo estado, la renderización no ocurre bien... renderiza el graph sin datos siempre
                     // setTopQuejasAllCompanies(topCompaniesJson) 
-                    // console.log('Las quejas Post SetQuejas? -->', topQuejasAllCompanies)                 
-                    // //const quejasCompany= sumQuejasPerCategory(quejasJson, categoryCompany)             
-                    // // setQuejasPerCompany(quejasCompany)           
-                    // topQuejasAllCompanies && setGraphPerCompany({
-                        setGraphPerCompany({
+                    setGraphPerCompany({
                         labels: topCompaniesJson.slice(0,10).map((queja)=>queja._id),
                         datasets: [{
                             label: 'Quejas por Empresa',
                             data: topCompaniesJson.slice(0,10).map((queja)=> queja.totalComplaints),
                             backgroundColor: 'blue',
                             borderRadius: 5,
-                       }]
+                        }]
                     })
                     setLoading(false)
+                    setTopQuejasAllCompanies(topCompaniesJson)
                 }
             }catch(err){
                 console.log('hubo un error: ', err)
                 setLoading(false)
             }         
-            // if(topQuejasAllCompanies.length > 0){
-            //     setLoading(false)
-            //     console.log('length de graph per labels--> ',graphPerCompany.labels.length)
-                
-            // }
+      
             // try{
             //     const quejasObject = await fetch('http://localhost:5000/api/quejas-profeco/')
             //     const quejasJson = await quejasObject.json()
@@ -129,53 +120,37 @@ const Home = () => {
         }   
         fetchQuejas()              
     },[])
-     
-    // if(loading){
-    //     return<p>Cargando...</p>
-    // }
-
+    
+ 
     return ( 
        
-
-        <div>
+      
+        <div style={{ whiteSpace: 'pre-line' }}>
            
            <div className="heroImage">
                 <div className="heroText">
                     <h1>Poder Colectivo</h1>
-                    <h2>Conoce la reputación de las empresas mexicanas a través de las estadísticas de PROFECO</h2> 
-                    <p>Página creada con <span>❤️</span> de Mexas para Mexas</p>
+                    <h2>Una representación visual de las quejas de empresas mexicanas ante la PROFECO</h2> 
+                    <p className="italic">Por su reputación los conoceréis...</p>
+                    <p className="regular">Página creada con <span>❤️</span> de Mexas para Mexas</p>
                 </div>
             </div>
 
             <div className="containerWrap">
                 <div className="data"> 
-                    <h2 className="datah2">Empresas con Más Quejas en PROFECO México</h2> 
+                    <h2 className="datah2">Empresas con más quejas en PROFECO México</h2> 
                     <p className="dataP">La gráfica siguiente presenta la lista de las 10 empresas que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado(2022) y lo que va de 2023*</p> 
-
-                    {/* <BarChart chartData={graphPerCompany}/>      */}
-
-                    {/* {
-                        topQuejasAllCompanies && graphPerCompany.labels.length > 0  && 
-                         ( <BarChart chartData={graphPerCompany}/> )
-                        // : 
-                        //  (<p>haz esto</p>)
-                    } */}
-
                     { loading ?
                         <p>Cargando...</p>
                      : 
                         <BarChart chartData={graphPerCompany}/>     
                     }
-
-                   
-                                         
+                 
                     <h3 className="datah3">Lista de Quejas Acumuladas por Empresa</h3> 
                     <p className="dataP">Da click o tap en cada una para conocer los detalles de las quejas acumuladas por empresa (ej. motivo de la queja ante PROFECO, estátus, o valor económico del bien o servicio reclamado):</p> 
                         {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
-                        {topQuejasAllCompanies
-                       
-                            // .sort((a,b)=>b.totalQuejas - a.totalQuejas)
-                            // .slice(0,4)
+                        {topQuejasAllCompanies                       
+                            .slice(0,4)
                             .map((queja,i)=>(
                                 // <Link to={'/empresa/' + queja.nombreComercialParamUrl}><SumQuejasCompany key={i} queja={queja}/></Link>
                                 <SumQuejasCompany key={i} queja={queja}/>

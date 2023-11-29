@@ -2,8 +2,8 @@
 /* // ======================== HERO IMAGE ==================================// */
 
 .heroImage{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),url('../../../public/imgs/marcha_fr.jpg');
-    height:60vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('../../../public/imgs/marcha_fr.jpg');
+    height:90vh;
     background-position:center;
     background-repeat: no-repeat;
     background-size:cover;
@@ -44,12 +44,23 @@
 
 }
 
-.heroText p{
+.heroText .regular{
     margin:0;
-    font-weight:700;
+    font-weight:600;
     font-size:18px;
     text-shadow: 2px 2px 2px black;
+   
     
+}
+
+.heroText .italic{
+    margin-bottom:8px;  
+    font-weight:100;
+    font-size:25px;
+    text-shadow: 2px 2px 2px black;
+    font-family:'pacifico';
+    color:var(--poderColectivo-yellow);
+    letter-spacing: 2px;
 }
 
 @media only screen and (max-width:1250px){
