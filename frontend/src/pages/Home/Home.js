@@ -13,9 +13,11 @@ import { QuejasContext } from '../../Context/QuejasContext'
 // import ChartDataLabels from 'chartjs-plugin-datalabels'
 //import {Chart as ChartJs} from 'chart.js/auto' <--- only need it on the component
 
-const Home = () => {
-    // const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, graphPerGiro, setGraphPerGiro, barChartColor, barChartRadius} = useContext(QuejasContext)
+   // const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, graphPerGiro, setGraphPerGiro, barChartColor, barChartRadius} = useContext(QuejasContext)
    // const {graphPerCompany, setGraphPerCompany} = useContext(QuejasContext)
+
+const Home = () => {
+ 
     const [topQuejasAllCompanies, setTopQuejasAllCompanies] = useState([])
     const [graphPerCompany, setGraphPerCompany] = useState({
         labels: [],
@@ -25,7 +27,7 @@ const Home = () => {
             backgroundColor: 'blue',
             borderRadius: 5,
        }]})
-   
+    const [loading,setLoading]=useState(true)
 
     useEffect(()=>{
         
@@ -35,26 +37,35 @@ const Home = () => {
                 console.log('LAS QUEJAS OBJECT --> ',topCompanies)
                 const topCompaniesJson = await topCompanies.json()
                 console.log('las Quejas Json', topCompaniesJson)
-            if(topCompanies.ok){
-                    setTopQuejasAllCompanies(topCompaniesJson) 
-                    console.log('Las quejas Post SetQuejas? -->', topQuejasAllCompanies)                 
-                    //const quejasCompany= sumQuejasPerCategory(quejasJson, categoryCompany)             
-                    // setQuejasPerCompany(quejasCompany)           
-                    setGraphPerCompany({
-                        labels: topQuejasAllCompanies.map((queja)=>queja._id),
+                // setTopQuejasAllCompanies(topCompaniesJson) 
+                
+                if(topCompanies.ok ){
+                    // no logro entender porqué al hacer el puente con este nuevo estado, la renderización no ocurre bien... renderiza el graph sin datos siempre
+                    // setTopQuejasAllCompanies(topCompaniesJson) 
+                    // console.log('Las quejas Post SetQuejas? -->', topQuejasAllCompanies)                 
+                    // //const quejasCompany= sumQuejasPerCategory(quejasJson, categoryCompany)             
+                    // // setQuejasPerCompany(quejasCompany)           
+                    // topQuejasAllCompanies && setGraphPerCompany({
+                        setGraphPerCompany({
+                        labels: topCompaniesJson.slice(0,10).map((queja)=>queja._id),
                         datasets: [{
                             label: 'Quejas por Empresa',
-                            data: topQuejasAllCompanies.map((queja)=> queja.totalComplaints),
+                            data: topCompaniesJson.slice(0,10).map((queja)=> queja.totalComplaints),
                             backgroundColor: 'blue',
                             borderRadius: 5,
                        }]
                     })
-                   
+                    setLoading(false)
                 }
             }catch(err){
                 console.log('hubo un error: ', err)
+                setLoading(false)
             }         
-
+            // if(topQuejasAllCompanies.length > 0){
+            //     setLoading(false)
+            //     console.log('length de graph per labels--> ',graphPerCompany.labels.length)
+                
+            // }
             // try{
             //     const quejasObject = await fetch('http://localhost:5000/api/quejas-profeco/')
             //     const quejasJson = await quejasObject.json()
@@ -118,9 +129,13 @@ const Home = () => {
         }   
         fetchQuejas()              
     },[])
+     
+    // if(loading){
+    //     return<p>Cargando...</p>
+    // }
 
     return ( 
-        
+       
 
         <div>
            
@@ -136,8 +151,24 @@ const Home = () => {
                 <div className="data"> 
                     <h2 className="datah2">Empresas con Más Quejas en PROFECO México</h2> 
                     <p className="dataP">La gráfica siguiente presenta la lista de las 10 empresas que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado(2022) y lo que va de 2023*</p> 
-                    <BarChart chartData={graphPerCompany}/>                             
 
+                    {/* <BarChart chartData={graphPerCompany}/>      */}
+
+                    {/* {
+                        topQuejasAllCompanies && graphPerCompany.labels.length > 0  && 
+                         ( <BarChart chartData={graphPerCompany}/> )
+                        // : 
+                        //  (<p>haz esto</p>)
+                    } */}
+
+                    { loading ?
+                        <p>Cargando...</p>
+                     : 
+                        <BarChart chartData={graphPerCompany}/>     
+                    }
+
+                   
+                                         
                     <h3 className="datah3">Lista de Quejas Acumuladas por Empresa</h3> 
                     <p className="dataP">Da click o tap en cada una para conocer los detalles de las quejas acumuladas por empresa (ej. motivo de la queja ante PROFECO, estátus, o valor económico del bien o servicio reclamado):</p> 
                         {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
