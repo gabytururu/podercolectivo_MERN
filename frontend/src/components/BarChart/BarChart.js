@@ -20,32 +20,40 @@ const BarChart = ({chartData}) => {
             y:{
                 beginAtZero:true,
                 ticks:{
-                    stepSize:1,
-                    color:'black',
+                    color:'gray',
                     font:{
-                        size: 15,
-                    }
+                        size: 13,
+                    },
+                    // stepSize:2000,
+                    //maxTicksLimit:10
                 },
-                grace:0.5 // no se porque deja ese extra por arriba como barras salidas despues del final
+                grace: 0.5,// no se porque deja ese extra por arriba como barras salidas despues del final.
+                grid: {
+                    display:true,
+                }
             },
             x:{
                 ticks:{
-                    color:'black',       
+                    color:'gray',       
                     font:{
-                        size:14,           
-                    }
-                }
-            }
+                        size:12,           
+                    },
+                },
+                grid:{
+                    display:false,
+                },
+            }, 
+            
         },
         layout:{
-            padding:15
+            padding:30
         },
         plugins:{
             legend:{
                 labels:{
-                    color: 'black',
+                    color: '#444444',
                     font:{
-                        size:17,
+                        size:15,
                         weight:700,
                     }
                 },
@@ -53,13 +61,13 @@ const BarChart = ({chartData}) => {
                 position:'bottom',           
             },       
             datalabels:{
-                color: '#464646',
+                color: '#444444',
                 align: 'end',
                 anchor: 'end',
                 offset: 0,
                 font:{
-                    size:17,
-                    weight:700
+                    size:13,
+                    weight:500
                 },
                 // padding: 7,
                 // rotation:320,

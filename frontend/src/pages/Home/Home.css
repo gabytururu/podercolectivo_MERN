@@ -2,7 +2,7 @@
 /* // ======================== HERO IMAGE ==================================// */
 
 .heroImage{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('../../../public/imgs/marcha_fr.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url('../../../public/imgs/marcha_fr.jpg');
     height:90vh;
     background-position:center;
     background-repeat: no-repeat;

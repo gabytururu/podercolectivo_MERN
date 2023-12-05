@@ -90,18 +90,6 @@ const Queja = require('../models/quejasModel')
 //     console.log('motivosDetailsAggregator',motivosDetailsAggregator)
 //     return motivosDetailsAggregator
 // }
-const getSingleQueja = async(req,res)=>{
-    //res.json({mssg: 'GET single queja from DB'})
-    const {id} = req.params         
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(400).json({error: 'Esa#ID de queja no fue Valido en el Types Id de Mongoose'})
-    }
-    const getSingleQueja = await Queja.findById(id)        
-    if(!getSingleQueja){
-        return res.status(400).json({err: 'esa Queja ID no existe en la DB'})
-    }     
-    res.status(200).json(getSingleQueja)
-}
 
 const getAllQuejas = async(req,res)=>{
     // res.json({mssg: 'GET all quejas from DB'})
@@ -114,6 +102,8 @@ const getAllQuejas = async(req,res)=>{
     }
 }
 
+
+//--------------------------------------//
 const getTopQuejasCompanyCount = async(req,res)=>{
     try{
         const topCompanies = await Queja.aggregate([
@@ -138,7 +128,6 @@ const getTopQuejasCompanyCount = async(req,res)=>{
     //     {$limit:30}
     // ])
 }
-
 const getTopQuejasCompanyValue = async(req,res)=>{
     try{
         const topCompanies = await Queja.aggregate([
@@ -162,127 +151,6 @@ const getTopQuejasCompanyValue = async(req,res)=>{
     //     {$limit:30}
     // ])
 }
-
-const getTopQuejasSectorCount = async(req,res)=>{
-    try{
-        const topSectors = await Queja.aggregate([
-            {$group:{
-                _id:"$sector",
-                totalComplaints:{$sum:1},
-                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
-                }
-            },
-            {$sort: {totalComplaints: -1}},
-            {$limit:30}
-        ])
-        res.status(200).json(topSectors)
-    }catch(err){
-        res.status(400).json({err:err.message})
-    }
-
-}
-const getTopQuejasSectorValue = async(req,res)=>{
-    try{
-        const topSectors = await Queja.aggregate([
-            {$group:{
-                _id:"$sector",
-                totalComplaints:{$sum:1},
-                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
-                }
-            },
-            {$sort: {totalValueMXN: -1}},
-            {$limit:30}
-        ])
-        res.status(200).json(topSectors)
-    }catch(err){
-        res.status(400).json({err:err.message})
-    }
-
-}
-const getTopQuejasGiroCount = async(req,res)=>{
-    try{
-        const topGiros = await Queja.aggregate([
-            {$group:{
-                _id:"$giro",
-                totalComplaints:{$sum:1},
-                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
-                }
-            },
-            {$sort: {totalComplaints: -1}},
-            {$limit:30}
-        ])
-        res.status(200).json(topGiros)
-    }catch(err){
-        res.status(400).json({err:err.message})
-    }
-
-}
-const getTopQuejasGiroValue = async(req,res)=>{
-    try{
-        const topGiros = await Queja.aggregate([
-            {$group:{
-                _id:"$giro",
-                totalComplaints:{$sum:1},
-                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
-                }
-            },
-            {$sort: {totalValueMXN: -1}},
-            {$limit:30}
-        ])
-        res.status(200).json(topGiros)
-    }catch(err){
-        res.status(400).json({err:err.message})
-    }
-
-}
-
-
-const getQuejasBySingleGiroCount = async(req,res)=>{
-    const {giroParamUrl} = req.params;
-
-    try{
-        const quejasByGiroParam = await Queja.aggregate([
-            {$match: {giroParamUrl : giroParamUrl}},
-            {$group: {
-                _id: "$nombreComercialCorto",
-                totalComplaints:{$sum:1},
-                totalValueMxn: {$sum:"$costo_bien_servicio"}
-                }
-            },
-            {$sort:{totalComplaints: -1}},
-            {$limit:30}
-        ]);
-        if(!quejasByGiroParam.length){
-            return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
-        }
-        res.status(200).json(quejasByGiroParam)
-    }catch(err){
-        res.status(500).json({err:err.message})
-    }
-}
-const getQuejasBySingleGiroValue = async(req,res)=>{
-    const {giroParamUrl} = req.params;
-
-    try{
-        const quejasByGiroParam = await Queja.aggregate([
-            {$match: {giroParamUrl : giroParamUrl}},
-            {$group: {
-                _id: "$nombreComercialCorto",
-                totalComplaints:{$sum:1},
-                totalValueMxn: {$sum:"$costo_bien_servicio"}
-                }
-            },
-            {$sort:{totalValueMxn: -1}},
-            {$limit:30}
-        ]);
-        if(!quejasByGiroParam.length){
-            return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
-        }
-        res.status(200).json(quejasByGiroParam)
-    }catch(err){
-        res.status(500).json({err:err.message})
-    }
-}
 const getQuejasBySingleCompanyValue = async(req,res)=>{
     const {nombreComercialParamUrl} = req.params;
 
@@ -301,60 +169,6 @@ const getQuejasBySingleCompanyValue = async(req,res)=>{
             },
             {$sort:{totalValueMxn: -1}},
             {$limit:30}
-        ]);
-        if(!quejasByCompany.length){
-            return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
-        }
-        res.status(200).json(quejasByCompany)
-    }catch(err){
-        res.status(500).json({err:err.message})
-    }
-}
-const getTipoReclamacionesCortaByCompany = async(req,res)=>{
-    const {nombreComercialParamUrl} = req.params;
-
-    try{
-        const quejasByCompany = await Queja.aggregate([
-            {$match: {nombreComercialParamUrl : nombreComercialParamUrl}},
-            {$group: {
-                _id: "$tipo_reclamacion_causaCorta",
-                // empresa: {$first: "$nombreComercialCorto"},
-                status: {$first:"$estado_procesal"},
-                // tipoReclamacionCorta: {$first:"$tipo_reclamacion_causaCorta"},
-                // motivoReclamaciónLarga: {$first:"$motivo_reclamacion_causaLarga"},
-                totalComplaints:{$sum:1},
-                totalValueMxn: {$sum:"$costo_bien_servicio"}
-                }
-            },
-            {$sort:{totalComplaints: -1}},
-            {$limit:30}
-        ]);
-        if(!quejasByCompany.length){
-            return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
-        }
-        res.status(200).json(quejasByCompany)
-    }catch(err){
-        res.status(500).json({err:err.message})
-    }
-}
-const getMotivoReclamacionesLargaByCompany = async(req,res)=>{
-    const {nombreComercialParamUrl} = req.params;
-
-    try{
-        const quejasByCompany = await Queja.aggregate([
-            {$match: {nombreComercialParamUrl : nombreComercialParamUrl}},
-            {$group: {
-                _id: "$tipo_reclamacion_causaCorta",
-                // empresa: {$first: "$nombreComercialCorto"},
-                status: {$first:"$estado_procesal"},
-                // tipoReclamacionCorta: {$first:"$tipo_reclamacion_causaCorta"},
-                // motivoReclamaciónLarga: {$first:"$motivo_reclamacion_causaLarga"},
-                totalComplaints:{$sum:1},
-                totalValueMxn: {$sum:"$costo_bien_servicio"}
-                }
-            },
-            {$sort:{totalComplaints: -1}},
-            // {$limit:30}
         ]);
         if(!quejasByCompany.length){
             return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
@@ -418,30 +232,168 @@ const getReclamacionesPerStatePerCompany = async(req,res)=>{
         res.status(500).json({err:err.message})
     }
 }
-// const getQuejasBySingleCompanyValue = async(req,res)=>{
-//     const {giroParamUrl} = req.params;
+const getTipoReclamacionesCortaByCompany = async(req,res)=>{
+    const {nombreComercialParamUrl} = req.params;
 
-//     try{
-//         const quejasByGiroParam = await Queja.aggregate([
-//             {$match: {giroParamUrl : giroParamUrl}},
-//             {$group: {
-//                 _id: "$nombreComercialCorto",
-//                 totalComplaints:{$sum:1},
-//                 totalValueMxn: {$sum:"$costo_bien_servicio"}
-//                 }
-//             },
-//             {$sort:{totalValueMxn: -1}},
-//             {$limit:30}
-//         ]);
-//         if(!quejasByGiroParam.length){
-//             return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
-//         }
-//         res.status(200).json(quejasByGiroParam)
-//     }catch(err){
-//         res.status(500).json({err:err.message})
-//     }
-// }
+    try{
+        const quejasByCompany = await Queja.aggregate([
+            {$match: {nombreComercialParamUrl : nombreComercialParamUrl}},
+            {$group: {
+                _id: "$tipo_reclamacion_causaCorta",
+                // empresa: {$first: "$nombreComercialCorto"},
+                status: {$first:"$estado_procesal"},
+                // tipoReclamacionCorta: {$first:"$tipo_reclamacion_causaCorta"},
+                // motivoReclamaciónLarga: {$first:"$motivo_reclamacion_causaLarga"},
+                totalComplaints:{$sum:1},
+                totalValueMxn: {$sum:"$costo_bien_servicio"}
+                }
+            },
+            {$sort:{totalComplaints: -1}},
+            {$limit:30}
+        ]);
+        if(!quejasByCompany.length){
+            return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
+        }
+        res.status(200).json(quejasByCompany)
+    }catch(err){
+        res.status(500).json({err:err.message})
+    }
+}
+const getMotivoReclamacionesLargaByCompany = async(req,res)=>{
+    const {nombreComercialParamUrl} = req.params;
 
+    try{
+        const quejasByCompany = await Queja.aggregate([
+            {$match: {nombreComercialParamUrl : nombreComercialParamUrl}},
+            {$group: {
+                _id: "$tipo_reclamacion_causaCorta",
+                // empresa: {$first: "$nombreComercialCorto"},
+                status: {$first:"$estado_procesal"},
+                // tipoReclamacionCorta: {$first:"$tipo_reclamacion_causaCorta"},
+                // motivoReclamaciónLarga: {$first:"$motivo_reclamacion_causaLarga"},
+                totalComplaints:{$sum:1},
+                totalValueMxn: {$sum:"$costo_bien_servicio"}
+                }
+            },
+            {$sort:{totalComplaints: -1}},
+            // {$limit:30}
+        ]);
+        if(!quejasByCompany.length){
+            return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
+        }
+        res.status(200).json(quejasByCompany)
+    }catch(err){
+        res.status(500).json({err:err.message})
+    }
+}
+
+//--------------------------------------//
+const getTopQuejasSectorCount = async(req,res)=>{
+    try{
+        const topSectors = await Queja.aggregate([
+            {$group:{
+                _id:"$sector",
+                totalComplaints:{$sum:1},
+                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
+                }
+            },
+            {$sort: {totalComplaints: -1}},
+            {$limit:30}
+        ])
+        res.status(200).json(topSectors)
+    }catch(err){
+        res.status(400).json({err:err.message})
+    }
+
+}
+const getTopQuejasSectorValue = async(req,res)=>{
+    try{
+        const topSectors = await Queja.aggregate([
+            {$group:{
+                _id:"$sector",
+                totalComplaints:{$sum:1},
+                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
+                }
+            },
+            {$sort: {totalValueMXN: -1}},
+            {$limit:30}
+        ])
+        res.status(200).json(topSectors)
+    }catch(err){
+        res.status(400).json({err:err.message})
+    }
+
+}
+
+const getQuejasBySingleGiroCount = async(req,res)=>{
+    const {giroParamUrl} = req.params;
+
+    try{
+        const quejasByGiroParam = await Queja.aggregate([
+            {$match: {giroParamUrl : giroParamUrl}},
+            {$group: {
+                _id: "$nombreComercialCorto",
+                totalComplaints:{$sum:1},
+                totalValueMxn: {$sum:"$costo_bien_servicio"}
+                }
+            },
+            {$sort:{totalComplaints: -1}},
+            {$limit:30}
+        ]);
+        if(!quejasByGiroParam.length){
+            return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
+        }
+        res.status(200).json(quejasByGiroParam)
+    }catch(err){
+        res.status(500).json({err:err.message})
+    }
+}
+const getTopQuejasGiroCount = async(req,res)=>{
+    try{
+        const topGiros = await Queja.aggregate([
+            {$group:{
+                _id:"$giro",
+                totalComplaints:{$sum:1},
+                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
+                }
+            },
+            {$sort: {totalComplaints: -1}},
+            {$limit:30}
+        ])
+        res.status(200).json(topGiros)
+    }catch(err){
+        res.status(400).json({err:err.message})
+    }
+
+}
+const getTopQuejasGiroValue = async(req,res)=>{
+    try{
+        const topGiros = await Queja.aggregate([
+            {$group:{
+                _id:"$giro",
+                totalComplaints:{$sum:1},
+                totalValueMXN: {$sum:"$costo_bien_servicio"}, 
+                }
+            },
+            {$sort: {totalValueMXN: -1}},
+            {$limit:30}
+        ])
+        res.status(200).json(topGiros)
+    }catch(err){
+        res.status(400).json({err:err.message})
+    }
+
+}
+//------------------------------------------//
+const getQuejasPerIndustryParam = async(req,res)=>{
+    // res.json({mssg: 'GET quejas by IndustryName from DB, you just requested the quejas of Industry :' + req.params.industryName})
+    const {sectorParamUrl} = req.params
+    const getIndustryQuejaParam = await Queja.find({sectorParamUrl})
+    if (!getIndustryQuejaParam){
+        return res.status(400).json({err: 'no existen quejas con el parametro de :Sector dado en la DB'})
+    }
+    res.status(200).json(getIndustryQuejaParam)
+}
 const getQuejasByEmpresa = async(req,res)=>{
     const {nombreComercialParamUrl} = req.params
     const getbyNombreEmpresa = await Queja.find({nombreComercialParamUrl})
@@ -463,18 +415,19 @@ const getQuejasByGiro = async(req,res)=>{
     res.status(200).json(getGiroQuejaParam)
     
 }
-
-const getQuejasPerIndustryParam = async(req,res)=>{
-    // res.json({mssg: 'GET quejas by IndustryName from DB, you just requested the quejas of Industry :' + req.params.industryName})
-    const {sectorParamUrl} = req.params
-    const getIndustryQuejaParam = await Queja.find({sectorParamUrl})
-    if (!getIndustryQuejaParam){
-        return res.status(400).json({err: 'no existen quejas con el parametro de :Sector dado en la DB'})
-    }
-    res.status(200).json(getIndustryQuejaParam)
-}
-
-
+//------------------------------------------//
+// const getSingleQueja = async(req,res)=>{
+//     //res.json({mssg: 'GET single queja from DB'})
+//     const {id} = req.params         
+//     if(!mongoose.Types.ObjectId.isValid(id)){
+//         return res.status(400).json({error: 'Esa#ID de queja no fue Valido en el Types Id de Mongoose'})
+//     }
+//     const getSingleQueja = await Queja.findById(id)        
+//     if(!getSingleQueja){
+//         return res.status(400).json({err: 'esa Queja ID no existe en la DB'})
+//     }     
+//     res.status(200).json(getSingleQueja)
+// }
 const postQueja = async(req,res)=>{
     //res.json({mssg: 'POST a NEW Queja in a NEW collection'})
     const { id_exp, fecha_ingreso, fecha_fin, tipo_conciliacion, estado_procesal, proveedor, nombreComercial,giro, sector, odeco, estado_ua, tipo_reclamacion_causaCorta, motivo_reclamacion_causaLarga, costo_bien_servicio, giroParamUrl, nombreComercialParamUrl, nombreComercialCorto, sectorParamUrl } = req.body
@@ -489,23 +442,22 @@ const postQueja = async(req,res)=>{
 
 
 module.exports = {
-    getAllQuejas,
-    getSingleQueja,
-    // getQuejasPerIndustry,
-    getQuejasByGiro,
-    getQuejasPerIndustryParam,
-    getQuejasByEmpresa,
-    // getQuejasPerCompany,
+    getAllQuejas, 
+    // getSingleQueja,
     getTopQuejasCompanyCount,
     getTopQuejasCompanyValue,
     getQuejasBySingleCompanyValue,
-    getTipoReclamacionesCortaByCompany,
-    getMotivoReclamacionesLargaByCompany,
     getStatusReclamacionesPerCompany,
     getReclamacionesPerStatePerCompany,
+    getTipoReclamacionesCortaByCompany,
+    getMotivoReclamacionesLargaByCompany,
     getTopQuejasSectorCount,
     getTopQuejasSectorValue,
+    getQuejasBySingleGiroCount,
     getTopQuejasGiroCount,
     getTopQuejasGiroValue,
-    postQueja,
+    getQuejasPerIndustryParam,
+    getQuejasByGiro,
+    getQuejasByEmpresa,
+    postQueja
 }

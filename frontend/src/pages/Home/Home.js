@@ -24,10 +24,11 @@ const Home = () => {
         datasets: [{
             label: 'Quejas por Empresa',
             data: [],
-            backgroundColor: 'blue',
+            backgroundColor: '#1ac6edb0',
             borderRadius: 5,
        }]})
     const [loading,setLoading]=useState(true)
+    const barChartColor = '#1ac6edb0';
 
     useEffect(()=>{
         
@@ -37,6 +38,7 @@ const Home = () => {
                 console.log('LAS QUEJAS OBJECT --> ',topCompanies)
                 const topCompaniesJson = await topCompanies.json()
                 console.log('las Quejas Json', topCompaniesJson)
+             
                 if(topCompanies.ok ){
                     // no logro entender porqué al hacer el puente con este nuevo estado, la renderización no ocurre bien... renderiza el graph sin datos siempre
                     // setTopQuejasAllCompanies(topCompaniesJson) 
@@ -45,7 +47,7 @@ const Home = () => {
                         datasets: [{
                             label: 'Quejas por Empresa',
                             data: topCompaniesJson.slice(0,10).map((queja)=> queja.totalComplaints),
-                            backgroundColor: 'blue',
+                            backgroundColor: barChartColor,
                             borderRadius: 5,
                         }]
                     })
@@ -121,6 +123,7 @@ const Home = () => {
         fetchQuejas()              
     },[])
     
+    const titleChart = `Empresas con más quejas en \n PROFECO México`
  
     return ( 
        
@@ -138,16 +141,17 @@ const Home = () => {
 
             <div className="containerWrap">
                 <div className="data"> 
-                    <h2 className="datah2">Empresas con más quejas en PROFECO México</h2> 
-                    <p className="dataP">La gráfica siguiente presenta la lista de las 10 empresas que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado(2022) y lo que va de 2023*</p> 
+                    <h2 className="datah2">{titleChart}</h2> 
                     { loading ?
                         <p>Cargando...</p>
                      : 
                         <BarChart chartData={graphPerCompany}/>     
                     }
+
+                    <p className="dataP">La gráfica muestra la lista de las 10 empresas que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado(2022) y lo que va de 2023*</p> 
                  
-                    <h3 className="datah3">Lista de Quejas Acumuladas por Empresa</h3> 
-                    <p className="dataP">Da click o tap en cada una para conocer los detalles de las quejas acumuladas por empresa (ej. motivo de la queja ante PROFECO, estátus, o valor económico del bien o servicio reclamado):</p> 
+                    <h3 className="datah3">Detalles de las Quejas por Empresa</h3> 
+                    <p className="dataP">Conoce los detalles de las quejas acumuladas por empresa  por ej. el motivo de la queja ante PROFECO, su estátus actual, su valor económico y más:</p> 
                         {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
                         {topQuejasAllCompanies                       
                             .slice(0,4)

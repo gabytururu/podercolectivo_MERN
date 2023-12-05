@@ -1,22 +1,52 @@
 const express = require('express')
 const router = express.Router()
-const  {getAllQuejas, getSingleQueja, getQuejasPerIndustryParam, postQueja, getQuejasByGiro, getQuejasByEmpresa,getTopQuejasCompanyCount, getTopQuejasSectorCount,getTopQuejasSectorValue,getTopQuejasGiroCount, getTopQuejasGiroValue, getTopQuejasCompanyValue,getQuejasBySingleCompanyValue,getTipoReclamacionesCortaByCompany,getMotivoReclamacionesLargaByCompany,getStatusReclamacionesPerCompany,getReclamacionesPerStatePerCompany} = require('../controllers/quejasController')
+const  {
+    getAllQuejas, 
+    // getSingleQueja,
+    getTopQuejasCompanyCount,
+    getTopQuejasCompanyValue,
+    getQuejasBySingleCompanyValue,
+    getStatusReclamacionesPerCompany,
+    getReclamacionesPerStatePerCompany,
+    getTipoReclamacionesCortaByCompany,
+    getMotivoReclamacionesLargaByCompany,
+    getTopQuejasSectorCount,
+    getTopQuejasSectorValue,
+    getQuejasBySingleGiroCount,
+    getTopQuejasGiroCount,
+    getTopQuejasGiroValue,
+    getQuejasPerIndustryParam,
+    getQuejasByGiro,
+    getQuejasByEmpresa,
+    postQueja
+} = require('../controllers/quejasController')
 
-// getQuejasPerIndustry, testResponse, getbyNombreComercial,
 
-router.get('/', getAllQuejas) 
+
+router.get('/', getAllQuejas)
+// router.get('/:id', getSingleQueja)
+
+//--------- Per Company ---------------//
 router.get('/topEmpresa',getTopQuejasCompanyCount) //getAllQuejas+sum+sortPerCompany+top30
 router.get('/topEmpresaValue',getTopQuejasCompanyValue) //getAllQuejas+sum+sortPerCompany+top30
 router.get('/singleCompanyValue/:nombreComercialParamUrl', getQuejasBySingleCompanyValue)
-router.get('/tipoReclamacionCorta/:nombreComercialParamUrl',getTipoReclamacionesCortaByCompany)
-router.get('/motivoReclamacionLarga/:nombreComercialParamUrl',getMotivoReclamacionesLargaByCompany)
 router.get('/estatusReclamaciones/:nombreComercialParamUrl',getStatusReclamacionesPerCompany)
 router.get('/reclamacionesPorEstadoPorEmpresa/:nombreComercialParamUrl',getReclamacionesPerStatePerCompany)
+router.get('/tipoReclamacionCorta/:nombreComercialParamUrl', getTipoReclamacionesCortaByCompany)
+router.get('/motivoReclamacionLarga/:nombreComercialParamUrl',getMotivoReclamacionesLargaByCompany)
+
+// -----------Per Sector ---------------//
+
 router.get('/topSector',getTopQuejasSectorCount) //getAllQuejas+sum+sortPerSector+top30
 router.get('/topSectorValue',getTopQuejasSectorValue) //getAllQuejas+sum+sortPerSector+top30
+router.get('/singleGiro/:giroParamUrl',getQuejasBySingleGiroCount) //getAllQuejas+sum+sortPerSector+top30
+
+// ---------- Per Giro ----------------//
+
 router.get('/topGiro',getTopQuejasGiroCount) //getAllQuejas+sum+sortPerGiro+top30
 router.get('/topGiroValue',getTopQuejasGiroValue) //getAllQuejas+sum+sortPerGiro+top30
-router.get('/:id', getSingleQueja)
+
+//------------------ others --------------//
 // router.get('/sector/:sector', getQuejasPerIndustry)
 router.get('/sector/:sectorParamUrl', getQuejasPerIndustryParam)
 router.get('/giro/:giroParamUrl', getQuejasByGiro) // not working
@@ -26,12 +56,5 @@ router.get('/empresa/:nombreComercialParamUrl', getQuejasByEmpresa)
 // router.get('/test/:giroParamUrl', testResponse)
 router.post('/', postQueja)
 
-
-
-//pending??
-//router.get('/:sector?/:id?', getSingleQueja)
-
-//no longer needed?
-// router.get('/empresa/:nombre_comercial', getQuejasPerCompany)
 
 module.exports = router
