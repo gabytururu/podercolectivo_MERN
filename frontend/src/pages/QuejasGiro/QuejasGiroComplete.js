@@ -103,7 +103,7 @@ const QuejasGiroComplete = () => {
                 {topQuejasAllGiros
                         .slice(0,9)
                         .map((queja,i)=>(
-                            <Link to={'/giro/'+ queja.giroParamUrl}><SumQuejasGiro key={i} queja={queja}/></Link>
+                            <Link to={'/singleGiro/'+ queja.giroParam}><SumQuejasGiro key={i} queja={queja}/></Link>
                         ))
                     }
             </div>

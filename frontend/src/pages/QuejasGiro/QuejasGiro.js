@@ -4,52 +4,117 @@ import { QuejasContext } from '../../Context/QuejasContext'
 import BarChart from '../../components/BarChart/BarChart'
 import SumQuejasCompany from '../../components/QuejasFormats/SumQuejasCompany'
 
+
+//quejas singleGiro
 const QuejasGiro = () => {
-
-    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, graphPerGiro, setGraphPerGiro, barChartColor, barChartRadius} = useContext(QuejasContext)
-
+    
     const {giroParamUrl} = useParams()
     const [quejasDelGiro, setQuejasDelGiro ] = useState(null)
-    // const [categoryBySector, setCategoryBySector] = useState('sector')
+    const [graphSingleGiro, setGraphSingleGiro] = useState({
+        labels: [],
+        datasets: [{
+            label: `Quejas del Giro ${giroParamUrl}`,
+            data: [],
+            backgroundColor: '#1ac6edb0',
+            borderRadius: 5,
+       }]
+    })
+    const [loading, setLoading] = useState(true)
 
     useEffect(()=>{
         const getQuejasGiro = async() =>{
             try{
-                const fetchQuejasGiro = await fetch(`http://localhost:5000/api/quejas-profeco/giro/${giroParamUrl}`)
+                const fetchQuejasGiro = await fetch(`http://localhost:5000/api/quejas-profeco/singleGiro/${giroParamUrl}`)
                 const quejasGiroJson = await fetchQuejasGiro.json()
-                setQuejasDelGiro(quejasGiroJson)
-                const quejasGiro = sumQuejasPerCategory(quejasGiroJson, categoryCompany)
-                setGraphPerGiro({
-                    labels: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=>quejas.nombreComercialCorto),
-                    datasets: [{
-                        label: 'Quejas por Giro',
-                        data: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=> quejas.totalQuejas),
-                        backgroundColor: barChartColor,
-                        borderRadius: barChartRadius
-                   }]
-                })
-
-              
+                console.log(quejasGiroJson)
+                if(fetchQuejasGiro.ok){
+                    setGraphSingleGiro({
+                        labels: quejasGiroJson.slice(0,19).map((quejas)=>quejas._id),
+                        datasets: [{
+                            label: 'Quejas por Giro',
+                            data: quejasGiroJson.slice(0,19).map((quejas)=> quejas.totalComplaints),
+                            backgroundColor: '#1ac6edb0',
+                            borderRadius: 5
+                       }]
+                    })
+                    setLoading(false)
+                    setQuejasDelGiro(quejasGiroJson)
+                }            
             }catch(err){
-                console.log('el error fue-->',err)
+                console.log('error en fetch SingleGiro-->',err)
+                setLoading(false)
             }
         }
         getQuejasGiro()  
     },[])
 
     
-    const getValorBienOServicio =(quejasdelGiro)=>{
-        let valorBienServicio = 0
-        for(let queja of quejasdelGiro){
-            valorBienServicio = valorBienServicio + queja.costo_bien_servicio
-        }
-        return valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,})
-    }
+    // const getValorBienOServicio =(quejasdelGiro)=>{
+    //     let valorBienServicio = 0
+    //     for(let queja of quejasdelGiro){
+    //         valorBienServicio = valorBienServicio + queja.costo_bien_servicio
+    //     }
+    //     return valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,})
+    // }
+
+    // const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany, graphPerGiro, setGraphPerGiro, barChartColor, barChartRadius} = useContext(QuejasContext)
+
+    // const {giroParamUrl} = useParams()
+    // const [quejasDelGiro, setQuejasDelGiro ] = useState(null)
+    // // const [categoryBySector, setCategoryBySector] = useState('sector')
+
+    // useEffect(()=>{
+    //     const getQuejasGiro = async() =>{
+    //         try{
+    //             const fetchQuejasGiro = await fetch(`http://localhost:5000/api/quejas-profeco/giro/${giroParamUrl}`)
+    //             const quejasGiroJson = await fetchQuejasGiro.json()
+    //             setQuejasDelGiro(quejasGiroJson)
+    //             const quejasGiro = sumQuejasPerCategory(quejasGiroJson, categoryCompany)
+    //             setGraphPerGiro({
+    //                 labels: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=>quejas.nombreComercialCorto),
+    //                 datasets: [{
+    //                     label: 'Quejas por Giro',
+    //                     data: quejasGiro.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=> quejas.totalQuejas),
+    //                     backgroundColor: barChartColor,
+    //                     borderRadius: barChartRadius
+    //                }]
+    //             })
+
+              
+    //         }catch(err){
+    //             console.log('el error fue-->',err)
+    //         }
+    //     }
+    //     getQuejasGiro()  
+    // },[])
+
+    
+    // const getValorBienOServicio =(quejasdelGiro)=>{
+    //     let valorBienServicio = 0
+    //     for(let queja of quejasdelGiro){
+    //         valorBienServicio = valorBienServicio + queja.costo_bien_servicio
+    //     }
+    //     return valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,})
+    // }
 
     return ( 
         <div className="containerWrap" style={{ whiteSpace: 'pre-line' }}>
         <div className="data" >
-            <h1 className="datah1">Quejas en PROFECO de Empresas del Giro: {'\n'} "{quejasDelGiro&&quejasDelGiro[0].giro}"</h1>
+
+            {loading?
+                <p>Cargando...</p>
+                :
+                <BarChart chartData={graphSingleGiro}/>    
+            }
+
+            {quejasDelGiro 
+                .slice(0,9)
+                .map((queja,i)=>(    
+                <Link to={'/singleCompany/' + queja.empresaParam}>           
+                <SumQuejasCompany key={i} queja={queja} /></Link>   
+                ))
+            }    
+            {/* <h1 className="datah1">Quejas en PROFECO de Empresas del Giro: {'\n'} "{quejasDelGiro&&quejasDelGiro[0].giro}"</h1>
             <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de 
             {
                 quejasDelGiro && quejasDelGiro.length === 1 ?
@@ -70,7 +135,7 @@ const QuejasGiro = () => {
                 <Link to={'/empresa/' + queja.nombreComercialParamUrl}>           
                 <SumQuejasCompany key={queja._id} queja={queja} /></Link>   
                 ))
-                } 
+                }  */}
         </div>
     </div>
      );

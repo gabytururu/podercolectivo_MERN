@@ -112,7 +112,10 @@ const getTopQuejasCompanyCount = async(req,res)=>{
                 totalComplaints:{$sum:1},
                 totalValueMXN: {$sum: "$costo_bien_servicio"},
                 giro: {$first: "$giro"},
-                sector: {$first: "$sector"}
+                sector: {$first: "$sector"},
+                giroParam: {$first:"$giroParamUrl"},
+                empresaParam: {$first:"$nombreComercialParamUrl"},
+                sectorParam: {$first:"$sectorParamUrl"}
                 }
             },
             {$sort: {totalComplaints: -1}},
@@ -168,6 +171,36 @@ const getQuejasBySingleCompanyValue = async(req,res)=>{
                 }
             },
             {$sort:{totalValueMxn: -1}},
+            {$limit:30}
+        ]);
+        if(!quejasByCompany.length){
+            return res.status(404).json({err: 'No existen quejas con el parámetro de giro dado'})
+        }
+        res.status(200).json(quejasByCompany)
+    }catch(err){
+        res.status(500).json({err:err.message})
+    }
+}
+const getQuejasBySingleCompanyCount = async(req,res)=>{
+    const {nombreComercialParamUrl} = req.params;
+
+    try{
+        const quejasByCompany = await Queja.aggregate([
+            {$match: {nombreComercialParamUrl : nombreComercialParamUrl}},
+            {$group: {
+                _id: "$_id",
+                empresa: {$first: "$nombreComercialCorto"},
+                status: {$first:"$estado_procesal"},
+                tipoReclamacion: {$first:"$tipo_reclamacion_causaCorta"},
+                motivoReclamación: {$first:"$motivo_reclamacion_causaLarga"},
+                totalComplaints:{$sum:1},
+                totalValueMxn: {$sum:"$costo_bien_servicio"},
+                giroParam:{$first:"$giroParamUrl"},
+                empresaParam:{$first:"$nombreComercialParamUrl"},
+                sectorParam:{$first:"$sectorParamUrl"}
+                }
+            },
+            {$sort:{totalComplaints: -1}},
             {$limit:30}
         ]);
         if(!quejasByCompany.length){
@@ -332,9 +365,11 @@ const getQuejasBySingleGiroCount = async(req,res)=>{
         const quejasByGiroParam = await Queja.aggregate([
             {$match: {giroParamUrl : giroParamUrl}},
             {$group: {
-                _id: "$nombreComercialCorto",
+                _id: "$nombreComercial",
                 totalComplaints:{$sum:1},
-                totalValueMxn: {$sum:"$costo_bien_servicio"}
+                totalValueMxn: {$sum:"$costo_bien_servicio"},
+                giroParam: {$first:"$giroParamUrl"},
+                empresaParam: {$first:"$nombreComercialParamUrl"}
                 }
             },
             {$sort:{totalComplaints: -1}},
@@ -355,6 +390,7 @@ const getTopQuejasGiroCount = async(req,res)=>{
                 _id:"$giro",
                 totalComplaints:{$sum:1},
                 totalValueMXN: {$sum:"$costo_bien_servicio"}, 
+                giroParam: {$first:"$giroParamUrl"},
                 }
             },
             {$sort: {totalComplaints: -1}},
@@ -402,19 +438,19 @@ const getQuejasByEmpresa = async(req,res)=>{
     }
     res.status(200).json(getbyNombreEmpresa)
 }
-const getQuejasByGiro = async(req,res)=>{
-    const getGiroQuejaParam = await Queja.find({giroParamUrl})
-    if (!getGiroQuejaParam){
-        return res.status(400).json({err: 'no existen quejas con el parametro de :giro dado en la DB'})
-    }
-    // aplica la summary function para ver cuales son las top 50 o top 100 por # quejas o por costo
+// const getQuejasByGiro = async(req,res)=>{
+//     const getGiroQuejaParam = await Queja.find({giroParamUrl})
+//     if (!getGiroQuejaParam){
+//         return res.status(400).json({err: 'no existen quejas con el parametro de :giro dado en la DB'})
+//     }
+//     // aplica la summary function para ver cuales son las top 50 o top 100 por # quejas o por costo
   
 
-    //ya que aplicaste eso, tienes un array the la lista de giros que quieres incluir en el envio... por que son solo los top giros. 
+//     //ya que aplicaste eso, tienes un array the la lista de giros que quieres incluir en el envio... por que son solo los top giros. 
 
-    res.status(200).json(getGiroQuejaParam)
+//     res.status(200).json(getGiroQuejaParam)
     
-}
+// }
 //------------------------------------------//
 // const getSingleQueja = async(req,res)=>{
 //     //res.json({mssg: 'GET single queja from DB'})
@@ -447,6 +483,7 @@ module.exports = {
     getTopQuejasCompanyCount,
     getTopQuejasCompanyValue,
     getQuejasBySingleCompanyValue,
+    getQuejasBySingleCompanyCount,
     getStatusReclamacionesPerCompany,
     getReclamacionesPerStatePerCompany,
     getTipoReclamacionesCortaByCompany,
@@ -457,7 +494,7 @@ module.exports = {
     getTopQuejasGiroCount,
     getTopQuejasGiroValue,
     getQuejasPerIndustryParam,
-    getQuejasByGiro,
+    // getQuejasByGiro,
     getQuejasByEmpresa,
     postQueja
 }

@@ -156,8 +156,8 @@ const Home = () => {
                         {topQuejasAllCompanies                       
                             .slice(0,4)
                             .map((queja,i)=>(
-                                // <Link to={'/empresa/' + queja.nombreComercialParamUrl}><SumQuejasCompany key={i} queja={queja}/></Link>
-                                <SumQuejasCompany key={i} queja={queja}/>
+                                <Link to={'/singleCompany/' + queja.empresaParam}><SumQuejasCompany key={i} queja={queja}/></Link>
+                                // <SumQuejasCompany key={i} queja={queja}/>
                             ))
                         }
                     {/* <Link className="button" to="/empresas" state={categoryCompany && {quejas:quejas, categoryByCompanies:categoryCompany}}>Ver Todas las Empresas</Link> */}

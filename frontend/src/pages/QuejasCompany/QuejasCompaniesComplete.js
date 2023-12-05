@@ -74,10 +74,9 @@ const QuejasCompaniesComplete = () => {
                     // .sort((a,b) => b.totalQuejas - a.totalQuejas)
                     .slice(0,9)
                     .map((queja,i)=>(
-                            //<Link to={'/'+ queja.sector+'/'+ queja.company}><SumQuejasCompany key={i} queja={queja}/></Link>
-                            // <Link to={'/empresa/'+ queja.nombreComercialParamUrl}>
+                            <Link to={'/singleCompany/'+ queja.empresaParam}>
                                 <SumQuejasCompany key={i} queja={queja}/>
-                            // </Link>
+                           </Link>
                         ))
                     }
             
