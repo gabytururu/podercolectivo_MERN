@@ -5,7 +5,7 @@ const Footer = () => {
     return ( 
         <footer className="footerWrapper">
                 <div className="footLogo">
-                    <img src="./poderColectivoLOGO_BL_CLEAR.png" alt="logotipo poder colectivo" />
+                    {/* <img src="/poderColectivoLOGO_BL_CLEAR.png" alt="logotipo poder colectivo" /> */}
                 </div>
                 <div className="footLegend">
                     <p>Un sitio hecho con <span>H</span> de Mexas para Mexas</p>
