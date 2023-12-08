@@ -13,62 +13,105 @@ import BarChart from '../../components/BarChart/BarChart'
 
 const QuejasSector = () => {
 
-    const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany,barChartColor, barChartRadius} = useContext(QuejasContext)
-
     const {sectorParamUrl} = useParams()
-    const [quejasdelSector, setQuejasdelSector ] = useState(null)
-    // const [categoryBySector, setCategoryBySector] = useState('sector')
+    console.log('mi sector param es -->',sectorParamUrl)
+    const[quejasDelSector, setQuejasDelSector] = useState([])
+    const [graphSingleSector, setGraphSingleSector] = useState ({
+        labels: [],
+        datasets: [{
+            label: `Quejas del Sector ${sectorParamUrl}`,
+            data: [],
+            backgroundColor: '#1ac6edb0',
+            borderRadius: 5,
+        }]
+     })
+    const [loading, setLoading] = useState(true)
 
     useEffect(()=>{
-        const getQuejasSector = async() =>{
+        const getQuejasSingleSector = async() =>{
             try{
-                const fetchQuejasSector = await fetch(`http://localhost:5000/api/quejas-profeco/sector/${sectorParamUrl}`)
-                const quejasSectorJson = await fetchQuejasSector.json()
-                setQuejasdelSector(quejasSectorJson)
-                const quejasSector = sumQuejasPerCategory(quejasSectorJson, categoryCompany)
-                setGraphPerSector({
-                    labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=>quejas.nombreComercialCorto),
-                    datasets: [{
-                        label: 'Quejas por Sector',
-                        data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=> quejas.totalQuejas),
-                        backgroundColor: barChartColor,
-                        borderRadius: barChartRadius
-                   }]
-                })
-
-              
+                const fetchQuejasDelSector = await fetch(`http://localhost:5000/api/quejas-profeco/singleSector/${sectorParamUrl}`)
+                console.log('fetching quejas sector object-->',fetchQuejasDelSector)
+                const quejasSectorJson = await fetchQuejasDelSector.json()
+                console.log('el json del quejas sector',quejasSectorJson)
+                if(fetchQuejasDelSector.ok){
+                    setGraphSingleSector({
+                        labels: quejasSectorJson.slice(0,9).map((queja)=>queja._id),
+                        datasets: [{
+                            label: `Quejas del Sector ${sectorParamUrl}`,
+                            data: quejasSectorJson.slice(0,9).map((queja)=>queja.totalComplaints),
+                            backgroundColor: '#1ac6edb0',
+                            borderRadius: 5,
+                       }]
+                    })
+                    setLoading(false)
+                    setQuejasDelSector(quejasSectorJson)
+                    console.log('quejas sector desde el try-->',quejasDelSector)
+                }
             }catch(err){
-                console.log('el error fue-->',err)
+                console.log('error en fetch singleSector:', err)
+                setLoading(false)
             }
         }
-        getQuejasSector()  
+        getQuejasSingleSector()
     },[])
 
-    // OJO OPTIMIZAR/REFACTOR -- Todo el codigo de abajo creo puede/debe sustituirse por el useQuejasByCategory hook!!! ahorrando unas 50 lineas de codigo ?
-        // const quejasAggregatedBySector = useQuejasByCategory(quejasdelSector, categoryBySector)
+    // const {quejas, setQuejas, categoryCompany, categorySector, categoryGiro, quejasPerCompany, setQuejasPerCompany, quejasPerSector, setQuejasPerSector, quejasPerGiro, setQuejasPerGiro, sumQuejasPerCategory, graphPerSector, setGraphPerSector, graphPerCompany, setGraphPerCompany,barChartColor, barChartRadius} = useContext(QuejasContext)
 
-    const getValorBienOServicio =(quejasdelSector)=>{
-        let valorBienServicio = 0
-        for(let queja of quejasdelSector){
-            valorBienServicio = valorBienServicio + queja.costo_bien_servicio
-        }
-        return valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,})
-    }
+    // const {sectorParamUrl} = useParams()
+    // const [quejasdelSector, setQuejasdelSector ] = useState(null)
+    // // const [categoryBySector, setCategoryBySector] = useState('sector')
 
-    const getMontoTotalReclamado =(quejasdelSector)=>{
-        let montoTotalReclamado = 0
-        for(let queja of quejasdelSector){
-            montoTotalReclamado = montoTotalReclamado + queja.monto_reclamado
-        }
-        return montoTotalReclamado
-    }
-    const getMontoTotalRecuperado =(quejasdelSector)=>{
-        let montoTotalRecuperado = 0
-        for(let queja of quejasdelSector){
-            montoTotalRecuperado = montoTotalRecuperado + queja.monto_recuperado_b
-        }
-        return montoTotalRecuperado
-    }
+    // useEffect(()=>{
+    //     const getQuejasSector = async() =>{
+    //         try{
+    //             const fetchQuejasSector = await fetch(`http://localhost:5000/api/quejas-profeco/sector/${sectorParamUrl}`)
+    //             const quejasSectorJson = await fetchQuejasSector.json()
+    //             setQuejasdelSector(quejasSectorJson)
+    //             const quejasSector = sumQuejasPerCategory(quejasSectorJson, categoryCompany)
+    //             setGraphPerSector({
+    //                 labels: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=>quejas.nombreComercialCorto),
+    //                 datasets: [{
+    //                     label: 'Quejas por Sector',
+    //                     data: quejasSector.sort((a,b)=>b.totalQuejas - a.totalQuejas).slice(0,19).map((quejas)=> quejas.totalQuejas),
+    //                     backgroundColor: barChartColor,
+    //                     borderRadius: barChartRadius
+    //                }]
+    //             })
+
+              
+    //         }catch(err){
+    //             console.log('el error fue-->',err)
+    //         }
+    //     }
+    //     getQuejasSector()  
+    // },[])
+
+    // // OJO OPTIMIZAR/REFACTOR -- Todo el codigo de abajo creo puede/debe sustituirse por el useQuejasByCategory hook!!! ahorrando unas 50 lineas de codigo ?
+    //     // const quejasAggregatedBySector = useQuejasByCategory(quejasdelSector, categoryBySector)
+
+    // const getValorBienOServicio =(quejasdelSector)=>{
+    //     let valorBienServicio = 0
+    //     for(let queja of quejasdelSector){
+    //         valorBienServicio = valorBienServicio + queja.costo_bien_servicio
+    //     }
+    //     return valorBienServicio.toLocaleString("en-US", {style:"currency", currency:"USD", minimumFractionDigits: 0, maximumFractionDigits: 0,})
+    // }
+
+    // const getMontoTotalReclamado =(quejasdelSector)=>{
+    //     let montoTotalReclamado = 0
+    //     for(let queja of quejasdelSector){
+    //         montoTotalReclamado = montoTotalReclamado + queja.monto_reclamado
+    //     }
+    //     return montoTotalReclamado
+    // }
+    // const getMontoTotalRecuperado =(quejasdelSector)=>{
+    //     let montoTotalRecuperado = 0
+    //     for(let queja of quejasdelSector){
+    //         montoTotalRecuperado = montoTotalRecuperado + queja.monto_recuperado_b
+    //     }
+    //     return montoTotalRecuperado
+    // }
     
     // const getSectorSumPerCompany = (quejasdelSector) =>{
     //     let companiesInThisSectorArr = []
@@ -105,7 +148,21 @@ const QuejasSector = () => {
     return ( 
         <div className="containerWrap" style={{ whiteSpace: 'pre-line' }}>
             <div className="data">
-                <h1 className="datah1">Quejas Recibidas ante la PROFECO del Sector {sectorParamUrl}</h1>
+                {loading?
+                    <p>Cargando...</p>
+                    :
+                    <BarChart chartData={graphSingleSector}/>
+                }
+                {quejasDelSector && quejasDelSector
+                    .slice(0,9)
+                    .map((queja,i)=>(                       
+                        <Link to={'/singleCompany/' + queja.empresaParam}>           
+                            <SumQuejasCompany key={i} queja={queja} />
+                        </Link>   
+                    ))
+                }
+                {console.log('Quejas del sector desde el render-->',quejasDelSector)}
+                {/* <h1 className="datah1">Quejas Recibidas ante la PROFECO del Sector {sectorParamUrl}</h1>
                 <p className="dataP">Del año 2022 a la fecha han sido interpuestas ante PROFECO un total de 
                 {
                 quejasdelSector && quejasdelSector.length === 1 ?
@@ -125,7 +182,7 @@ const QuejasSector = () => {
                     <Link to={'/empresa/' + queja.nombreComercialParamUrl}>           
                     <SumQuejasCompany key={queja._id} queja={queja} /></Link>   
                     ))
-                    } 
+                    }  */}
             </div>
         </div>
      );

@@ -321,6 +321,31 @@ const getMotivoReclamacionesLargaByCompany = async(req,res)=>{
 }
 
 //--------------------------------------//
+const getQuejasBySingleSectorCount = async(req,res)=>{
+    const {sectorParamUrl} = req.params;
+
+    try{
+        const quejasBySectorParam = await Queja.aggregate([
+            {$match: {sectorParamUrl : sectorParamUrl}},
+            {$group: {
+                _id: "$nombreComercial",
+                totalComplaints:{$sum:1},
+                totalValueMXN: {$sum:"$costo_bien_servicio"},
+                sectorParam: {$first:"$sectorParamUrl"},
+                empresaParam: {$first:"$nombreComercialParamUrl"}
+                }
+            },
+            {$sort:{totalComplaints: -1}},
+            {$limit:30}
+        ]);
+        if(!quejasBySectorParam.length){
+            return res.status(404).json({err: 'No existen quejas con el parámetro de sector dado'})
+        }
+        res.status(200).json(quejasBySectorParam)
+    }catch(err){
+        res.status(500).json({err:err.message})
+    }
+}
 const getTopQuejasSectorCount = async(req,res)=>{
     try{
         const topSectors = await Queja.aggregate([
@@ -328,6 +353,8 @@ const getTopQuejasSectorCount = async(req,res)=>{
                 _id:"$sector",
                 totalComplaints:{$sum:1},
                 totalValueMXN: {$sum:"$costo_bien_servicio"}, 
+                sectorParam: {$first:"$sectorParamUrl"},
+                empresaParam: {$first:"$nombreComercialParamUrl"}
                 }
             },
             {$sort: {totalComplaints: -1}},
@@ -367,7 +394,7 @@ const getQuejasBySingleGiroCount = async(req,res)=>{
             {$group: {
                 _id: "$nombreComercial",
                 totalComplaints:{$sum:1},
-                totalValueMxn: {$sum:"$costo_bien_servicio"},
+                totalValueMXN: {$sum:"$costo_bien_servicio"},
                 giroParam: {$first:"$giroParamUrl"},
                 empresaParam: {$first:"$nombreComercialParamUrl"}
                 }
@@ -488,6 +515,7 @@ module.exports = {
     getReclamacionesPerStatePerCompany,
     getTipoReclamacionesCortaByCompany,
     getMotivoReclamacionesLargaByCompany,
+    getQuejasBySingleSectorCount,
     getTopQuejasSectorCount,
     getTopQuejasSectorValue,
     getQuejasBySingleGiroCount,

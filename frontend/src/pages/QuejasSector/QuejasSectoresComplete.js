@@ -75,10 +75,10 @@ const QuejasSectoresComplete = () => {
                 if(topSectors.ok){
                   
                     setGraphPerSector({
-                        labels: topSectorsJson.map((queja)=>queja._id),
+                        labels: topSectorsJson.slice(0,15).map((queja)=>queja._id),
                         datasets: [{
                             label: 'Quejas por Sector',
-                            data: topSectorsJson.map((queja)=> queja.totalComplaints),
+                            data: topSectorsJson.slice(0,15).map((queja)=> queja.totalComplaints),
                             backgroundColor: barChartColor,
                             borderRadius: 5
                        }]
@@ -113,10 +113,10 @@ const QuejasSectoresComplete = () => {
                 <h2 className="datah2">Lista detallada de los Sectores con más quejas presentadas ante PROFECO México</h2>                
                 <p className="dataP">Puedes dar click o tap a cada una para conocer detalles de las empresas con quejas que forman parte de este sector</p>
                   {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
-                {topQuejasAllSectors
+                {topQuejasAllSectors && topQuejasAllSectors
                         .slice(0,19)
                         .map((queja,i)=>(
-                            <Link to={'/sector/'+ queja.sectorParamUrl}><SumQuejasSector key={i} queja={queja}/></Link>
+                            <Link to={'/singleSector/'+ queja.sectorParam}><SumQuejasSector key={i} queja={queja}/></Link>
                         ))
                     }
             

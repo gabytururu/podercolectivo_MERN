@@ -8,12 +8,12 @@ import SumQuejasCompany from '../../components/QuejasFormats/SumQuejasCompany'
 //quejas singleGiro
 const QuejasGiro = () => {
     
-    const {giroParamUrl} = useParams()
+    const {giroParam} = useParams()
     const [quejasDelGiro, setQuejasDelGiro ] = useState(null)
     const [graphSingleGiro, setGraphSingleGiro] = useState({
         labels: [],
         datasets: [{
-            label: `Quejas del Giro ${giroParamUrl}`,
+            label: `Quejas del Giro ${giroParam}`,
             data: [],
             backgroundColor: '#1ac6edb0',
             borderRadius: 5,
@@ -24,7 +24,7 @@ const QuejasGiro = () => {
     useEffect(()=>{
         const getQuejasGiro = async() =>{
             try{
-                const fetchQuejasGiro = await fetch(`http://localhost:5000/api/quejas-profeco/singleGiro/${giroParamUrl}`)
+                const fetchQuejasGiro = await fetch(`http://localhost:5000/api/quejas-profeco/singleGiro/${giroParam}`)
                 const quejasGiroJson = await fetchQuejasGiro.json()
                 console.log(quejasGiroJson)
                 if(fetchQuejasGiro.ok){
@@ -107,11 +107,12 @@ const QuejasGiro = () => {
                 <BarChart chartData={graphSingleGiro}/>    
             }
 
-            {quejasDelGiro 
+            {quejasDelGiro && quejasDelGiro 
                 .slice(0,9)
                 .map((queja,i)=>(    
                 <Link to={'/singleCompany/' + queja.empresaParam}>           
-                <SumQuejasCompany key={i} queja={queja} /></Link>   
+                    <SumQuejasCompany key={i} queja={queja} />
+                </Link>   
                 ))
             }    
             {/* <h1 className="datah1">Quejas en PROFECO de Empresas del Giro: {'\n'} "{quejasDelGiro&&quejasDelGiro[0].giro}"</h1>

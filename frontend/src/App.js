@@ -24,7 +24,7 @@ function App() {
           <Route path="/sectores" element={<QuejasSectoresComplete/>}/>
           <Route path="/empresas" element={<QuejasCompaniesComplete/>}/>
           <Route path="/giro" element={<QuejasGiroComplete/>}/>
-          <Route path="/singleGiro/:giroParamUrl" element={<QuejasGiro/>}/>
+          <Route path="/singleGiro/:giroParam" element={<QuejasGiro/>}/>
           <Route path="/singleSector/:sectorParamUrl" element={<QuejasSector/>}/>
           <Route path="/singleCompany/:nombreComercialParamUrl" element={<QuejasCompany/>}/>
           <Route path="/poner-queja" element={<NewQueja/>}/>

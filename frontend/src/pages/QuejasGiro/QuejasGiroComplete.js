@@ -86,8 +86,7 @@ const QuejasGiroComplete = () => {
             <div className="data"> 
                 <h1 className="datah1">
                     Giros Comerciales con más Quejas Acumuladas ante PROFECO México
-                </h1>
-                <p className="dataP">La gráfica siguiente presenta la lista de los 50 Giros Comerciales con más quejas interpuestas ante la PROFECO México, durante el período 2022 y lo que va de 2023*</p>    
+                </h1>               
 
                 {loading?
                     <p>Cargando</p>
@@ -95,15 +94,19 @@ const QuejasGiroComplete = () => {
                     <BarChart chartData={graphPerGiro}/>             
                 }
 
-
+                <p className="dataP">En la gráfica anterior puedes ver Top 10 de Quejas giro comercial. Esto representa la lista de los 10 giros comerciales con más quejas interpuestas ante la PROFECO México, durante el período 2022 y lo que va de 2023*</p>  
+                <p className="dataP">Si quieres conocer más sobre las quejas por giro comercial recibidas en PROFECO visita la siguiente lista detallada.</p>  
+                
                                              
-                <h2 className="datah2">Lista detallada de los Giros Comerciales con más quejas presentadas ante PROFECO México</h2>                
-                <p className="dataP">Puedes dar click o tap a cada una para conocer detalles de las empresas con quejas que forman parte de este Giro Comercial</p>
+                <h2 className="datah2">Lista detallada de Giros Comerciales con más quejas presentadas ante PROFECO México</h2>                
+                <p className="dataP">Da Click a los giros comerciales sobre los que quieras más detalles</p>
                   {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
                 {topQuejasAllGiros
                         .slice(0,9)
                         .map((queja,i)=>(
-                            <Link to={'/singleGiro/'+ queja.giroParam}><SumQuejasGiro key={i} queja={queja}/></Link>
+                            <Link to={'/singleGiro/'+ queja.giroParam}>
+                                <SumQuejasGiro key={i} queja={queja}/>
+                            </Link>
                         ))
                     }
             </div>

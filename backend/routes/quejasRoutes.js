@@ -11,6 +11,7 @@ const  {
     getReclamacionesPerStatePerCompany,
     getTipoReclamacionesCortaByCompany,
     getMotivoReclamacionesLargaByCompany,
+    getQuejasBySingleSectorCount,
     getTopQuejasSectorCount,
     getTopQuejasSectorValue,
     getQuejasBySingleGiroCount,
@@ -38,9 +39,9 @@ router.get('/tipoReclamacionCorta/:nombreComercialParamUrl', getTipoReclamacione
 router.get('/motivoReclamacionLarga/:nombreComercialParamUrl',getMotivoReclamacionesLargaByCompany)
 
 // -----------Per Sector ---------------//
-
 router.get('/topSector',getTopQuejasSectorCount) //getAllQuejas+sum+sortPerSector+top30
 router.get('/topSectorValue',getTopQuejasSectorValue) //getAllQuejas+sum+sortPerSector+top30
+router.get('/singleSector/:sectorParamUrl',getQuejasBySingleSectorCount)
 
 
 // ---------- Per Giro ----------------//

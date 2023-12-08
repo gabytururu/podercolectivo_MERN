@@ -70,7 +70,7 @@ const QuejasCompaniesComplete = () => {
                 <h2 className="datah2">Lista detallada de las empresas con más quejas presentadas ante PROFECO México</h2> 
                 <p className="dataP">Puedes dar click o tap a cada una para conocer el motivo, estátus, y el ID Oficial de PROFECO de cada una de las quejas acumuladas por cada empresa</p>
                 {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
-                {topQuejasAllCompanies
+                {topQuejasAllCompanies && topQuejasAllCompanies
                     // .sort((a,b) => b.totalQuejas - a.totalQuejas)
                     .slice(0,9)
                     .map((queja,i)=>(

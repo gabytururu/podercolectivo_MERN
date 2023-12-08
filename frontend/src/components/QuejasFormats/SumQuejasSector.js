@@ -9,7 +9,7 @@ const SumQuejasSector = ({queja}) => {
         <div className="quejaContainer">
             {queja &&                 
                 <div className="queja">
-                    <h3>{sector}</h3>
+                    <h3>SECTOR {_id}</h3>
                     {/* <p className="quejaLegend">Giro dentro del sector: {sector}</p> */}
                     <p className="quejaLegend">Cantidad de Quejas en este Sector:</p>
                     <p className="quejaQty"> {totalComplaints}</p>
