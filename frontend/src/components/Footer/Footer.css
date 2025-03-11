@@ -4,76 +4,40 @@
   align-items: center;
   text-align:center;
   padding: 20px;
-  background-color: var(--poderColectivo-dark)
-  
-  
-  /*background-color: var(--poderColectivo-dark);
-  /* height: 15vh;  */
- /* color: var(--poderColectivo-clear); 
-  /* position:fixed; */
- /* width:100%;
-  bottom:0;
-  left:0;
-  display:flex;
-  /* flex-direction: column; */
-  /* align-items: center;
-  justify-content: center; */
- /* justify-content:space-evenly;
-  text-align:center;
-  padding: 30px; 
-  /* min-height: auto */
+  background-color: var(--poderColectivo-dark);  
 }
-
-
-
-
-.footLogo{
-    margin-bottom: 20px;
-   /* width: 200px; 
-    height: 8vw;
-    max-width: 250px;
-    background-color: red;
-  
+ 
+.footerInfo{
+    background-color: 'red';
+    color: 'white';
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 10;*/
+    width:100%;
+    max-width: 1300px;
+} 
+ 
+.footLogo{
+    width:25%
 }
 
 img{
-    width:75%;
-    line-height: 0;
-    margin-bottom: 10;
-
+    width:80%;
 }
 
 .footLegend{
-    margin-bottom: 20px;
-    color: var(--poderColectivo-smoke);
-    /* width: 200px; 
-    height: 8vw;
-    max-width: 250px;
-    background-color: bisque;
-    font-size: 16px;
-    line-height: 0;
-    margin: 0; */
-    
+    color: var(--poderColectivo-smoke);   
+    color: 'white'; 
+    width:25%
 }
+
 
 .navFooter{
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
-    margin-bottom: 20px;
-    width: 100%;
-    /* width: 200px; 
-    height: 8vw;
-    max-width: 250px;
-    background-color: crimson;
-    /* display:flex;
-    justify-content: space-around;
-    max-width: 80vw; */
-    /*margin:10px 20vw;
-    align-items: center;
-    line-height: 1.5em;    */
-   
+    width: 100%;  
+    width:25%
 }
 
 .navFooter a{
@@ -83,15 +47,20 @@ img{
 
 }
 
+.footerCopyRights{
+    width: 1300px
+}
+
+.footline{
+    width:100%;
+    border: none; 
+    height: 0.5px; 
+    background-color: var(--poderColectivo-gray);  
+}
+
 .footClosure{
     color: var(--poderColectivo-smoke);
     font-size: 16px;
-    /* width: 200px; 
-    height: 8vw;
-    max-width: 250px;
-    background-color: aqua;
-    /* font-size: 16px;
-    font-style: italic;
-    color: var(--poderColectivo-smoke) */ 
+} 
 
-}
+

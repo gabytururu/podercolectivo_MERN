@@ -135,6 +135,16 @@
     /* background-color: var(--poderColectivo-oyster); */
 }
 
+.pattern{
+    background-color: var(--poderColectivo-clear);
+    opacity: 1;
+    background: 
+        radial-gradient(circle, transparent 20%, var(--poderColectivo-clear) 20%, var(--poderColectivo-clear) 80%, transparent 80%, transparent), 
+        radial-gradient(circle, transparent 20%, var(--poderColectivo-clear) 20%, var(--poderColectivo-clear) 80%, transparent 80%, transparent) 25px 25px, 
+        linear-gradient(var(--poderColectivo-crossPattern) 2px, transparent 2px) 0 -1px, linear-gradient(90deg, var(--poderColectivo-crossPattern) 2px, var(--poderColectivo-clear) 2px) -1px 0;
+    background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;    
+}
+
 .button{
     background-color: var(--poderColectivo-yellow);
     max-width:50vw;

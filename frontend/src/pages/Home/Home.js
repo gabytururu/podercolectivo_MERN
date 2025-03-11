@@ -128,8 +128,7 @@ const Home = () => {
     return ( 
        
       
-        <div style={{ whiteSpace: 'pre-line' }}>
-           
+        <div style={{ whiteSpace: 'pre-line' }}>           
            <div className="heroImage">
                 <div className="heroText">
                     <h1>Poder Colectivo</h1>
@@ -137,63 +136,39 @@ const Home = () => {
                     <p className="italic">Por su reputación los conoceréis...</p>
                     <p className="regular">Página creada con <span>❤️</span> de Mexas para Mexas</p>
                 </div>
-            </div>
-
+            </div>           
             <div className="containerWrap">
                 <div className="data"> 
                     <h2 className="datah2">{titleChart}</h2> 
                     { loading ?
                         <p>Cargando...</p>
-                     : 
+                    : 
                         <BarChart chartData={graphPerCompany}/>     
                     }
 
                     <p className="dataP">La gráfica muestra la lista de las 10 empresas que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado(2022) y lo que va de 2023*</p> 
-                 
-                    <h3 className="datah3">Detalles de las Quejas por Empresa</h3> 
-                    <p className="dataP">Conoce los detalles de las quejas acumuladas por empresa  por ej. el motivo de la queja ante PROFECO, su estátus actual, su valor económico y más:</p> 
-                        {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
-                        {topQuejasAllCompanies                       
-                            .slice(0,4)
-                            .map((queja,i)=>(
-                                <Link to={'/singleCompany/' + queja.empresaParam}><SumQuejasCompany key={i} queja={queja}/></Link>
-                                // <SumQuejasCompany key={i} queja={queja}/>
-                            ))
-                        }
-                    {/* <Link className="button" to="/empresas" state={categoryCompany && {quejas:quejas, categoryByCompanies:categoryCompany}}>Ver Todas las Empresas</Link> */}
                 </div>
-                {/* <div className="data"> 
-                    <h2 className="datah2">Giros Comerciales con Más Quejas en PROFECO México</h2> 
-                    <p className="dataP">La gráfica siguiente presenta los 10 Giros Comerciales que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado (2022) y lo que va de 2023*</p> 
-                    <BarChart chartData={graphPerGiro}/>                                      
-                    <h3 className="datah3">Lista de Quejas Acumuladas por Giro Comercial</h3> 
-                    <p className="dataP">Da click o tap en cada una para conocer qué empresas forman parte de cada sector y los detalles de las quejas acumuladas:</p> 
-                            {quejasPerGiro
-                                .sort((a,b)=>b.totalQuejas - a.totalQuejas)
-                                .slice(0,4)
-                                .map((queja)=>(
-                                    <Link to={'/giro/'+ queja.giroParamUrl}><SumQuejasGiro key={queja._id} queja={queja}/></Link>
-                                ))
-                            }
-                        <Link className="button" to={'/giro'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Todos los Giros Comerciales</Link>
-                </div>
-                <div className="data"> 
-                    <h2 className="datah2">Sectores Comerciales con Más Quejas en PROFECO México</h2> 
-                    <p className="dataP">La gráfica siguiente presenta los 10 sectores que han recibido más quejas ante la Procuraduría Federal del Consumidor (PROFECO) en México durante el período pasado (2022) y lo que va de 2023*</p> 
-                    <BarChart chartData={graphPerSector}/>                                      
-                    <h3 className="datah3">Lista de Quejas Acumuladas por Sector</h3> 
-                    <p className="dataP">Da click o tap en cada una para conocer qué empresas forman parte de cada sector y los detalles de las quejas acumuladas:</p> 
-                            {quejasPerSector
-                                .sort((a,b)=>b.totalQuejas - a.totalQuejas)
-                                .slice(0,4)
-                                .map((queja)=>(
-                                    <Link to={'/sector/'+ queja.sectorParamUrl}><SumQuejasSector key={queja._id} queja={queja}/></Link>
-                                ))
-                            }
-                        <Link className="button" to={'/sectores'} state={categorySector && {quejas:quejas, categoryBySector:categorySector }}>Ver Todos los Sectores</Link>
-                </div> */}
             </div>
-        </div>
+            <div className="pattern">
+                <div className="containerWrap">
+                    <div className="data">
+                            <h3 className="datah3">Detalles de las Quejas por Empresa</h3> 
+                            <p className="dataP">Conoce los detalles de las quejas acumuladas por empresa  por ej. el motivo de la queja ante PROFECO, su estátus actual, su valor económico y más:</p> 
+                                {/* OJO AQUI-- intente key con i, queja.i, queja._id, pero TODAS arrojan el error de Warning: Each child in a list should have a unique "key" prop en HOME, QUEJASCOMPANIESCOMPLETE Y QUEJASSECTORESCOMPLETE  */}
+                                {topQuejasAllCompanies                       
+                                    .slice(0,4)
+                                    .map((queja,i)=>(
+                                        <Link to={'/singleCompany/' + queja.empresaParam}><SumQuejasCompany key={i} queja={queja}/></Link>
+                                        // <SumQuejasCompany key={i} queja={queja}/>
+                                    ))
+                                }
+                            {/* <Link className="button" to="/empresas" state={categoryCompany && {quejas:quejas, categoryByCompanies:categoryCompany}}>Ver Todas las Empresas</Link> */}
+                    </div>
+                </div>
+            </div>
+        </div>      
+                 
+             
             );
 }
 export default Home; 
